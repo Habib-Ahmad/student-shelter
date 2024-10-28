@@ -1,0 +1,12 @@
+form input {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.role {
+  display: flex;
+}
+
+.error-msg {
+  color: red;
+}
