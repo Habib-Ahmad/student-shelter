@@ -6,8 +6,8 @@
   <h1>Welcome to Student Shelter!</h1>
 
   <?php if (isset($_SESSION["user_id"])): ?>
-    <!-- Display welcome message with the user's full name if logged in -->
     <p>Welcome back, <?php output_fullname(); ?>!</p>
+
     <form action="./includes/logout.inc.php" method="post">
       <button>Logout</button>
     </form>

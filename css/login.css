@@ -6,3 +6,7 @@ form input {
 .error-msg {
   color: red;
 }
+
+h1 {
+  margin-top: 40px;
+}

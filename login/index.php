@@ -2,8 +2,6 @@
 <?php require_once "../includes/config_session.inc.php" ?>
 <?php require_once "../includes/views/login_view.inc.php" ?>
 
-<link rel="stylesheet" href="./login.css">
-
 <h1>Login</h1>
 <form action="../includes/login.inc.php" method="post">
   <label for="email">Email:</label>
