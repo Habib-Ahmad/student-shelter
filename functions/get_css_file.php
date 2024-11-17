@@ -12,6 +12,11 @@ function get_css_file()
     case 'login':
       $css_file = "{$BASEURL}login.css";
       break;
+    case 'properties':
+    case 'add':
+      $css_file = "{$BASEURL}property.css";
+      break;
+
     default:
       break;
   }
