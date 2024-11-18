@@ -17,7 +17,7 @@
   <button type="submit" name="submit">Create Property</button>
 </form>
 
-<script src="./script.js"></script>
+<script src="../script.js"></script>
 <?php check_add_property_errors(); ?>
 
 <?php require_once '../../partials/footer.php'; ?>

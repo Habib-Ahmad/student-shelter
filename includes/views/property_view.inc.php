@@ -34,8 +34,10 @@ function add_property_inputs()
     ]
   ];
 
-  $facilities = fetch_facilities($pdo);
-  $_SESSION["facilities"] = $facilities;
+  if (!isset($_SESSION["facilities"])) {
+    $_SESSION["facilities"] = fetch_facilities($pdo);
+  }
+  $facilities = $_SESSION["facilities"];
   ?>
 
   <h3>Property Information</h3>
@@ -45,7 +47,6 @@ function add_property_inputs()
 
   <label for="description">Description:</label>
   <textarea id="description" name="description"><?php echo htmlspecialchars($description); ?></textarea>
-
 
   <label for="type">Property Type:</label>
   <input type="text" id="type" name="type" value="<?php echo htmlspecialchars($type) ?>">
@@ -89,12 +90,107 @@ function add_property_inputs()
   <?php
 }
 
+function edit_property_inputs()
+{
+  require_once "../../includes/dbh.inc.php";
+  require_once "../../includes/config_session.inc.php";
+  require_once "../../includes/models/property_model.inc.php";
+  require_once "../../includes/controllers/property_contr.inc.php";
+
+  if (!isset($_GET["property_id"])) {
+    echo "Error: Property ID not provided.";
+    return;
+  }
+
+  $property = fetch_property($pdo, (int) $_GET["property_id"]);
+  $_SESSION["property_data"] = $property;
+
+  if (!isset($_SESSION["facilities"])) {
+    $_SESSION["facilities"] = fetch_facilities($pdo);
+  }
+  $facilities = $_SESSION["facilities"];
+
+  $name = $property["name"];
+  $description = $property["description"];
+  $type = $property["type"];
+  $units = $property["units"];
+  ?>
+
+  <h3>Property Information</h3>
+
+  <label for="name">Property Name:</label>
+  <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($name) ?>">
+
+  <label for="description">Description:</label>
+  <textarea id="description" name="description"><?php echo htmlspecialchars($description); ?></textarea>
+
+  <label for="type">Property Type:</label>
+  <input type="text" id="type" name="type" value="<?php echo htmlspecialchars($type) ?>">
+  <br />
+  <br />
+
+  <h3>Units</h3>
+  <div id="units">
+    <?php foreach ($units as $index => $unit): ?>
+      <div class="unit" id="unit_<?php echo $index; ?>">
+        <input type="text" id="unit_type_<?php echo $index; ?>" name="units[<?php echo $index; ?>][id]"
+          value="<?php echo htmlspecialchars((string) $unit['id'] ?? '') ?>" style="display:none;">
+
+        <label for="unit_type_<?php echo $index; ?>">Unit Type:</label>
+        <input type="text" id="unit_type_<?php echo $index; ?>" name="units[<?php echo $index; ?>][unit_type]"
+          value="<?php echo htmlspecialchars($unit['type'] ?? '') ?>">
+
+        <label for="numberOfRooms_<?php echo $index; ?>">Number of Rooms:</label>
+        <input type="number" id="numberOfRooms_<?php echo $index; ?>" name="units[<?php echo $index; ?>][numberOfRooms]"
+          value="<?php echo htmlspecialchars((string) $unit['numberOfRooms'] ?? '') ?>" min="1">
+
+        <label for="quantity_<?php echo $index; ?>">Quantity:</label>
+        <input type="number" id="quantity_<?php echo $index; ?>" name="units[<?php echo $index; ?>][quantity]"
+          value="<?php echo htmlspecialchars((string) $unit['quantity'] ?? '') ?>" min="1">
+
+        <label for="monthlyPrice_<?php echo $index; ?>">Monthly Price:</label>
+        <input type="number" id="monthlyPrice_<?php echo $index; ?>" name="units[<?php echo $index; ?>][monthlyPrice]"
+          value="<?php echo htmlspecialchars((string) $unit['monthlyPrice'] ?? '') ?>">
+
+        <h4>Facilities</h4>
+        <div>
+          <?php foreach ($facilities as $facility): ?>
+            <label>
+              <input type="checkbox" name="units[<?php echo $index; ?>][facilities][]" value="<?php echo $facility['id']; ?>"
+                <?php echo in_array($facility['id'], $unit['facilities'] ?? []) ? 'checked' : ''; ?>>
+              <?php echo htmlspecialchars($facility['name']); ?>
+            </label><br>
+          <?php endforeach; ?>
+        </div>
+
+        <button type="button" onclick="removeUnit(this.parentElement)">Remove Unit</button>
+      </div>
+    <?php endforeach; ?>
+  </div>
+
+  <script>
+    function removeUnitt(index) {
+      const unitElement = document.getElementById(`unit_${index}`);
+      if (unitElement) {
+        unitElement.remove();
+      }
+    }
+  </script>
+  <?php
+}
+
+
 function list_user_properties()
 {
   require_once "../includes/dbh.inc.php";
   require_once "../includes/config_session.inc.php";
   require_once "../includes/models/property_model.inc.php";
   require_once "../includes/controllers/property_contr.inc.php";
+
+  if (!isset($_SESSION["user_id"])) {
+    echo "<p>You are not logged in</p>";
+    return;
+  }
 
   $properties = fetch_properties($pdo, $_SESSION["user_id"]);
 
@@ -119,7 +215,8 @@ function list_user_properties()
       echo "<td>{$property['description']}</td>";
       echo "<td>{$property['type']}</td>";
       echo "<td>{$property['unit_count']}</td>";
-      echo "<td><button>Edit</button><button>Delete</button></td>";
+      echo "<td><a href='./edit?property_id={$property['id']}'><button>Edit</button></a></td>";
+      echo "<td><button>Delete</button></td>";
       echo "</tr>";
       echo "</tbody>";
     }
