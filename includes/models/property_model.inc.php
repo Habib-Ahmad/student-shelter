@@ -101,6 +101,7 @@ function get_property_by_id(object $pdo, int $propertyId)
               property.name AS property_name,
               property.description AS property_description,
               property.type AS property_type,
+              property.userId AS user_id,
               unit.id AS unit_id,
               unit.type AS unit_type,
               unit.numberOfRooms,
@@ -136,6 +137,7 @@ function get_property_by_id(object $pdo, int $propertyId)
         'name' => $row['property_name'],
         'description' => $row['property_description'],
         'type' => $row['property_type'],
+        'userId' => $row['user_id'],
         'units' => []
       ];
     }
@@ -163,4 +165,42 @@ function get_property_by_id(object $pdo, int $propertyId)
   $property['units'] = array_values($units);
 
   return $property;
+}
+
+function delete_property_with_units_and_facilities(object $pdo, int $propertyId): bool
+{
+  try {
+    $pdo->beginTransaction();
+
+    // Delete facilities linked to the property's units
+    $deleteFacilitiesQuery = "DELETE uf 
+                                FROM unit_facility uf
+                                INNER JOIN unit u ON uf.unitId = u.id
+                                WHERE u.propertyId = :propertyId";
+    $stmt = $pdo->prepare($deleteFacilitiesQuery);
+    $stmt->bindParam(':propertyId', $propertyId, PDO::PARAM_INT);
+    $stmt->execute();
+
+    // Delete units linked to the property
+    $deleteUnitsQuery = "DELETE FROM unit WHERE propertyId = :propertyId";
+    $stmt = $pdo->prepare($deleteUnitsQuery);
+    $stmt->bindParam(':propertyId', $propertyId, PDO::PARAM_INT);
+    $stmt->execute();
+
+    // Delete the property
+    $deletePropertyQuery = "DELETE FROM property WHERE id = :propertyId";
+    $stmt = $pdo->prepare($deletePropertyQuery);
+    $stmt->bindParam(':propertyId', $propertyId, PDO::PARAM_INT);
+    $stmt->execute();
+
+    // Commit transaction
+    $pdo->commit();
+
+    return true; // Successful deletion
+  } catch (Exception $e) {
+    // Rollback transaction on error
+    $pdo->rollBack();
+    error_log("Failed to delete property: " . $e->getMessage());
+    return false;
+  }
 }

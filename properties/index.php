@@ -9,4 +9,6 @@ require_once "../includes/views/property_view.inc.php";
 
 <a href="./add"><button>Add New</button></a>
 
+<script src="./script.js"></script>
+
 <?php require_once '../partials/footer.php'; ?>

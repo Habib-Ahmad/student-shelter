@@ -45,3 +45,10 @@ function removeUnit(unitDiv) {
     alert("At least one unit is required.");
   }
 }
+
+function confirmDelete(propertyId) {
+  const userConfirmed = confirm("Are you sure you want to delete this property?");
+  if (userConfirmed) {
+    window.location.href = `../includes/delete_property.inc.php?property_id=${propertyId}`;
+  }
+}

@@ -76,3 +76,8 @@ function fetch_property(object $pdo, int $propertyId)
 {
   return get_property_by_id($pdo, $propertyId);
 }
+
+function delete_property(object $pdo, int $propertyId)
+{
+  return delete_property_with_units_and_facilities($pdo, $propertyId);
+}

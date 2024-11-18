@@ -216,7 +216,7 @@ function list_user_properties()
       echo "<td>{$property['type']}</td>";
       echo "<td>{$property['unit_count']}</td>";
       echo "<td><a href='./edit?property_id={$property['id']}'><button>Edit</button></a></td>";
-      echo "<td><button>Delete</button></td>";
+      echo "<td><button onclick='confirmDelete(" . htmlspecialchars((string) $property['id']) . ")'>Delete</button></td>";
       echo "</tr>";
       echo "</tbody>";
     }
