@@ -14,6 +14,7 @@ function get_css_file()
       break;
     case 'properties':
     case 'add':
+    case 'edit':
       $css_file = "{$BASEURL}property.css";
       break;
 

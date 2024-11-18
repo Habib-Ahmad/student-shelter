@@ -34,7 +34,7 @@ try {
   if ($errors) {
     $_SESSION["errors_property"] = $errors;
     $_SESSION["property_data"] = compact("name", "description", "type", "units");
-    header("Location: ../properties/add");
+    header("Location: ../properties/edit/?property_id=$propertyId");
     exit();
   }
 
