@@ -1,7 +1,8 @@
 <?php
-require_once "./config_session.inc.php";
-require_once "./models/property_model.inc.php";
-
+require_once "dbh.inc.php";
+require_once "config_session.inc.php";
+require_once "models/property_model.inc.php";
+require_once "controllers/property_contr.inc.php";
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST" || !isset($_SESSION["user_id"])) {
   // Redirect to the previous page or the homepage if there's no referrer or if user is not logged in
@@ -19,10 +20,6 @@ $units = $_POST['units'];
 var_dump($units);
 
 try {
-  require_once "dbh.inc.php";
-  require_once "models/property_model.inc.php";
-  require_once "controllers/property_contr.inc.php";
-
   // Error handlers
   $errors = [];
   if (is_property_input_empty($name, $description, $type)) {
