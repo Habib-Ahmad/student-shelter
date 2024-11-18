@@ -45,3 +45,8 @@ function create_property(object $pdo, int $userId, string $name, string $descrip
 
   $pdo->commit();
 }
+
+function fetch_properties(object $pdo, int $userId)
+{
+  return get_user_properties($pdo, $userId);
+}

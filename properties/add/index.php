@@ -1,8 +1,5 @@
 <?php require_once '../../partials/header.php'; ?>
-<?php require_once "../../includes/dbh.inc.php" ?>
 <?php require_once "../../includes/config_session.inc.php" ?>
-<?php require_once "../../includes/models/property_model.inc.php" ?>
-<?php require_once "../../includes/controllers/property_contr.inc.php" ?>
 <?php require_once "../../includes/views/property_view.inc.php" ?>
 
 <script>
@@ -13,7 +10,7 @@
 <h1>Add new</h1>
 
 <form action="../../includes/add_property.inc.php" method="post">
-  <?php add_property_inputs($pdo); ?>
+  <?php add_property_inputs(); ?>
 
   <button type="button" onclick="addUnit()">Add Unit</button>
   <br />

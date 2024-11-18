@@ -43,3 +43,14 @@ function fetch_all_facilities(object $pdo)
   $stmt = $pdo->query($query);
   return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+function get_user_properties(object $pdo, int $userId)
+{
+
+  $query = "SELECT p.id, p.name, p.description, p.type, COUNT(u.id) AS unit_count FROM property p LEFT JOIN unit u ON p.id = u.propertyId WHERE p.userId = :userId GROUP BY p.id, p.name, p.description, p.type;";
+
+  $stmt = $pdo->prepare($query);
+  $stmt->bindParam(":userId", $userId, PDO::PARAM_INT);
+  $stmt->execute();
+  return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}

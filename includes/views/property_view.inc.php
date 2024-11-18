@@ -14,8 +14,13 @@ function check_add_property_errors()
   }
 }
 
-function add_property_inputs(object $pdo)
+function add_property_inputs()
 {
+  require_once "../../includes/dbh.inc.php";
+  require_once "../../includes/config_session.inc.php";
+  require_once "../../includes/models/property_model.inc.php";
+  require_once "../../includes/controllers/property_contr.inc.php";
+
   $name = $_SESSION["property_data"]["name"] ?? '';
   $description = $_SESSION["property_data"]["description"] ?? '';
   $type = $_SESSION["property_data"]["type"] ?? '';
@@ -28,6 +33,7 @@ function add_property_inputs(object $pdo)
       'facilities' => []
     ]
   ];
+
   $facilities = fetch_facilities($pdo);
   $_SESSION["facilities"] = $facilities;
   ?>
@@ -81,4 +87,43 @@ function add_property_inputs(object $pdo)
   </div>
 
   <?php
+}
+
+function list_user_properties()
+{
+  require_once "../includes/dbh.inc.php";
+  require_once "../includes/config_session.inc.php";
+  require_once "../includes/models/property_model.inc.php";
+  require_once "../includes/controllers/property_contr.inc.php";
+
+  $properties = fetch_properties($pdo, $_SESSION["user_id"]);
+
+  if (count($properties) === 0) {
+    echo "<p>You have no properties</p>";
+  } else {
+    echo "<table>";
+    echo "<thead>";
+    echo "<tr>";
+    echo "<th>Name</th>";
+    echo "<th>Description</th>";
+    echo "<th>Type</th>";
+    echo "<th>Units</th>";
+    echo "<th>Actions</th>";
+    echo "</tr>";
+    echo "</thead>";
+
+    foreach ($properties as $property) {
+      echo "<tbody>";
+      echo "<tr>";
+      echo "<td>{$property['name']}</td>";
+      echo "<td>{$property['description']}</td>";
+      echo "<td>{$property['type']}</td>";
+      echo "<td>{$property['unit_count']}</td>";
+      echo "<td><button>Edit</button><button>Delete</button></td>";
+      echo "</tr>";
+      echo "</tbody>";
+    }
+
+    echo "</table>";
+  }
 }
