@@ -24,6 +24,7 @@ $css_file = get_css_file();
         <li><a href="/studentshelter">Home</a></li>
         <li><a href="/studentshelter/login">Login</a></li>
         <li><a href="/studentshelter/signup">Signup</a></li>
+        <li><a href="/studentshelter/properties">Properties</a></li>
       </ul>
     </nav>
   </header>
