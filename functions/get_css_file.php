@@ -20,6 +20,9 @@ function get_css_file()
     case 'edit':
       $css_file = "{$BASEURL}property.css";
       break;
+    case 'contact':
+      $css_file = "{$BASEURL}contact.css";
+      break;
 
     default:
       break;
