@@ -63,15 +63,22 @@ function add_property_inputs()
 
         <label for="numberOfRooms_<?php echo $index; ?>">Number of Rooms:</label>
         <input type="number" id="numberOfRooms_<?php echo $index; ?>" name="units[<?php echo $index; ?>][numberOfRooms]"
-          value="<?php echo htmlspecialchars($unit['numberOfRooms'] ?? '') ?>" min="1">
+          value="<?php echo htmlspecialchars((string) $unit['numberOfRooms'] ?? '') ?>" min="1">
 
         <label for="quantity_<?php echo $index; ?>">Quantity:</label>
         <input type="number" id="quantity_<?php echo $index; ?>" name="units[<?php echo $index; ?>][quantity]"
-          value="<?php echo htmlspecialchars($unit['quantity'] ?? '') ?>" min="1">
+          value="<?php echo htmlspecialchars((string) $unit['quantity'] ?? '') ?>" min="1">
 
         <label for="monthlyPrice_<?php echo $index; ?>">Monthly Price:</label>
         <input type="number" id="monthlyPrice_<?php echo $index; ?>" name="units[<?php echo $index; ?>][monthlyPrice]"
-          value="<?php echo htmlspecialchars($unit['monthlyPrice'] ?? '') ?>">
+          value="<?php echo htmlspecialchars((string) $unit['monthlyPrice'] ?? '') ?>">
+        <br />
+        <br />
+
+        <h4>Unit Images</h4>
+        <input type="file" name="unit_images[<?php echo $index; ?>][]" multiple>
+        <br />
+        <br />
 
         <h4>Facilities</h4>
         <div>
@@ -103,7 +110,7 @@ function edit_property_inputs()
   }
 
   $property = fetch_property($pdo, (int) $_GET["property_id"]);
-  $_SESSION["property_data"] = $property;
+  $_SESSION["edit_property_data"] = $property;
 
   if (!isset($_SESSION["facilities"])) {
     $_SESSION["facilities"] = fetch_facilities($pdo);
@@ -151,6 +158,29 @@ function edit_property_inputs()
         <label for="monthlyPrice_<?php echo $index; ?>">Monthly Price:</label>
         <input type="number" id="monthlyPrice_<?php echo $index; ?>" name="units[<?php echo $index; ?>][monthlyPrice]"
           value="<?php echo htmlspecialchars((string) $unit['monthlyPrice'] ?? '') ?>">
+        <br />
+        <br />
+
+        <h4>Existing Unit Images</h4>
+        <div id="existing_images_<?php echo $index; ?>">
+          <?php foreach ($unit['images'] as $image): ?>
+            <div class="image-container">
+              <img src="<?php echo htmlspecialchars("../" . $image['path']); ?>" alt="Unit Image" width="100">
+
+              <!-- Hidden input to store the image ID, it will be passed on form submit -->
+              <input style="display:none" type="checkbox" name="units[<?php echo $index; ?>][existing_images][]"
+                value="<?php echo $image['id']; ?>" checked>
+
+              <button type="button" onclick="confirmImageDelete(<?php echo $image['id']; ?>)">Delete</button>
+            </div>
+          <?php endforeach; ?>
+        </div>
+        <br />
+
+        <h4>Add New Images</h4>
+        <input type="file" name="unit_images[<?php echo $index; ?>][]" multiple>
+        <br />
+        <br />
 
         <h4>Facilities</h4>
         <div>
@@ -159,9 +189,10 @@ function edit_property_inputs()
               <input type="checkbox" name="units[<?php echo $index; ?>][facilities][]" value="<?php echo $facility['id']; ?>"
                 <?php echo in_array($facility['id'], $unit['facilities'] ?? []) ? 'checked' : ''; ?>>
               <?php echo htmlspecialchars($facility['name']); ?>
-            </label><br>
+            </label>
           <?php endforeach; ?>
         </div>
+        <br />
 
         <button type="button" onclick="removeUnit(this.parentElement)">Remove Unit</button>
       </div>
@@ -178,7 +209,6 @@ function edit_property_inputs()
   </script>
   <?php
 }
-
 
 function list_user_properties()
 {

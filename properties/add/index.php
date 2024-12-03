@@ -9,7 +9,7 @@
 
 <h1>Add new</h1>
 
-<form action="../../includes/add_property.inc.php" method="post">
+<form action="../../includes/add_property.inc.php" method="post" enctype="multipart/form-data">
   <?php add_property_inputs(); ?>
 
   <button type="button" onclick="addUnit()">Add Unit</button>

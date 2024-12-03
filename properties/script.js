@@ -17,6 +17,13 @@ function addUnit() {
 
     <label for="monthlyPrice">Monthly Price:</label>
     <input type="number" name="units[${unitCount}][monthlyPrice]">
+    <br />
+    <br />
+
+    <h4>Unit Images</h4>
+    <input type="file" name="unit_images[<?php echo $index; ?>][]" multiple>
+    <br />
+    <br />
 
    <h4>Facilities</h4>
     <div>
@@ -25,10 +32,11 @@ function addUnit() {
         <label>
           <input type="checkbox" name="units[${unitCount}][facilities][]" value="${facility.id}">
           ${facility.name}
-        </label><br>
+        </label>
       `
   ).join('')}
     </div>
+    <br />
 
     <button type="button" onclick="removeUnit(this.parentElement)">Remove Unit</button>
   `;
@@ -50,5 +58,12 @@ function confirmDelete(propertyId) {
   const userConfirmed = confirm("Are you sure you want to delete this property?");
   if (userConfirmed) {
     window.location.href = `../includes/delete_property.inc.php?property_id=${propertyId}`;
+  }
+}
+
+function confirmImageDelete(imageId) {
+  const userConfirmed = confirm("Are you sure you want to delete this image?");
+  if (userConfirmed) {
+    window.location.href = `../../includes/delete_unit_image.inc.php?image_id=${imageId}`;
   }
 }
