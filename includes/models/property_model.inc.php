@@ -190,7 +190,7 @@ function delete_property_with_units_and_facilities(object $pdo, int $propertyId)
   try {
     $pdo->beginTransaction();
 
-    // Retrieve and delete images linked to the property's units
+    // Retrieve and delete images from the file system
     $fetchImagesQuery = "SELECT ui.image 
                              FROM unit_images ui
                              INNER JOIN unit u ON ui.unitId = u.id
@@ -201,49 +201,22 @@ function delete_property_with_units_and_facilities(object $pdo, int $propertyId)
 
     $images = $stmt->fetchAll(PDO::FETCH_COLUMN);
 
-    // Delete images from the file system
     foreach ($images as $imagePath) {
       if (file_exists($imagePath)) {
         unlink($imagePath);
       }
     }
 
-    // Delete image records from the database
-    $deleteImagesQuery = "DELETE ui 
-                              FROM unit_images ui
-                              INNER JOIN unit u ON ui.unitId = u.id
-                              WHERE u.propertyId = :propertyId";
-    $stmt = $pdo->prepare($deleteImagesQuery);
-    $stmt->bindParam(':propertyId', $propertyId, PDO::PARAM_INT);
-    $stmt->execute();
-
-    // Delete facilities linked to the property's units
-    $deleteFacilitiesQuery = "DELETE uf 
-                                FROM unit_facility uf
-                                INNER JOIN unit u ON uf.unitId = u.id
-                                WHERE u.propertyId = :propertyId";
-    $stmt = $pdo->prepare($deleteFacilitiesQuery);
-    $stmt->bindParam(':propertyId', $propertyId, PDO::PARAM_INT);
-    $stmt->execute();
-
-    // Delete units linked to the property
-    $deleteUnitsQuery = "DELETE FROM unit WHERE propertyId = :propertyId";
-    $stmt = $pdo->prepare($deleteUnitsQuery);
-    $stmt->bindParam(':propertyId', $propertyId, PDO::PARAM_INT);
-    $stmt->execute();
-
-    // Delete the property
+    // Delete the property (cascades to units, facilities, and images)
     $deletePropertyQuery = "DELETE FROM property WHERE id = :propertyId";
     $stmt = $pdo->prepare($deletePropertyQuery);
     $stmt->bindParam(':propertyId', $propertyId, PDO::PARAM_INT);
     $stmt->execute();
 
-    // Commit transaction
     $pdo->commit();
 
     return true; // Successful deletion
   } catch (Exception $e) {
-    // Rollback transaction on error
     $pdo->rollBack();
     error_log("Failed to delete property: " . $e->getMessage());
     return false;
