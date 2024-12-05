@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-function is_property_input_empty(string $name, string $description, string $type)
+function is_property_input_empty(string $name, string $description, string $type, string $streetAddress, string $city, string $postalCode): bool
 {
-  return empty($name) || empty($description) || empty($type);
+  return empty($name) || empty($description) || empty($type) || empty($streetAddress) || empty($city) || empty($postalCode);
 }
 
 function is_unit_input_invalid(array $units)
@@ -37,13 +37,13 @@ function fetch_facilities(object $pdo)
   return fetch_all_facilities($pdo);
 }
 
-function create_property(object $pdo, int $userId, string $name, string $description, string $type, array $units)
+function create_property(object $pdo, int $userId, string $name, string $description, string $type, string $streetAddress, string $city, string $postalCode, array $units)
 {
   $pdo->beginTransaction();
 
   try {
     // Add the property to the database
-    $propertyId = add_property($pdo, $userId, $name, $description, $type);
+    $propertyId = add_property($pdo, $userId, $name, $description, $type, $streetAddress, $city, $postalCode);
 
     // Loop through each unit and add it to the database
     foreach ($units as $unitIndex => $unit) {
@@ -94,11 +94,11 @@ function create_property(object $pdo, int $userId, string $name, string $descrip
   }
 }
 
-function update_user_property(object $pdo, int $propertyId, string $name, string $description, string $type, array $units)
+function update_user_property(object $pdo, int $propertyId, string $name, string $description, string $type, string $streetAddress, string $city, string $postalCode, array $units)
 {
   $pdo->beginTransaction();
 
-  update_property($pdo, $propertyId, $name, $description, $type);
+  update_property($pdo, $propertyId, $name, $description, $type, $streetAddress, $city, $postalCode);
 
   foreach ($units as $unitIndex => $unit) {
     $unitId = (int) $unit['id'];

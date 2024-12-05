@@ -24,6 +24,9 @@ function add_property_inputs()
   $name = $_SESSION["property_data"]["name"] ?? '';
   $description = $_SESSION["property_data"]["description"] ?? '';
   $type = $_SESSION["property_data"]["type"] ?? '';
+  $streetAddress = $_SESSION["property_data"]["streetAddress"] ?? '';
+  $city = $_SESSION["property_data"]["city"] ?? '';
+  $postalCode = $_SESSION["property_data"]["postalCode"] ?? '';
   $units = $_SESSION["property_data"]["units"] ?? [
     [
       'unit_type' => '',
@@ -50,6 +53,15 @@ function add_property_inputs()
 
   <label for="type">Property Type:</label>
   <input type="text" id="type" name="type" value="<?php echo htmlspecialchars($type) ?>">
+
+  <label for="streetAddress">Street Address:</label>
+  <input type="text" id="streetAddress" name="streetAddress" value="<?php echo htmlspecialchars($streetAddress) ?>">
+
+  <label for="city">City:</label>
+  <input type="text" id="city" name="city" value="<?php echo htmlspecialchars($city) ?>">
+
+  <label for="postalCode">Postal Code:</label>
+  <input type="text" id="postalCode" name="postalCode" value="<?php echo htmlspecialchars($postalCode) ?>">
   <br />
   <br />
 
@@ -124,6 +136,9 @@ function edit_property_inputs()
   $name = $property["name"];
   $description = $property["description"];
   $type = $property["type"];
+  $streetAddress = $property["streetAddress"];
+  $city = $property["city"];
+  $postalCode = $property["postalCode"];
   $units = $property["units"];
   ?>
 
@@ -137,6 +152,15 @@ function edit_property_inputs()
 
   <label for="type">Property Type:</label>
   <input type="text" id="type" name="type" value="<?php echo htmlspecialchars($type) ?>">
+
+  <label for="streetAddress">Street Address:</label>
+  <input type="text" id="streetAddress" name="streetAddress" value="<?php echo htmlspecialchars($streetAddress) ?>">
+
+  <label for="city">City:</label>
+  <input type="text" id="city" name="city" value="<?php echo htmlspecialchars($city) ?>">
+
+  <label for="postalCode">Postal Code:</label>
+  <input type="text" id="postalCode" name="postalCode" value="<?php echo htmlspecialchars($postalCode) ?>">
   <br />
   <br />
 
@@ -242,6 +266,7 @@ function list_user_properties()
     echo "<th>Name</th>";
     echo "<th>Description</th>";
     echo "<th>Type</th>";
+    echo "<th>Address</th>";
     echo "<th>Units</th>";
     echo "<th>Actions</th>";
     echo "</tr>";
@@ -253,6 +278,7 @@ function list_user_properties()
       echo "<td>{$property['name']}</td>";
       echo "<td>{$property['description']}</td>";
       echo "<td>{$property['type']}</td>";
+      echo "<td>{$property['streetAddress']}, {$property['city']} {$property['postalCode']}</td>";
       echo "<td>{$property['unit_count']}</td>";
       echo "<td><a href='./edit?property_id={$property['id']}'><button>Edit</button></a></td>";
       echo "<td><button onclick='confirmDelete(" . htmlspecialchars((string) $property['id']) . ")'>Delete</button></td>";
