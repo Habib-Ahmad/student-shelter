@@ -108,18 +108,23 @@ function get_property_by_id(object $pdo, int $propertyId)
               unit.quantity,
               unit.monthlyPrice,
               unit.isAvailable,
-              unit_facility.facilityId
+              GROUP_CONCAT(DISTINCT unit_facility.facilityId) AS facility_ids,
+              GROUP_CONCAT(DISTINCT CONCAT(unit_images.id, ':', unit_images.image)) AS images
             FROM 
               property
             INNER JOIN 
               unit ON property.id = unit.propertyId
             LEFT JOIN 
               unit_facility ON unit.id = unit_facility.unitId
+            LEFT JOIN
+              unit_images ON unit.id = unit_images.unitId
             WHERE 
               property.id = :propertyId
+            GROUP BY 
+              property.id, unit.id
             ORDER BY
-              unit.id;
-            ";
+              unit.id;";
+
   $stmt = $pdo->prepare($query);
   $stmt->bindParam(":propertyId", $propertyId, PDO::PARAM_INT);
   $stmt->execute();
@@ -130,7 +135,7 @@ function get_property_by_id(object $pdo, int $propertyId)
   $units = [];
 
   foreach ($rows as $row) {
-    // If it's the first row, initialize property data
+    // Initialize property data on the first row
     if (!$property) {
       $property = [
         'id' => $row['property_id'],
@@ -142,7 +147,7 @@ function get_property_by_id(object $pdo, int $propertyId)
       ];
     }
 
-    // Check if the unit is already added
+    // Initialize unit data
     if (!isset($units[$row['unit_id']])) {
       $units[$row['unit_id']] = [
         'id' => $row['unit_id'],
@@ -151,13 +156,26 @@ function get_property_by_id(object $pdo, int $propertyId)
         'quantity' => $row['quantity'],
         'monthlyPrice' => $row['monthlyPrice'],
         'isAvailable' => $row['isAvailable'],
-        'facilities' => []
+        'facilities' => [],
+        'images' => []
       ];
     }
 
-    // Add facility ID to the unit's facilities array
-    if ($row['facilityId']) { // Check if the facility exists
-      $units[$row['unit_id']]['facilities'][] = $row['facilityId'];
+    // Parse and add facilities
+    if (!empty($row['facility_ids'])) {
+      $units[$row['unit_id']]['facilities'] = array_map('intval', explode(',', $row['facility_ids']));
+    }
+
+    // Parse and add images
+    if (!empty($row['images'])) {
+      $images = explode(',', $row['images']);
+      foreach ($images as $image) {
+        [$imageId, $imagePath] = explode(':', $image); // Split image ID and path
+        $units[$row['unit_id']]['images'][] = [
+          'id' => (int) $imageId,
+          'path' => $imagePath
+        ];
+      }
     }
   }
 
@@ -172,35 +190,77 @@ function delete_property_with_units_and_facilities(object $pdo, int $propertyId)
   try {
     $pdo->beginTransaction();
 
-    // Delete facilities linked to the property's units
-    $deleteFacilitiesQuery = "DELETE uf 
-                                FROM unit_facility uf
-                                INNER JOIN unit u ON uf.unitId = u.id
-                                WHERE u.propertyId = :propertyId";
-    $stmt = $pdo->prepare($deleteFacilitiesQuery);
+    // Retrieve and delete images from the file system
+    $fetchImagesQuery = "SELECT ui.image 
+                             FROM unit_images ui
+                             INNER JOIN unit u ON ui.unitId = u.id
+                             WHERE u.propertyId = :propertyId";
+    $stmt = $pdo->prepare($fetchImagesQuery);
     $stmt->bindParam(':propertyId', $propertyId, PDO::PARAM_INT);
     $stmt->execute();
 
-    // Delete units linked to the property
-    $deleteUnitsQuery = "DELETE FROM unit WHERE propertyId = :propertyId";
-    $stmt = $pdo->prepare($deleteUnitsQuery);
-    $stmt->bindParam(':propertyId', $propertyId, PDO::PARAM_INT);
-    $stmt->execute();
+    $images = $stmt->fetchAll(PDO::FETCH_COLUMN);
 
-    // Delete the property
+    foreach ($images as $imagePath) {
+      if (file_exists($imagePath)) {
+        unlink($imagePath);
+      }
+    }
+
+    // Delete the property (cascades to units, facilities, and images)
     $deletePropertyQuery = "DELETE FROM property WHERE id = :propertyId";
     $stmt = $pdo->prepare($deletePropertyQuery);
     $stmt->bindParam(':propertyId', $propertyId, PDO::PARAM_INT);
     $stmt->execute();
 
-    // Commit transaction
     $pdo->commit();
 
     return true; // Successful deletion
   } catch (Exception $e) {
-    // Rollback transaction on error
     $pdo->rollBack();
     error_log("Failed to delete property: " . $e->getMessage());
+    return false;
+  }
+}
+
+function save_unit_image($pdo, $unitId, $filePath)
+{
+  $stmt = $pdo->prepare("INSERT INTO unit_images (unitId, image) VALUES (:unitId, :image)");
+  $stmt->bindParam(":unitId", $unitId);
+  $stmt->bindParam(":image", $filePath);
+  $stmt->execute();
+}
+
+function delete_unit_image_by_id(object $pdo, int $imageId): bool
+{
+  try {
+    // Fetch the image path before deletion
+    $query = "SELECT image FROM unit_images WHERE id = :imageId";
+    $stmt = $pdo->prepare($query);
+    $stmt->bindParam(":imageId", $imageId, PDO::PARAM_INT);
+    $stmt->execute();
+
+    $image = $stmt->fetch(PDO::FETCH_ASSOC);
+    if (!$image) {
+      throw new Exception("Image not found.");
+    }
+
+    $imagePath = $image['image']; // Path to the image file on the server
+
+    // Delete the record from the database
+    $deleteQuery = "DELETE FROM unit_images WHERE id = :imageId";
+    $deleteStmt = $pdo->prepare($deleteQuery);
+    $deleteStmt->bindParam(":imageId", $imageId, PDO::PARAM_INT);
+    $deleteStmt->execute();
+
+    // Check if the image file exists and delete it
+    if (file_exists($imagePath)) {
+      unlink($imagePath); // Remove the file
+    }
+
+    return true;
+  } catch (Exception $e) {
+    error_log($e->getMessage());
     return false;
   }
 }

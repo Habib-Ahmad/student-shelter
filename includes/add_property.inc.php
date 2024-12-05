@@ -17,7 +17,6 @@ $description = $_POST['description'];
 $type = $_POST['type'];
 $units = $_POST['units'];
 
-var_dump($units);
 
 try {
   // Error handlers
@@ -38,9 +37,9 @@ try {
   }
 
   create_property($pdo, $userId, $name, $description, $type, $units);
+  $_SESSION["property_data"] = null;
   header("Location: ../properties/?success=true");
   $pdo = null;
-  $stmt = null;
   die();
 } catch (PDOException $e) {
   die("Query failed: " . $e->getMessage());

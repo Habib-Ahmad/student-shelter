@@ -11,7 +11,7 @@ require_once "../../includes/views/property_view.inc.php"
 
 <h1>Edit property</h1>
 
-<form action="../../includes/edit_property.inc.php" method="post">
+<form action="../../includes/edit_property.inc.php" method="post" enctype="multipart/form-data">
   <?php edit_property_inputs(); ?>
 
   <button type="button" onclick="addUnit()">Add Unit</button>

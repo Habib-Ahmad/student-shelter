@@ -16,9 +16,7 @@ $name = $_POST['name'];
 $description = $_POST['description'];
 $type = $_POST['type'];
 $units = $_POST['units'];
-$propertyId = $_SESSION['property_data']["id"];
-
-var_dump($units);
+$propertyId = $_SESSION['edit_property_data']["id"];
 
 try {
   // Error handlers
@@ -27,13 +25,13 @@ try {
     $errors[] = "Please fill in all property fields.";
   }
 
-  if (is_unit_input_invalid($units)) {
+  if (is_edit_unit_input_invalid($units)) {
     $errors[] = "Invalid unit information. Ensure all fields are correctly filled.";
   }
 
   if ($errors) {
     $_SESSION["errors_property"] = $errors;
-    $_SESSION["property_data"] = compact("name", "description", "type", "units");
+    $_SESSION["edit_property_data"] = compact("name", "description", "type", "units");
     header("Location: ../properties/edit/?property_id=$propertyId");
     exit();
   }
