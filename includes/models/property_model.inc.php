@@ -14,15 +14,16 @@ function add_property(object $pdo, int $userId, string $name, string $descriptio
   return (int) $pdo->lastInsertId();
 }
 
-function add_unit(object $pdo, int $propertyId, string $type, int $numberOfRooms, int $quantity, int $monthlyPrice)
+function add_unit(object $pdo, int $propertyId, string $type, int $numberOfRooms, int $quantity, int $monthlyPrice, string $description)
 {
-  $query = "INSERT INTO unit (propertyId, type, numberOfRooms, quantity, isAvailable, monthlyPrice) VALUES (:propertyId, :type, :numberOfRooms, :quantity, 1, :monthlyPrice)";
+  $query = "INSERT INTO unit (propertyId, type, numberOfRooms, quantity, isAvailable, monthlyPrice, description) VALUES (:propertyId, :type, :numberOfRooms, :quantity, 1, :monthlyPrice, :description)";
   $stmt = $pdo->prepare($query);
   $stmt->bindParam(":propertyId", $propertyId);
   $stmt->bindParam(":type", $type);
   $stmt->bindParam(":numberOfRooms", $numberOfRooms);
   $stmt->bindParam(":quantity", $quantity);
   $stmt->bindParam(":monthlyPrice", $monthlyPrice);
+  $stmt->bindParam(":description", $description);
   $stmt->execute();
 
   return (int) $pdo->lastInsertId();
@@ -48,15 +49,16 @@ function update_property(object $pdo, int $propertyId, string $name, string $des
   $stmt->execute();
 }
 
-function update_unit(object $pdo, int $unitId, string $type, int $numberOfRooms, int $quantity, int $monthlyPrice)
+function update_unit(object $pdo, int $unitId, string $type, int $numberOfRooms, int $quantity, int $monthlyPrice, string $description)
 {
-  $query = "UPDATE unit SET type = :type, numberOfRooms = :numberOfRooms, quantity = :quantity, monthlyPrice = :monthlyPrice WHERE id = :unitId";
+  $query = "UPDATE unit SET type = :type, description = :description, numberOfRooms = :numberOfRooms, quantity = :quantity, monthlyPrice = :monthlyPrice WHERE id = :unitId";
   $stmt = $pdo->prepare($query);
   $stmt->bindParam(":unitId", $unitId);
   $stmt->bindParam(":type", $type);
   $stmt->bindParam(":numberOfRooms", $numberOfRooms);
   $stmt->bindParam(":quantity", $quantity);
   $stmt->bindParam(":monthlyPrice", $monthlyPrice);
+  $stmt->bindParam(":description", $description);
   $stmt->execute();
 }
 
@@ -108,6 +110,7 @@ function get_property_by_id(object $pdo, int $propertyId)
               unit.quantity,
               unit.monthlyPrice,
               unit.isAvailable,
+              unit.description AS unit_description,
               GROUP_CONCAT(DISTINCT unit_facility.facilityId) AS facility_ids,
               GROUP_CONCAT(DISTINCT CONCAT(unit_images.id, ':', unit_images.image)) AS images
             FROM 
@@ -152,6 +155,7 @@ function get_property_by_id(object $pdo, int $propertyId)
       $units[$row['unit_id']] = [
         'id' => $row['unit_id'],
         'type' => $row['unit_type'],
+        'description' => $row['unit_description'],
         'numberOfRooms' => $row['numberOfRooms'],
         'quantity' => $row['quantity'],
         'monthlyPrice' => $row['monthlyPrice'],

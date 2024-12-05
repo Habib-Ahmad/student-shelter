@@ -11,7 +11,6 @@ function output_fullname()
   }
 }
 
-
 function check_login_errors()
 {
 

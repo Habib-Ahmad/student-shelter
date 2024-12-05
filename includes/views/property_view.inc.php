@@ -57,6 +57,10 @@ function add_property_inputs()
   <div id="units">
     <?php foreach ($units as $index => $unit): ?>
       <div class="unit">
+        <label for="description_<?php echo $index; ?>">Description:</label>
+        <textarea id="description_<?php echo $index; ?>"
+          name="units[<?php echo $index; ?>][description]"><?php echo htmlspecialchars($unit['description'] ?? ''); ?></textarea>
+
         <label for="unit_type_<?php echo $index; ?>">Unit Type:</label>
         <input type="text" id="unit_type_<?php echo $index; ?>" name="units[<?php echo $index; ?>][unit_type]"
           value="<?php echo htmlspecialchars($unit['unit_type'] ?? '') ?>">
@@ -140,6 +144,11 @@ function edit_property_inputs()
   <div id="units">
     <?php foreach ($units as $index => $unit): ?>
       <div class="unit" id="unit_<?php echo $index; ?>">
+        <label for="description_<?php echo $index; ?>">Description:</label>
+        <textarea id="description_<?php echo $index; ?>"
+          name="units[<?php echo $index; ?>][description]"><?php echo htmlspecialchars($unit['description'] ?? ''); ?></textarea>
+
+        <!-- Hidden input to store the unit ID, it will be passed on form submit -->
         <input type="text" id="unit_type_<?php echo $index; ?>" name="units[<?php echo $index; ?>][id]"
           value="<?php echo htmlspecialchars((string) $unit['id'] ?? '') ?>" style="display:none;">
 

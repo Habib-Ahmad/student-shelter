@@ -10,7 +10,7 @@ function is_property_input_empty(string $name, string $description, string $type
 function is_unit_input_invalid(array $units)
 {
   foreach ($units as $unitIndex => $unit) {
-    if (empty($unit['unit_type']) || $unit['numberOfRooms'] < 1 || $unit['quantity'] < 1 || $unit['monthlyPrice'] < 1) {
+    if (empty($unit['description']) || empty($unit['unit_type']) || $unit['numberOfRooms'] < 1 || $unit['quantity'] < 1 || $unit['monthlyPrice'] < 1) {
       return true;
     }
 
@@ -25,7 +25,7 @@ function is_unit_input_invalid(array $units)
 function is_edit_unit_input_invalid(array $units)
 {
   foreach ($units as $unit) {
-    if (empty($unit['unit_type']) || $unit['numberOfRooms'] < 1 || $unit['quantity'] < 1 || $unit['monthlyPrice'] < 1 || empty($unit['existing_images'])) {
+    if (empty($unit['description']) || empty($unit['unit_type']) || $unit['numberOfRooms'] < 1 || $unit['quantity'] < 1 || $unit['monthlyPrice'] < 1) {
       return true;
     }
   }
@@ -52,7 +52,7 @@ function create_property(object $pdo, int $userId, string $name, string $descrip
       $unit['monthlyPrice'] = (int) $unit['monthlyPrice'];
 
       // Add unit to the database
-      $unitId = add_unit($pdo, $propertyId, $unit['unit_type'], $unit['numberOfRooms'], $unit['quantity'], $unit['monthlyPrice']);
+      $unitId = add_unit($pdo, $propertyId, $unit['unit_type'], $unit['numberOfRooms'], $unit['quantity'], $unit['monthlyPrice'], $unit['description']);
 
       // Handle unit images upload if available
       if (isset($_FILES['unit_images']['name'][$unitIndex])) {
@@ -102,18 +102,15 @@ function update_user_property(object $pdo, int $propertyId, string $name, string
 
   foreach ($units as $unitIndex => $unit) {
     $unitId = (int) $unit['id'];
-    $unit['numberOfRooms'] = (int) $unit['numberOfRooms'];
-    $unit['quantity'] = (int) $unit['quantity'];
-    $unit['monthlyPrice'] = (int) $unit['monthlyPrice'];
 
-    update_unit($pdo, $unitId, $unit['unit_type'], $unit['numberOfRooms'], $unit['quantity'], $unit['monthlyPrice']);
+    update_unit($pdo, $unitId, $unit['unit_type'], (int) $unit['numberOfRooms'], (int) $unit['quantity'], (int) $unit['monthlyPrice'], $unit['description']);
 
     if (!empty($unit['facilities'])) {
       update_unit_facilities($pdo, $unitId, $unit['facilities']);
     }
 
     // Handle new images uploaded for this unit
-    if (isset($_FILES['unit_images']['name'][$unitIndex])) {
+    if (!empty($_FILES['unit_images']['name'][$unitIndex][0])) {
       $uploadDir = '../uploads/unit_images/' . $unitId . '/';
       if (!file_exists($uploadDir)) {
         mkdir($uploadDir, 0777, true);
