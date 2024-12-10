@@ -255,7 +255,7 @@ function list_user_properties()
     return;
   }
 
-  $properties = fetch_properties($pdo, $_SESSION["user_id"]);
+  $properties = fetch_user_properties($pdo, $_SESSION["user_id"]);
 
   if (count($properties) === 0) {
     echo "<p>You have no properties</p>";
@@ -287,5 +287,36 @@ function list_user_properties()
     }
 
     echo "</table>";
+  }
+}
+
+function list_all_properties()
+{
+  require_once "./includes/dbh.inc.php";
+  require_once "./includes/config_session.inc.php";
+  require_once "./includes/models/property_model.inc.php";
+  require_once "./includes/controllers/property_contr.inc.php";
+
+  $properties = fetch_all_properties($pdo);
+
+  if (count($properties) === 0) {
+    echo "<p>No properties found</p>";
+  } else {
+    ?>
+    <div class="property-grid">
+      <?php foreach ($properties as $property): ?>
+        <a href="/property-details?id=<?php echo $property['id']; ?>">
+          <div class="property-card">
+            <h3><?php echo htmlspecialchars($property['name']); ?></h3>
+            <p><?php echo htmlspecialchars($property['description']); ?></p>
+            <p><?php echo htmlspecialchars($property['type']); ?></p>
+            <p><?php echo htmlspecialchars($property['streetAddress']); ?></p>
+            <p><?php echo htmlspecialchars($property['city']); ?></p>
+            <p><?php echo htmlspecialchars($property['postalCode']); ?></p>
+          </div>
+        </a>
+      <?php endforeach; ?>
+    </div>
+    <?php
   }
 }

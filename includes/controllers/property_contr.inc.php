@@ -134,7 +134,7 @@ function update_user_property(object $pdo, int $propertyId, string $name, string
   $pdo->commit();
 }
 
-function fetch_properties(object $pdo, int $userId)
+function fetch_user_properties(object $pdo, int $userId)
 {
   return get_user_properties($pdo, $userId);
 }
@@ -152,4 +152,9 @@ function delete_property(object $pdo, int $propertyId)
 function delete_unit_image(object $pdo, int $imageId)
 {
   return delete_unit_image_by_id($pdo, $imageId);
+}
+
+function fetch_properties(object $pdo)
+{
+  return fetch_all_properties($pdo);
 }
