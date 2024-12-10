@@ -297,7 +297,7 @@ function list_all_properties()
   require_once "./includes/models/property_model.inc.php";
   require_once "./includes/controllers/property_contr.inc.php";
 
-  $properties = fetch_all_properties($pdo);
+  $properties = fetch_properties($pdo);
 
   if (count($properties) === 0) {
     echo "<p>No properties found</p>";
@@ -305,7 +305,7 @@ function list_all_properties()
     ?>
     <div class="property-grid">
       <?php foreach ($properties as $property): ?>
-        <a href="/property-details?id=<?php echo $property['id']; ?>">
+        <a href="/studentshelter/property-details?id=<?php echo $property['id']; ?>">
           <div class="property-card">
             <h3><?php echo htmlspecialchars($property['name']); ?></h3>
             <p><?php echo htmlspecialchars($property['description']); ?></p>
@@ -319,4 +319,67 @@ function list_all_properties()
     </div>
     <?php
   }
+}
+
+function get_property_details()
+{
+  require_once "../includes/dbh.inc.php";
+  require_once "../includes/config_session.inc.php";
+  require_once "../includes/models/property_model.inc.php";
+  require_once "../includes/controllers/property_contr.inc.php";
+
+  if (!isset($_GET["id"])) {
+    echo "Error: Property ID not provided.";
+    return;
+  }
+
+  $property = fetch_unit_details($pdo, (int) $_GET["id"]);
+  $facilities = fetch_facilities($pdo);
+
+  if (!$property) {
+    echo "Error: Property not found.";
+    return;
+  }
+  ?>
+
+  <h3>Property Information</h3>
+  <p>Name: <?php echo htmlspecialchars($property[0]["property_name"]); ?></p>
+  <p>Description: <?php echo htmlspecialchars($property[0]["property_description"]); ?></p>
+  <p>Type: <?php echo htmlspecialchars($property[0]["property_type"]); ?></p>
+  <p>Address:
+    <?php echo htmlspecialchars($property[0]["streetAddress"] . ", " . $property[0]["city"] . " " . $property[0]["postalCode"]); ?>
+  </p>
+
+  <h3>Unit Information</h3>
+  <p>Type: <?php echo htmlspecialchars($property[0]["unit_type"]); ?></p>
+  <p>Number of Rooms: <?php echo htmlspecialchars((string) $property[0]["numberOfRooms"]); ?></p>
+  <p>Quantity: <?php echo htmlspecialchars((string) $property[0]["quantity"]); ?></p>
+  <p>Monthly Price: <?php echo htmlspecialchars($property[0]["monthlyPrice"]); ?></p>
+  <p>Available: <?php echo $property[0]["isAvailable"] ? "Yes" : "No"; ?></p>
+  <p>Description: <?php echo htmlspecialchars($property[0]["unit_description"]); ?></p>
+
+  <h3>Facilities</h3>
+  <div class="property-facilities">
+    <?php
+    $facilityIds = explode(",", $property[0]["facility_ids"]);
+    foreach ($facilities as $facility) {
+      if (in_array($facility["id"], $facilityIds)) {
+        echo "<p>" . htmlspecialchars($facility["name"]) . "</p>";
+      }
+    }
+    ?>
+  </div>
+
+  <h3>Images</h3>
+  <div class="property-images">
+    <?php
+    $images = explode(",", $property[0]["images"]);
+    foreach ($images as $image) {
+      // Split into ID and image path
+      [, $imagePath] = explode(":", $image, 2);
+      echo "<img src='$imagePath' alt='Unit Image' width='100'>";
+    }
+    ?>
+  </div>
+  <?php
 }

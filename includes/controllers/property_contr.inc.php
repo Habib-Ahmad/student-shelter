@@ -158,3 +158,8 @@ function fetch_properties(object $pdo)
 {
   return fetch_all_properties($pdo);
 }
+
+function fetch_unit_details(object $pdo, int $unit)
+{
+  return get_unit_by_id($pdo, $unit);
+}
