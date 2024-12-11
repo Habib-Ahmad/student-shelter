@@ -40,10 +40,10 @@ function signup_inputs()
 
   <div id="student-documents">
     <label for="validId">Valid ID:</label>
-    <input type="file" id="validId" name="validId" accept=".pdf,.jpg,.jpeg,.png" required>
+    <input type="file" id="validId" name="validId" accept=".pdf,.jpg,.jpeg,.png">
 
     <label for="studentProof">Proof of Student:</label>
-    <input type="file" id="studentProof" name="studentProof" accept=".pdf,.jpg,.jpeg,.png" required>
+    <input type="file" id="studentProof" name="studentProof" accept=".pdf,.jpg,.jpeg,.png">
   </div>
 
   <button>Submit</button>
