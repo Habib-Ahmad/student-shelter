@@ -6,6 +6,9 @@ function get_css_file()
   $BASEURL = "/studentshelter/css/";
 
   switch ($current_page) {
+    case 'studentshelter':
+      $css_file = "{$BASEURL}home.css";
+      break;
     case 'signup':
       $css_file = "{$BASEURL}signup.css";
       break;

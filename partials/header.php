@@ -1,4 +1,5 @@
 <?php
+require_once $_SERVER['DOCUMENT_ROOT'] . '/studentshelter/includes/config_session.inc.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/studentshelter/functions/get_css_file.php';
 $css_file = get_css_file();
 ?>
@@ -24,7 +25,12 @@ $css_file = get_css_file();
         <li><a href="/studentshelter">Home</a></li>
         <li><a href="/studentshelter/login">Login</a></li>
         <li><a href="/studentshelter/signup">Signup</a></li>
-        <li><a href="/studentshelter/properties">Properties</a></li>
+        <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'landlord'): ?>
+          <li><a href="/studentshelter/properties">Properties</a></li>
+        <?php endif; ?>
+        <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin'): ?>
+          <li><a href="/studentshelter/admin">Admin</a></li>
+        <?php endif; ?>
       </ul>
     </nav>
   </header>

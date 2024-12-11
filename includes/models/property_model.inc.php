@@ -2,27 +2,31 @@
 
 declare(strict_types=1);
 
-function add_property(object $pdo, int $userId, string $name, string $description, string $type): int
+function add_property(object $pdo, int $userId, string $name, string $description, string $type, string $streetAddress, string $city, string $postalCode): int
 {
-  $query = "INSERT INTO property (userId, name, description, type) VALUES (:userId, :name, :description, :type)";
+  $query = "INSERT INTO property (userId, name, description, type, streetAddress, city, postalCode) VALUES (:userId, :name, :description, :type, :streetAddress, :city, :postalCode)";
   $stmt = $pdo->prepare($query);
   $stmt->bindParam(":userId", $userId);
   $stmt->bindParam(":name", $name);
   $stmt->bindParam(":description", $description);
   $stmt->bindParam(":type", $type);
+  $stmt->bindParam(":streetAddress", $streetAddress);
+  $stmt->bindParam(":city", $city);
+  $stmt->bindParam(":postalCode", $postalCode);
   $stmt->execute();
   return (int) $pdo->lastInsertId();
 }
 
-function add_unit(object $pdo, int $propertyId, string $type, int $numberOfRooms, int $quantity, int $monthlyPrice)
+function add_unit(object $pdo, int $propertyId, string $type, int $numberOfRooms, int $quantity, int $monthlyPrice, string $description)
 {
-  $query = "INSERT INTO unit (propertyId, type, numberOfRooms, quantity, isAvailable, monthlyPrice) VALUES (:propertyId, :type, :numberOfRooms, :quantity, 1, :monthlyPrice)";
+  $query = "INSERT INTO unit (propertyId, type, numberOfRooms, quantity, isAvailable, monthlyPrice, description) VALUES (:propertyId, :type, :numberOfRooms, :quantity, 1, :monthlyPrice, :description)";
   $stmt = $pdo->prepare($query);
   $stmt->bindParam(":propertyId", $propertyId);
   $stmt->bindParam(":type", $type);
   $stmt->bindParam(":numberOfRooms", $numberOfRooms);
   $stmt->bindParam(":quantity", $quantity);
   $stmt->bindParam(":monthlyPrice", $monthlyPrice);
+  $stmt->bindParam(":description", $description);
   $stmt->execute();
 
   return (int) $pdo->lastInsertId();
@@ -37,26 +41,30 @@ function add_unit_facility(object $pdo, int $unitId, int $facilityId)
   $stmt->execute();
 }
 
-function update_property(object $pdo, int $propertyId, string $name, string $description, string $type)
+function update_property(object $pdo, int $propertyId, string $name, string $description, string $type, string $streetAddress, string $city, string $postalCode, )
 {
-  $query = "UPDATE property SET name = :name, description = :description, type = :type WHERE id = :propertyId";
+  $query = "UPDATE property SET name = :name, description = :description, type = :type, streetAddress = :streetAddress, city = :city, postalCode = :postalCode WHERE id = :propertyId";
   $stmt = $pdo->prepare($query);
   $stmt->bindParam(":name", $name);
   $stmt->bindParam(":description", $description);
   $stmt->bindParam(":type", $type);
   $stmt->bindParam(":propertyId", $propertyId);
+  $stmt->bindParam(":streetAddress", $streetAddress);
+  $stmt->bindParam(":city", $city);
+  $stmt->bindParam(":postalCode", $postalCode);
   $stmt->execute();
 }
 
-function update_unit(object $pdo, int $unitId, string $type, int $numberOfRooms, int $quantity, int $monthlyPrice)
+function update_unit(object $pdo, int $unitId, string $type, int $numberOfRooms, int $quantity, int $monthlyPrice, string $description)
 {
-  $query = "UPDATE unit SET type = :type, numberOfRooms = :numberOfRooms, quantity = :quantity, monthlyPrice = :monthlyPrice WHERE id = :unitId";
+  $query = "UPDATE unit SET type = :type, description = :description, numberOfRooms = :numberOfRooms, quantity = :quantity, monthlyPrice = :monthlyPrice WHERE id = :unitId";
   $stmt = $pdo->prepare($query);
   $stmt->bindParam(":unitId", $unitId);
   $stmt->bindParam(":type", $type);
   $stmt->bindParam(":numberOfRooms", $numberOfRooms);
   $stmt->bindParam(":quantity", $quantity);
   $stmt->bindParam(":monthlyPrice", $monthlyPrice);
+  $stmt->bindParam(":description", $description);
   $stmt->execute();
 }
 
@@ -86,7 +94,7 @@ function fetch_all_facilities(object $pdo)
 function get_user_properties(object $pdo, int $userId)
 {
 
-  $query = "SELECT p.id, p.name, p.description, p.type, COUNT(u.id) AS unit_count FROM property p LEFT JOIN unit u ON p.id = u.propertyId WHERE p.userId = :userId GROUP BY p.id, p.name, p.description, p.type;";
+  $query = "SELECT p.id, p.name, p.description, p.type, p.streetAddress, p.postalCode, p.city, COUNT(u.id) AS unit_count FROM property p LEFT JOIN unit u ON p.id = u.propertyId WHERE p.userId = :userId GROUP BY p.id, p.name, p.description, p.type;";
 
   $stmt = $pdo->prepare($query);
   $stmt->bindParam(":userId", $userId, PDO::PARAM_INT);
@@ -101,6 +109,9 @@ function get_property_by_id(object $pdo, int $propertyId)
               property.name AS property_name,
               property.description AS property_description,
               property.type AS property_type,
+              property.streetAddress,
+              property.city,
+              property.postalCode,
               property.userId AS user_id,
               unit.id AS unit_id,
               unit.type AS unit_type,
@@ -108,6 +119,7 @@ function get_property_by_id(object $pdo, int $propertyId)
               unit.quantity,
               unit.monthlyPrice,
               unit.isAvailable,
+              unit.description AS unit_description,
               GROUP_CONCAT(DISTINCT unit_facility.facilityId) AS facility_ids,
               GROUP_CONCAT(DISTINCT CONCAT(unit_images.id, ':', unit_images.image)) AS images
             FROM 
@@ -142,6 +154,9 @@ function get_property_by_id(object $pdo, int $propertyId)
         'name' => $row['property_name'],
         'description' => $row['property_description'],
         'type' => $row['property_type'],
+        'streetAddress' => $row['streetAddress'],
+        'city' => $row['city'],
+        'postalCode' => $row['postalCode'],
         'userId' => $row['user_id'],
         'units' => []
       ];
@@ -152,6 +167,7 @@ function get_property_by_id(object $pdo, int $propertyId)
       $units[$row['unit_id']] = [
         'id' => $row['unit_id'],
         'type' => $row['unit_type'],
+        'description' => $row['unit_description'],
         'numberOfRooms' => $row['numberOfRooms'],
         'quantity' => $row['quantity'],
         'monthlyPrice' => $row['monthlyPrice'],
@@ -263,4 +279,52 @@ function delete_unit_image_by_id(object $pdo, int $imageId): bool
     error_log($e->getMessage());
     return false;
   }
+}
+
+function fetch_all_properties(object $pdo)
+{
+  $query = "SELECT u.id, p.name, u.description, CONCAT(p.type, ', ', u.type) AS type, u.numberOfRooms, u.monthlyPrice, p.streetAddress, p.city, p.postalCode FROM unit u LEFT JOIN property p ON u.propertyId=p.id;";
+  $stmt = $pdo->query($query);
+  return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function get_unit_by_id(object $pdo, int $unitId)
+{
+  $query = "SELECT 
+              property.id AS property_id,
+              property.name AS property_name,
+              property.description AS property_description,
+              property.type AS property_type,
+              property.streetAddress,
+              property.city,
+              property.postalCode,
+              property.userId AS user_id,
+              unit.id AS unit_id,
+              unit.type AS unit_type,
+              unit.numberOfRooms,
+              unit.quantity,
+              unit.monthlyPrice,
+              unit.isAvailable,
+              unit.description AS unit_description,
+              GROUP_CONCAT(DISTINCT unit_facility.facilityId) AS facility_ids,
+              GROUP_CONCAT(DISTINCT CONCAT(unit_images.id, ':', unit_images.image)) AS images
+            FROM 
+              property
+            INNER JOIN 
+              unit ON property.id = unit.propertyId
+            LEFT JOIN
+              unit_facility ON unit.id = unit_facility.unitId
+            LEFT JOIN
+              unit_images ON unit.id = unit_images.unitId
+            WHERE 
+              unit.id = :unitId
+            GROUP BY
+              property.id, unit.id
+            ORDER BY
+              unit.id;";
+  $stmt = $pdo->prepare($query);
+  $stmt->bindParam(":unitId", $unitId, PDO::PARAM_INT);
+  $stmt->execute();
+  $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  return $rows;
 }

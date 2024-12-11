@@ -15,13 +15,16 @@ $userId = $_SESSION['user_id'];
 $name = $_POST['name'];
 $description = $_POST['description'];
 $type = $_POST['type'];
+$streetAddress = $_POST['streetAddress'];
+$city = $_POST['city'];
+$postalCode = $_POST['postalCode'];
 $units = $_POST['units'];
 $propertyId = $_SESSION['edit_property_data']["id"];
 
 try {
   // Error handlers
   $errors = [];
-  if (is_property_input_empty($name, $description, $type)) {
+  if (is_property_input_empty($name, $description, $type, $streetAddress, $city, $postalCode)) {
     $errors[] = "Please fill in all property fields.";
   }
 
@@ -36,7 +39,7 @@ try {
     exit();
   }
 
-  update_user_property($pdo, $propertyId, $name, $description, $type, $units);
+  update_user_property($pdo, $propertyId, $name, $description, $type, $streetAddress, $city, $postalCode, $units);
   header("Location: ../properties/?update_success=true");
   $pdo = null;
   $stmt = null;

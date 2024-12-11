@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-function is_property_input_empty(string $name, string $description, string $type)
+function is_property_input_empty(string $name, string $description, string $type, string $streetAddress, string $city, string $postalCode): bool
 {
-  return empty($name) || empty($description) || empty($type);
+  return empty($name) || empty($description) || empty($type) || empty($streetAddress) || empty($city) || empty($postalCode);
 }
 
 function is_unit_input_invalid(array $units)
 {
   foreach ($units as $unitIndex => $unit) {
-    if (empty($unit['unit_type']) || $unit['numberOfRooms'] < 1 || $unit['quantity'] < 1 || $unit['monthlyPrice'] < 1) {
+    if (empty($unit['description']) || empty($unit['unit_type']) || $unit['numberOfRooms'] < 1 || $unit['quantity'] < 1 || $unit['monthlyPrice'] < 1) {
       return true;
     }
 
@@ -25,7 +25,7 @@ function is_unit_input_invalid(array $units)
 function is_edit_unit_input_invalid(array $units)
 {
   foreach ($units as $unit) {
-    if (empty($unit['unit_type']) || $unit['numberOfRooms'] < 1 || $unit['quantity'] < 1 || $unit['monthlyPrice'] < 1 || empty($unit['existing_images'])) {
+    if (empty($unit['description']) || empty($unit['unit_type']) || $unit['numberOfRooms'] < 1 || $unit['quantity'] < 1 || $unit['monthlyPrice'] < 1) {
       return true;
     }
   }
@@ -37,13 +37,13 @@ function fetch_facilities(object $pdo)
   return fetch_all_facilities($pdo);
 }
 
-function create_property(object $pdo, int $userId, string $name, string $description, string $type, array $units)
+function create_property(object $pdo, int $userId, string $name, string $description, string $type, string $streetAddress, string $city, string $postalCode, array $units)
 {
   $pdo->beginTransaction();
 
   try {
     // Add the property to the database
-    $propertyId = add_property($pdo, $userId, $name, $description, $type);
+    $propertyId = add_property($pdo, $userId, $name, $description, $type, $streetAddress, $city, $postalCode);
 
     // Loop through each unit and add it to the database
     foreach ($units as $unitIndex => $unit) {
@@ -52,7 +52,7 @@ function create_property(object $pdo, int $userId, string $name, string $descrip
       $unit['monthlyPrice'] = (int) $unit['monthlyPrice'];
 
       // Add unit to the database
-      $unitId = add_unit($pdo, $propertyId, $unit['unit_type'], $unit['numberOfRooms'], $unit['quantity'], $unit['monthlyPrice']);
+      $unitId = add_unit($pdo, $propertyId, $unit['unit_type'], $unit['numberOfRooms'], $unit['quantity'], $unit['monthlyPrice'], $unit['description']);
 
       // Handle unit images upload if available
       if (isset($_FILES['unit_images']['name'][$unitIndex])) {
@@ -94,26 +94,23 @@ function create_property(object $pdo, int $userId, string $name, string $descrip
   }
 }
 
-function update_user_property(object $pdo, int $propertyId, string $name, string $description, string $type, array $units)
+function update_user_property(object $pdo, int $propertyId, string $name, string $description, string $type, string $streetAddress, string $city, string $postalCode, array $units)
 {
   $pdo->beginTransaction();
 
-  update_property($pdo, $propertyId, $name, $description, $type);
+  update_property($pdo, $propertyId, $name, $description, $type, $streetAddress, $city, $postalCode);
 
   foreach ($units as $unitIndex => $unit) {
     $unitId = (int) $unit['id'];
-    $unit['numberOfRooms'] = (int) $unit['numberOfRooms'];
-    $unit['quantity'] = (int) $unit['quantity'];
-    $unit['monthlyPrice'] = (int) $unit['monthlyPrice'];
 
-    update_unit($pdo, $unitId, $unit['unit_type'], $unit['numberOfRooms'], $unit['quantity'], $unit['monthlyPrice']);
+    update_unit($pdo, $unitId, $unit['unit_type'], (int) $unit['numberOfRooms'], (int) $unit['quantity'], (int) $unit['monthlyPrice'], $unit['description']);
 
     if (!empty($unit['facilities'])) {
       update_unit_facilities($pdo, $unitId, $unit['facilities']);
     }
 
     // Handle new images uploaded for this unit
-    if (isset($_FILES['unit_images']['name'][$unitIndex])) {
+    if (!empty($_FILES['unit_images']['name'][$unitIndex][0])) {
       $uploadDir = '../uploads/unit_images/' . $unitId . '/';
       if (!file_exists($uploadDir)) {
         mkdir($uploadDir, 0777, true);
@@ -137,7 +134,7 @@ function update_user_property(object $pdo, int $propertyId, string $name, string
   $pdo->commit();
 }
 
-function fetch_properties(object $pdo, int $userId)
+function fetch_user_properties(object $pdo, int $userId)
 {
   return get_user_properties($pdo, $userId);
 }
@@ -155,4 +152,14 @@ function delete_property(object $pdo, int $propertyId)
 function delete_unit_image(object $pdo, int $imageId)
 {
   return delete_unit_image_by_id($pdo, $imageId);
+}
+
+function fetch_properties(object $pdo)
+{
+  return fetch_all_properties($pdo);
+}
+
+function fetch_unit_details(object $pdo, int $unit)
+{
+  return get_unit_by_id($pdo, $unit);
 }

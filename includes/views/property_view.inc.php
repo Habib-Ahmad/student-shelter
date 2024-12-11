@@ -24,6 +24,9 @@ function add_property_inputs()
   $name = $_SESSION["property_data"]["name"] ?? '';
   $description = $_SESSION["property_data"]["description"] ?? '';
   $type = $_SESSION["property_data"]["type"] ?? '';
+  $streetAddress = $_SESSION["property_data"]["streetAddress"] ?? '';
+  $city = $_SESSION["property_data"]["city"] ?? '';
+  $postalCode = $_SESSION["property_data"]["postalCode"] ?? '';
   $units = $_SESSION["property_data"]["units"] ?? [
     [
       'unit_type' => '',
@@ -50,6 +53,15 @@ function add_property_inputs()
 
   <label for="type">Property Type:</label>
   <input type="text" id="type" name="type" value="<?php echo htmlspecialchars($type) ?>">
+
+  <label for="streetAddress">Street Address:</label>
+  <input type="text" id="streetAddress" name="streetAddress" value="<?php echo htmlspecialchars($streetAddress) ?>">
+
+  <label for="city">City:</label>
+  <input type="text" id="city" name="city" value="<?php echo htmlspecialchars($city) ?>">
+
+  <label for="postalCode">Postal Code:</label>
+  <input type="text" id="postalCode" name="postalCode" value="<?php echo htmlspecialchars($postalCode) ?>">
   <br />
   <br />
 
@@ -57,6 +69,10 @@ function add_property_inputs()
   <div id="units">
     <?php foreach ($units as $index => $unit): ?>
       <div class="unit">
+        <label for="description_<?php echo $index; ?>">Description:</label>
+        <textarea id="description_<?php echo $index; ?>"
+          name="units[<?php echo $index; ?>][description]"><?php echo htmlspecialchars($unit['description'] ?? ''); ?></textarea>
+
         <label for="unit_type_<?php echo $index; ?>">Unit Type:</label>
         <input type="text" id="unit_type_<?php echo $index; ?>" name="units[<?php echo $index; ?>][unit_type]"
           value="<?php echo htmlspecialchars($unit['unit_type'] ?? '') ?>">
@@ -120,6 +136,9 @@ function edit_property_inputs()
   $name = $property["name"];
   $description = $property["description"];
   $type = $property["type"];
+  $streetAddress = $property["streetAddress"];
+  $city = $property["city"];
+  $postalCode = $property["postalCode"];
   $units = $property["units"];
   ?>
 
@@ -133,6 +152,15 @@ function edit_property_inputs()
 
   <label for="type">Property Type:</label>
   <input type="text" id="type" name="type" value="<?php echo htmlspecialchars($type) ?>">
+
+  <label for="streetAddress">Street Address:</label>
+  <input type="text" id="streetAddress" name="streetAddress" value="<?php echo htmlspecialchars($streetAddress) ?>">
+
+  <label for="city">City:</label>
+  <input type="text" id="city" name="city" value="<?php echo htmlspecialchars($city) ?>">
+
+  <label for="postalCode">Postal Code:</label>
+  <input type="text" id="postalCode" name="postalCode" value="<?php echo htmlspecialchars($postalCode) ?>">
   <br />
   <br />
 
@@ -140,6 +168,11 @@ function edit_property_inputs()
   <div id="units">
     <?php foreach ($units as $index => $unit): ?>
       <div class="unit" id="unit_<?php echo $index; ?>">
+        <label for="description_<?php echo $index; ?>">Description:</label>
+        <textarea id="description_<?php echo $index; ?>"
+          name="units[<?php echo $index; ?>][description]"><?php echo htmlspecialchars($unit['description'] ?? ''); ?></textarea>
+
+        <!-- Hidden input to store the unit ID, it will be passed on form submit -->
         <input type="text" id="unit_type_<?php echo $index; ?>" name="units[<?php echo $index; ?>][id]"
           value="<?php echo htmlspecialchars((string) $unit['id'] ?? '') ?>" style="display:none;">
 
@@ -222,7 +255,7 @@ function list_user_properties()
     return;
   }
 
-  $properties = fetch_properties($pdo, $_SESSION["user_id"]);
+  $properties = fetch_user_properties($pdo, $_SESSION["user_id"]);
 
   if (count($properties) === 0) {
     echo "<p>You have no properties</p>";
@@ -233,6 +266,7 @@ function list_user_properties()
     echo "<th>Name</th>";
     echo "<th>Description</th>";
     echo "<th>Type</th>";
+    echo "<th>Address</th>";
     echo "<th>Units</th>";
     echo "<th>Actions</th>";
     echo "</tr>";
@@ -244,6 +278,7 @@ function list_user_properties()
       echo "<td>{$property['name']}</td>";
       echo "<td>{$property['description']}</td>";
       echo "<td>{$property['type']}</td>";
+      echo "<td>{$property['streetAddress']}, {$property['city']} {$property['postalCode']}</td>";
       echo "<td>{$property['unit_count']}</td>";
       echo "<td><a href='./edit?property_id={$property['id']}'><button>Edit</button></a></td>";
       echo "<td><button onclick='confirmDelete(" . htmlspecialchars((string) $property['id']) . ")'>Delete</button></td>";
@@ -253,4 +288,98 @@ function list_user_properties()
 
     echo "</table>";
   }
+}
+
+function list_all_properties()
+{
+  require_once "./includes/dbh.inc.php";
+  require_once "./includes/config_session.inc.php";
+  require_once "./includes/models/property_model.inc.php";
+  require_once "./includes/controllers/property_contr.inc.php";
+
+  $properties = fetch_properties($pdo);
+
+  if (count($properties) === 0) {
+    echo "<p>No properties found</p>";
+  } else {
+    ?>
+    <div class="property-grid">
+      <?php foreach ($properties as $property): ?>
+        <a href="/studentshelter/property-details?id=<?php echo $property['id']; ?>">
+          <div class="property-card">
+            <h3><?php echo htmlspecialchars($property['name']); ?></h3>
+            <p><?php echo htmlspecialchars($property['description']); ?></p>
+            <p><?php echo htmlspecialchars($property['type']); ?></p>
+            <p><?php echo htmlspecialchars($property['streetAddress']); ?></p>
+            <p><?php echo htmlspecialchars($property['city']); ?></p>
+            <p><?php echo htmlspecialchars($property['postalCode']); ?></p>
+          </div>
+        </a>
+      <?php endforeach; ?>
+    </div>
+    <?php
+  }
+}
+
+function get_property_details()
+{
+  require_once "../includes/dbh.inc.php";
+  require_once "../includes/config_session.inc.php";
+  require_once "../includes/models/property_model.inc.php";
+  require_once "../includes/controllers/property_contr.inc.php";
+
+  if (!isset($_GET["id"])) {
+    echo "Error: Property ID not provided.";
+    return;
+  }
+
+  $property = fetch_unit_details($pdo, (int) $_GET["id"]);
+  $facilities = fetch_facilities($pdo);
+
+  if (!$property) {
+    echo "Error: Property not found.";
+    return;
+  }
+  ?>
+
+  <h3>Property Information</h3>
+  <p>Name: <?php echo htmlspecialchars($property[0]["property_name"]); ?></p>
+  <p>Description: <?php echo htmlspecialchars($property[0]["property_description"]); ?></p>
+  <p>Type: <?php echo htmlspecialchars($property[0]["property_type"]); ?></p>
+  <p>Address:
+    <?php echo htmlspecialchars($property[0]["streetAddress"] . ", " . $property[0]["city"] . " " . $property[0]["postalCode"]); ?>
+  </p>
+
+  <h3>Unit Information</h3>
+  <p>Type: <?php echo htmlspecialchars($property[0]["unit_type"]); ?></p>
+  <p>Number of Rooms: <?php echo htmlspecialchars((string) $property[0]["numberOfRooms"]); ?></p>
+  <p>Quantity: <?php echo htmlspecialchars((string) $property[0]["quantity"]); ?></p>
+  <p>Monthly Price: <?php echo htmlspecialchars($property[0]["monthlyPrice"]); ?></p>
+  <p>Available: <?php echo $property[0]["isAvailable"] ? "Yes" : "No"; ?></p>
+  <p>Description: <?php echo htmlspecialchars($property[0]["unit_description"]); ?></p>
+
+  <h3>Facilities</h3>
+  <div class="property-facilities">
+    <?php
+    $facilityIds = explode(",", $property[0]["facility_ids"]);
+    foreach ($facilities as $facility) {
+      if (in_array($facility["id"], $facilityIds)) {
+        echo "<p>" . htmlspecialchars($facility["name"]) . "</p>";
+      }
+    }
+    ?>
+  </div>
+
+  <h3>Images</h3>
+  <div class="property-images">
+    <?php
+    $images = explode(",", $property[0]["images"]);
+    foreach ($images as $image) {
+      // Split into ID and image path
+      [, $imagePath] = explode(":", $image, 2);
+      echo "<img src='$imagePath' alt='Unit Image' width='100'>";
+    }
+    ?>
+  </div>
+  <?php
 }
