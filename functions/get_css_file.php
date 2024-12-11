@@ -15,6 +15,9 @@ function get_css_file()
     case 'login':
       $css_file = "{$BASEURL}login.css";
       break;
+    case 'profile':
+      $css_file = "{$BASEURL}profile.css";
+      break;
     case 'properties':
     case 'add':
     case 'edit':
