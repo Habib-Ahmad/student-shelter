@@ -23,6 +23,15 @@ function get_css_file()
     case 'contact':
       $css_file = "{$BASEURL}contact.css";
       break;
+    case 'faq':
+      $css_file = "{$BASEURL}faq.css";
+      break;
+    case 'terms_conditions':
+      $css_file = "{$BASEURL}terms_conditions.css";
+      break;
+    case 'legal':
+      $css_file = "{$BASEURL}legal.css";
+      break;
 
     default:
       break;
