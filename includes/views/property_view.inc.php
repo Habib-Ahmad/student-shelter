@@ -303,21 +303,37 @@ function list_all_properties()
     echo "<p>No properties found</p>";
   } else {
     ?>
-    <div class="property-grid">
-      <?php foreach ($properties as $property): ?>
-        <a href="/studentshelter/property-details?id=<?php echo $property['id']; ?>">
-          <div class="property-card">
+    <?php foreach ($properties as $property): ?>
+      <a href="/studentshelter/property-details?id=<?php echo $property['id']; ?>">
+        <div class="property-card">
+          <img src="./profile/assets/ss1.jpeg" alt="Property 1">
+          <div class="property-details">
+            <h3>$<?php echo htmlspecialchars($property['monthlyPrice']); ?></h3>
+            <span class="favorite-icon">❤️</span>
+          </div>
+          <h4><?php echo htmlspecialchars($property['name']); ?></h4>
+          <p>
+            <?php echo htmlspecialchars($property['streetAddress'] . ', ' . $property['city'] . ', ' . $property['postalCode']); ?>
+          </p>
+          <!-- <button class="payment-button">Make Payment</button> -->
+        </div>
+      </a>
+
+
+
+
+
+
+      <!-- <div class="property-card">
             <h3><?php echo htmlspecialchars($property['name']); ?></h3>
             <p><?php echo htmlspecialchars($property['description']); ?></p>
             <p><?php echo htmlspecialchars($property['type']); ?></p>
             <p><?php echo htmlspecialchars($property['streetAddress']); ?></p>
             <p><?php echo htmlspecialchars($property['city']); ?></p>
             <p><?php echo htmlspecialchars($property['postalCode']); ?></p>
-          </div>
-        </a>
-      <?php endforeach; ?>
-    </div>
-    <?php
+          </div> -->
+    <?php endforeach; ?>
+  <?php
   }
 }
 
@@ -342,7 +358,99 @@ function get_property_details()
   }
   ?>
 
-  <h3>Property Information</h3>
+
+  <div class="container">
+    <div class="main-content">
+      <div class="details">
+        <div class="main-image">
+          <img src="../profile/assets/image (5).jpg" alt="Room Image">
+        </div>
+
+        <div class="property-details">
+          <h2 id="property-name"><?php echo htmlspecialchars($property[0]["property_name"]); ?></h2>
+          <h2 id="property-price">$<?php echo htmlspecialchars($property[0]["monthlyPrice"]); ?>/month</h2>
+        </div>
+
+        <div class="property-description">
+          <h2>Description</h2>
+          <p>
+          <?php echo htmlspecialchars($property[0]["unit_description"]); ?>
+          </p>
+        </div>
+
+        <div class="facilities">
+          <h3>Facilities</h3>
+          <ul>
+          <?php
+    $facilityIds = explode(",", $property[0]["facility_ids"]);
+    foreach ($facilities as $facility) {
+      if (in_array($facility["id"], $facilityIds)) {
+        echo "<li>" . htmlspecialchars($facility["name"]) . "</li>";
+      }
+    }
+    ?>
+          </ul>
+        </div>
+
+        <div class="landlord-rules">
+          <h3>Landlord Rules</h3>
+          <ul>
+            <li>No Smoking</li>
+            <li>Pets Not Allowed</li>
+            <li>Overnight Guests Allowed</li>
+          </ul>
+        </div>
+
+        <div class="availability">
+          <h3>Availability</h3>
+          <p>Available from: January 12, 2025</p>
+          <p>Maximum stay: 12 months</p>
+          <p>Calendar updated: Today</p>
+        </div>
+      </div>
+
+      <div class="booking-request">
+        <h3>Booking Request</h3>
+        <label for="check-in">Check-in:</label>
+        <input type="date" id="check-in">
+
+        <label for="check-out">Check-out:</label>
+        <input type="date" id="check-out">
+
+        <?php if(isset($_SESSION['user_id'])) {
+echo "<button>Check Booking</button>";
+        } else {
+          echo "<a href='../login'>Login</a>";
+        }
+        ?>
+        
+      </div>
+    </div>
+
+    <div class="similar-properties">
+      <h2>Similar Properties</h2>
+      <div class="cards">
+        <div class="card">
+          <img src="../profile/assets/ss2.jpeg" alt="Property 1">
+          <p>Room 7 in Casa Monteiro | $700/Month</p>
+        </div>
+        <div class="card">
+          <img src="../profile/assets/ss3.jpeg" alt="Property 2">
+          <p>Room 8 in Casa Monteiro | $700/Month</p>
+        </div>
+        <div class="card">
+          <img src="../profile/assets/ss4.jpeg" alt="Property 3">
+          <p>Room 9 in Casa Monteiro | $700/Month</p>
+        </div>
+        <div class="card">
+          <img src="../profile/assets/ss4.jpeg" alt="Property 3">
+          <p>Room 9 in Casa Monteiro | $700/Month</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--<h3>Property Information</h3>
   <p>Name: <?php echo htmlspecialchars($property[0]["property_name"]); ?></p>
   <p>Description: <?php echo htmlspecialchars($property[0]["property_description"]); ?></p>
   <p>Type: <?php echo htmlspecialchars($property[0]["property_type"]); ?></p>
@@ -380,6 +488,6 @@ function get_property_details()
       echo "<img src='$imagePath' alt='Unit Image' width='100'>";
     }
     ?>
-  </div>
+  </div>-->
   <?php
 }
