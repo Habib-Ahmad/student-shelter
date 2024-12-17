@@ -15,30 +15,31 @@ $userId = $_SESSION['user_id'];
 $name = $_POST['name'];
 $description = $_POST['description'];
 $type = $_POST['type'];
+$streetAddress = $_POST['streetAddress'];
+$city = $_POST['city'];
+$postalCode = $_POST['postalCode'];
 $units = $_POST['units'];
-$propertyId = $_SESSION['property_data']["id"];
-
-var_dump($units);
+$propertyId = $_SESSION['edit_property_data']["id"];
 
 try {
   // Error handlers
   $errors = [];
-  if (is_property_input_empty($name, $description, $type)) {
+  if (is_property_input_empty($name, $description, $type, $streetAddress, $city, $postalCode)) {
     $errors[] = "Please fill in all property fields.";
   }
 
-  if (is_unit_input_invalid($units)) {
+  if (is_edit_unit_input_invalid($units)) {
     $errors[] = "Invalid unit information. Ensure all fields are correctly filled.";
   }
 
   if ($errors) {
     $_SESSION["errors_property"] = $errors;
-    $_SESSION["property_data"] = compact("name", "description", "type", "units");
+    $_SESSION["edit_property_data"] = compact("name", "description", "type", "units");
     header("Location: ../properties/edit/?property_id=$propertyId");
     exit();
   }
 
-  update_user_property($pdo, $propertyId, $name, $description, $type, $units);
+  update_user_property($pdo, $propertyId, $name, $description, $type, $streetAddress, $city, $postalCode, $units);
   header("Location: ../properties/?update_success=true");
   $pdo = null;
   $stmt = null;

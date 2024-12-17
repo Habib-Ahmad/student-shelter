@@ -3,9 +3,12 @@ function get_css_file()
 {
   $current_page = basename(dirname($_SERVER['PHP_SELF']));
   $css_file = "";
-  $BASEURL = "/studentshelter/css/";
+  $BASEURL = "/studentShelter/css/";
 
   switch ($current_page) {
+    case 'studentShelter':
+      $css_file = "{$BASEURL}main.css";
+      break;
     case 'signup':
       $css_file = "{$BASEURL}signup.css";
       break;
@@ -23,7 +26,9 @@ function get_css_file()
     case 'contact':
       $css_file = "{$BASEURL}contact.css";
       break;
-
+    case 'property-details':
+      $css_file = "{$BASEURL}property-details.css";
+      break;
     default:
       break;
   }

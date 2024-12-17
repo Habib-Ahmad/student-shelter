@@ -30,4 +30,15 @@ function set_user(object $pdo, string $firstName, string $lastName, string $emai
   $stmt->bindParam(":pwd", $hashedPassword);
   $stmt->bindParam(":userRole", $role);
   $stmt->execute();
+
+  return $pdo->lastInsertId();
+}
+
+function save_user_document(PDO $pdo, int $userId, string $name, string $path)
+{
+  $stmt = $pdo->prepare("INSERT INTO user_documents (userId, name, document_path) VALUES (:userId, :name, :document_path)");
+  $stmt->bindParam(":userId", $userId);
+  $stmt->bindParam(":name", $name);
+  $stmt->bindParam(":document_path", $path);
+  $stmt->execute();
 }

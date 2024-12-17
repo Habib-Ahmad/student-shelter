@@ -11,10 +11,8 @@ function output_fullname()
   }
 }
 
-
 function check_login_errors()
 {
-
   if (isset($_SESSION["errors_login"])) {
     $errors = $_SESSION["errors_login"];
 

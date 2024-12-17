@@ -15,14 +15,16 @@ $userId = $_SESSION['user_id'];
 $name = $_POST['name'];
 $description = $_POST['description'];
 $type = $_POST['type'];
+$streetAddress = $_POST['streetAddress'];
+$city = $_POST['city'];
+$postalCode = $_POST['postalCode'];
 $units = $_POST['units'];
 
-var_dump($units);
 
 try {
   // Error handlers
   $errors = [];
-  if (is_property_input_empty($name, $description, $type)) {
+  if (is_property_input_empty($name, $description, $type, $streetAddress, $city, $postalCode)) {
     $errors[] = "Please fill in all property fields.";
   }
 
@@ -37,10 +39,10 @@ try {
     exit();
   }
 
-  create_property($pdo, $userId, $name, $description, $type, $units);
+  create_property($pdo, $userId, $name, $description, $type, $streetAddress, $city, $postalCode, $units);
+  $_SESSION["property_data"] = null;
   header("Location: ../properties/?success=true");
   $pdo = null;
-  $stmt = null;
   die();
 } catch (PDOException $e) {
   die("Query failed: " . $e->getMessage());

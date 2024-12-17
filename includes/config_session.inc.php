@@ -3,39 +3,31 @@
 ini_set("session.use_only_cookies", 1);
 ini_set("session.use_strict_mode", 1);
 
+// Adjust secure flag based on environment (localhost usually uses HTTP)
+$isSecure = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on';
+
+// Set cookie parameters
 session_set_cookie_params([
-  "lifetime" => 1800,
+  "lifetime" => 1800, // 30 minutes
   "domain" => "localhost",
   "path" => "/",
-  "secure" => true,
-  "httponly" => true,
+  "secure" => $isSecure, // Adjust based on HTTPS
+  "httponly" => true, // Prevent JavaScript access
 ]);
 
 session_start();
 
-$interval = 60 * 30;
+// Define regeneration interval (30 minutes)
+$interval = 60 * 120;
 
 if (!isset($_SESSION["last_regeneration"]) || (time() - $_SESSION["last_regeneration"] >= $interval)) {
-  if (isset($_SESSION["user_id"])) {
-    regenerate_session_id_logged_in();
-  } else {
-    regenerate_session_id();
-  }
+  regenerate_session_id();
 }
 
-function regenerate_session_id_logged_in()
-{
-  session_regenerate_id(true);
-
-  $newSessionId = session_create_id();
-  $sessionId = $newSessionId . "_" . $_SESSION["user_id"];
-  session_id($sessionId);
-
-  $_SESSION["last_regeneration"] = time();
-}
-
+// Function to regenerate session ID
 function regenerate_session_id()
 {
-  session_regenerate_id(true);
+  session_regenerate_id(true); // Securely regenerate session ID
   $_SESSION["last_regeneration"] = time();
 }
+?>
