@@ -7,7 +7,7 @@ require_once "../includes/views/property_view.inc.php";
 
 <?php list_user_properties(); ?>
 
-<a href="./add"><button class="page-end-button">Add New</button></a>
+<a href="./add" class="page-end-button">Add New</a>
 
 <script src="./script.js"></script>
 

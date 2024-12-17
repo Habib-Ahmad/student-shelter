@@ -83,6 +83,7 @@ function add_property_inputs()
     <div id="units" class="units-container">
       <?php foreach ($units as $index => $unit): ?>
         <div class="unit-block" id="unit_<?php echo $index; ?>">
+          <h4>Unit <?php echo $index + 1; ?></h4>
           <label for="description_<?php echo $index; ?>" class="form-label">Description:</label>
           <textarea id="description_<?php echo $index; ?>" class="form-input"
             name="units[<?php echo $index; ?>][description]"><?php echo htmlspecialchars($unit['description'] ?? ''); ?></textarea>
@@ -250,6 +251,7 @@ function edit_property_inputs()
       <div id="units" class="units-container">
         <?php foreach ($units as $index => $unit): ?>
           <div class="unit-block" id="unit_<?php echo $index; ?>">
+            <h4>Unit <?php echo $index + 1; ?></h4>
             <label for="description_<?php echo $index; ?>" class="form-label">Description:</label>
             <textarea id="description_<?php echo $index; ?>" class="form-input"
               name="units[<?php echo $index; ?>][description]"><?php echo htmlspecialchars($unit['description'] ?? ''); ?></textarea>
@@ -421,7 +423,7 @@ function list_user_properties()
       echo "<td>{$property['streetAddress']}, {$property['city']} {$property['postalCode']}</td>";
       echo "<td>{$property['unit_count']}</td>";
       echo "<td><a href='./edit?property_id={$property['id']}'><button>Edit</button></a></td>";
-      echo "<td><button onclick='confirmDelete(" . htmlspecialchars((string) $property['id']) . ")'>Delete</button></td>";
+      echo "<td><button class='delete' onclick='confirmDelete(" . htmlspecialchars((string) $property['id']) . ")'>Delete</button></td>";
       echo "</tr>";
       echo "</tbody>";
     }
@@ -443,37 +445,23 @@ function list_all_properties()
     echo "<p>No properties found</p>";
   } else {
     ?>
-    <?php foreach ($properties as $property): ?>
-      <a href="/studentshelter/property-details?id=<?php echo $property['id']; ?>">
-        <div class="property-card">
-          <img src="./profile/assets/ss1.jpeg" alt="Property 1">
-          <div class="property-details">
-            <h3>$<?php echo htmlspecialchars($property['monthlyPrice']); ?></h3>
-            <span class="favorite-icon">❤️</span>
+      <?php foreach ($properties as $property): ?>
+        <a href="/studentshelter/property-details?id=<?php echo $property['id']; ?>">
+          <div class="property-card">
+            <img src="./profile/assets/ss1.jpeg" alt="Property 1">
+            <div class="property-details">
+              <h3>$<?php echo htmlspecialchars($property['monthlyPrice']); ?></h3>
+              <span class="favorite-icon">❤️</span>
+            </div>
+            <h4><?php echo htmlspecialchars($property['name']); ?></h4>
+            <p>
+              <?php echo htmlspecialchars($property['streetAddress'] . ', ' . $property['city'] . ', ' . $property['postalCode']); ?>
+            </p>
+            <!-- <button class="payment-button">Make Payment</button> -->
           </div>
-          <h4><?php echo htmlspecialchars($property['name']); ?></h4>
-          <p>
-            <?php echo htmlspecialchars($property['streetAddress'] . ', ' . $property['city'] . ', ' . $property['postalCode']); ?>
-          </p>
-          <!-- <button class="payment-button">Make Payment</button> -->
-        </div>
-      </a>
-
-
-
-
-
-
-      <!-- <div class="property-card">
-            <h3><?php echo htmlspecialchars($property['name']); ?></h3>
-            <p><?php echo htmlspecialchars($property['description']); ?></p>
-            <p><?php echo htmlspecialchars($property['type']); ?></p>
-            <p><?php echo htmlspecialchars($property['streetAddress']); ?></p>
-            <p><?php echo htmlspecialchars($property['city']); ?></p>
-            <p><?php echo htmlspecialchars($property['postalCode']); ?></p>
-          </div> -->
-    <?php endforeach; ?>
-  <?php
+        </a>
+      <?php endforeach; ?>
+      <?php
   }
 }
 
@@ -498,144 +486,95 @@ function get_property_details()
   }
   ?>
 
-  <div class="container">
-    <div class="main-content">
-      <div class="details">
-        <div class="main-image">
-          <img src="../profile/assets/image (5).jpg" alt="Room Image">
+    <div class="container">
+      <div class="main-content">
+        <div class="details">
+          <div class="main-image">
+            <img src="../profile/assets/image (5).jpg" alt="Room Image">
+          </div>
+
+          <div class="property-details">
+            <h2 id="property-name"><?php echo htmlspecialchars($property[0]["property_name"]); ?></h2>
+            <h2 id="property-price">$<?php echo htmlspecialchars($property[0]["monthlyPrice"]); ?>/month</h2>
+          </div>
+
+          <div class="property-description">
+            <h2>Description</h2>
+            <p>
+              <?php echo htmlspecialchars($property[0]["unit_description"]); ?>
+            </p>
+          </div>
+
+          <div class="facilities">
+            <h3>Facilities</h3>
+            <ul>
+              <?php
+              $facilityIds = explode(",", $property[0]["facility_ids"]);
+              foreach ($facilities as $facility) {
+                if (in_array($facility["id"], $facilityIds)) {
+                  echo "<li>" . htmlspecialchars($facility["name"]) . "</li>";
+                }
+              }
+              ?>
+            </ul>
+          </div>
+
+          <div class="landlord-rules">
+            <h3>Landlord Rules</h3>
+            <ul>
+              <li>No Smoking</li>
+              <li>Pets Not Allowed</li>
+              <li>Overnight Guests Allowed</li>
+            </ul>
+          </div>
+
+          <div class="availability">
+            <h3>Availability</h3>
+            <p>Available from: January 12, 2025</p>
+            <p>Maximum stay: 12 months</p>
+            <p>Calendar updated: Today</p>
+          </div>
         </div>
 
-        <div class="property-details">
-          <h2 id="property-name"><?php echo htmlspecialchars($property[0]["property_name"]); ?></h2>
-          <h2 id="property-price">$<?php echo htmlspecialchars($property[0]["monthlyPrice"]); ?>/month</h2>
-        </div>
+        <div class="booking-request">
+          <h3>Booking Request</h3>
+          <label for="check-in">Check-in:</label>
+          <input type="date" id="check-in">
 
-        <div class="property-description">
-          <h2>Description</h2>
-          <p>
-          <?php echo htmlspecialchars($property[0]["unit_description"]); ?>
-          </p>
-        </div>
+          <label for="check-out">Check-out:</label>
+          <input type="date" id="check-out">
 
-        <div class="facilities">
-          <h3>Facilities</h3>
-          <ul>
-          <?php
-    $facilityIds = explode(",", $property[0]["facility_ids"]);
-    foreach ($facilities as $facility) {
-      if (in_array($facility["id"], $facilityIds)) {
-        echo "<li>" . htmlspecialchars($facility["name"]) . "</li>";
-      }
-    }
-    ?>
-          </ul>
-        </div>
+          <?php if (isset($_SESSION['user_id'])) {
+            echo "<button>Check Booking</button>";
+          } else {
+            echo "<a href='../login'>Login</a>";
+          }
+          ?>
 
-        <div class="landlord-rules">
-          <h3>Landlord Rules</h3>
-          <ul>
-            <li>No Smoking</li>
-            <li>Pets Not Allowed</li>
-            <li>Overnight Guests Allowed</li>
-          </ul>
-        </div>
-
-        <div class="availability">
-          <h3>Availability</h3>
-          <p>Available from: January 12, 2025</p>
-          <p>Maximum stay: 12 months</p>
-          <p>Calendar updated: Today</p>
-        </div>
-      </div>
-
-      <div class="booking-request">
-        <h3>Booking Request</h3>
-        <label for="check-in">Check-in:</label>
-        <input type="date" id="check-in">
-
-        <label for="check-out">Check-out:</label>
-        <input type="date" id="check-out">
-
-        <?php if(isset($_SESSION['user_id'])) {
-echo "<button>Check Booking</button>";
-        } else {
-          echo "<a href='../login'>Login</a>";
-        }
-        ?>
-        
-      </div>
-    </div>
-
-    <div class="similar-properties">
-      <h2>Similar Properties</h2>
-      <div class="cards">
-        <div class="card">
-          <img src="../profile/assets/ss2.jpeg" alt="Property 1">
-          <p>Room 7 in Casa Monteiro | $700/Month</p>
-        </div>
-        <div class="card">
-          <img src="../profile/assets/ss3.jpeg" alt="Property 2">
-          <p>Room 8 in Casa Monteiro | $700/Month</p>
-        </div>
-        <div class="card">
-          <img src="../profile/assets/ss4.jpeg" alt="Property 3">
-          <p>Room 9 in Casa Monteiro | $700/Month</p>
-        </div>
-        <div class="card">
-          <img src="../profile/assets/ss4.jpeg" alt="Property 3">
-          <p>Room 9 in Casa Monteiro | $700/Month</p>
         </div>
       </div>
-    </div>
-  </div>
 
-  <!--<h3>Property Information</h3>
-  <p>Name: <?php echo htmlspecialchars($property[0]["property_name"]); ?></p>
-  <p>Description: <?php echo htmlspecialchars($property[0]["property_description"]); ?></p>
-  <p>Type: <?php echo htmlspecialchars($property[0]["property_type"]); ?></p>
-  <p>Address:
-    <?php echo htmlspecialchars($property[0]["streetAddress"] . ", " . $property[0]["city"] . " " . $property[0]["postalCode"]); ?>
-  </p>
-
-  <h3>Unit Information</h3>
-  <p>Type: <?php echo htmlspecialchars($property[0]["unit_type"]); ?></p>
-  <p>Number of Rooms: <?php echo htmlspecialchars((string) $property[0]["numberOfRooms"]); ?></p>
-  <p>Quantity: <?php echo htmlspecialchars((string) $property[0]["quantity"]); ?></p>
-  <p>Monthly Price: <?php echo htmlspecialchars($property[0]["monthlyPrice"]); ?></p>
-  <p>Available: <?php echo $property[0]["isAvailable"] ? "Yes" : "No"; ?></p>
-  <p>Description: <?php echo htmlspecialchars($property[0]["unit_description"]); ?></p>
-
-  <h3>Facilities</h3>
-  <div class="property-facilities">
-    <?php
-    $facilityIds = explode(",", $property[0]["facility_ids"]);
-    foreach ($facilities as $facility) {
-      if (in_array($facility["id"], $facilityIds)) {
-        echo "<p>" . htmlspecialchars($facility["name"]) . "</p>";
-      }
-    }
-    ?>
-  </div>
-
-    <h3 class="section-title">Images</h3>
-    <div class="property-images">
-      <?php
-      $images = explode(",", $property[0]["images"]);
-      foreach ($images as $image) {
-        // Split into ID and image path
-        [, $imagePath] = explode(":", $image, 2);
-        echo "<img src='$imagePath' alt='Unit Image' class='gallery-image' width='100'>";
-      }
-      ?>
+      <div class="similar-properties">
+        <h2>Similar Properties</h2>
+        <div class="cards">
+          <div class="card">
+            <img src="../profile/assets/ss2.jpeg" alt="Property 1">
+            <p>Room 7 in Casa Monteiro | $700/Month</p>
+          </div>
+          <div class="card">
+            <img src="../profile/assets/ss3.jpeg" alt="Property 2">
+            <p>Room 8 in Casa Monteiro | $700/Month</p>
+          </div>
+          <div class="card">
+            <img src="../profile/assets/ss4.jpeg" alt="Property 3">
+            <p>Room 9 in Casa Monteiro | $700/Month</p>
+          </div>
+          <div class="card">
+            <img src="../profile/assets/ss4.jpeg" alt="Property 3">
+            <p>Room 9 in Casa Monteiro | $700/Month</p>
+          </div>
+        </div>
+      </div>
     </div>
     <?php
-    $images = explode(",", $property[0]["images"]);
-    foreach ($images as $image) {
-      // Split into ID and image path
-      [, $imagePath] = explode(":", $image, 2);
-      echo "<img src='$imagePath' alt='Unit Image' width='100'>";
-    }
-    ?>
-  </div>-->
-  <?php
 }

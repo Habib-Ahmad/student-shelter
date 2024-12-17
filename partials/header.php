@@ -10,6 +10,7 @@ $css_file = get_css_file();
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="/studentShelter/favicon.png">
   <link rel="stylesheet" href="/studentShelter/css/main.css">
   <link rel="stylesheet" href="/studentShelter/css/all.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,38 +23,38 @@ $css_file = get_css_file();
 </head>
 
 <body>
-  <!-- Beginning navbar section-->
-  <header>
-    <nav>
-      <div class="logo">
-      <img src="<?php echo $_SERVER['DOCUMENT_ROOT'] ?>  '/assets/S_logo.PNG'?>" alt="Logo" />
-    </div>
-      <ul>
-        <li><a href="/studentshelter">Home</a></li>
-        <li><a href="/studentshelter/login">Login</a></li>
-        <li><a href="/studentshelter/signup">Signup</a></li>
-        <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'student'): ?>
+  <div class="project-wrapper">
+    <!-- Beginning navbar section-->
+    <header>
+      <nav class="navbar">
+        <div class="logo">
+          <a href="/studentshelter">
+            <img src="/studentshelter/assets/S_logo.PNG" alt="Logo" />
+          </a>
+        </div>
+        <ul class="nav-links">
+          <li><a href="/studentshelter">Home</a></li>
           <li><a href="/studentshelter/profile">Profile</a></li>
-        <?php endif; ?>
-        <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'landlord'): ?>
-          <li><a href="/studentShelter/properties">Properties</a></li>
-        <?php endif; ?>
-        <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin'): ?>
-          <li><a href="/studentShelter/admin">Admin</a></li>
-        <?php endif; ?>
-      </ul>
-    <div class="nav-actions">
-      <a href="#rent" class="rent-button">Login</a>
-    </div>
-    <div class="hamburger-menu">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-</nav>
-      </header>
-<!-- End of  navbar section-->
-
-
-
-
+          <!-- <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'student'): ?>
+            <li><a href="/studentshelter/profile">Profile</a></li>
+            <?php endif; ?> -->
+          <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'landlord'): ?>
+            <li><a href="/studentShelter/properties">My Properties</a></li>
+          <?php endif; ?>
+          <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin'): ?>
+            <li><a href="/studentShelter/admin">Admin</a></li>
+          <?php endif; ?>
+          <li><a href="/studentshelter/contact">Contact Us</a></li>
+        </ul>
+        <div class="nav-actions">
+          <a href="/studentshelter/login" class="rent-button">Login</a>
+        </div>
+        <div class="hamburger-menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </nav>
+    </header>
+    <!-- End of  navbar section-->
+    <div class="content-wrapper">

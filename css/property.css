@@ -2,23 +2,12 @@
   color: red;
 }
 
-/* Base Styles */
-/* body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f8f9fa;
-  font-size: 12px;
-} */
-
-
-
 .page-heading {
-  font-size: 1.8em;
+  font-size: 2rem;
   color: #43494d;
   margin: 25px auto;
   text-align: center;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.5px;
   max-width: 800px;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.05);
@@ -74,6 +63,11 @@ textarea.form-input {
   margin-bottom: 16px;
 }
 
+.unit-block h4 {
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
 .unit-facilities {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -105,7 +99,7 @@ textarea.form-input {
 }
 
 .facility-checkbox:checked::after {
-  content: '✓';
+  content: "✓";
   position: absolute;
   color: white;
   font-size: 12px;
@@ -139,7 +133,7 @@ textarea.form-input {
 } */
 
 button:hover:not(.remove-unit-button):not(.delete) {
-  background-color: #0056b3;
+  background-color: #185977;
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
@@ -191,58 +185,6 @@ button:hover:not(.remove-unit-button):not(.delete) {
   padding: 5px;
   font-size: 14px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* a {
   text-decoration: none;
@@ -364,109 +306,8 @@ h3 {
   margin: 20px;
 } */
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* General Table Styling */
 table {
-  width: 90%;
-  max-width: 1200px;
   margin: 20px auto;
   border-collapse: separate;
   border-spacing: 0;
@@ -474,9 +315,11 @@ table {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   overflow: hidden;
+  font-size: 14px;
 }
 
-th, td {
+th,
+td {
   padding: 12px 15px;
   text-align: center;
   border-bottom: 1px solid #ddd;
@@ -490,12 +333,11 @@ th {
 
 .table-description {
   text-align: left;
-  max-width: 300px;
+  max-width: 450px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
 
 tr:hover {
   background-color: #f9f9f9;
@@ -506,7 +348,7 @@ button {
   padding: 6px 12px;
   border: none;
   color: #fff;
-  background-color: #007bff;
+  background-color: #11445b;
   border-radius: 4px;
   cursor: pointer;
   font-size: 0.9em;
@@ -527,17 +369,17 @@ button.delete:hover,
   width: fit-content;
   margin: 40px auto;
   padding: 12px 28px;
-  background-color: #4898e8;
+  background-color: #11445b;
   color: #fff;
   border-radius: 8px;
   font-weight: 500;
-  text-align: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
+  text-decoration: none;
 }
 
 .page-end-button:hover {
-  background-color: #357abd;
+  background-color: #185977;
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }

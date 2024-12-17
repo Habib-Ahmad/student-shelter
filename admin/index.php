@@ -4,10 +4,9 @@ require_once '../includes/views/admin_view.inc.php';
 ?>
 
 <div class="container">
-  <h1>Admin</h1>
-  <p>Welcome to the admin panel</p>
+  <h2>Admin Panel</h2>
 
-  <h2>Students</h2>
+  <h3>Students</h3>
   <?php
   list_students();
   ?>

@@ -7,7 +7,7 @@
   const facilities = <?= json_encode($_SESSION["facilities"]); ?>;
 </script>
 
-<h1 class="page-heading">Add new</h1>
+<h1 class="page-heading">Add New Property</h1>
 
 <form action="../../includes/add_property.inc.php" method="post" enctype="multipart/form-data">
   <?php add_property_inputs(); ?>

@@ -18,7 +18,7 @@ session_set_cookie_params([
 session_start();
 
 // Define regeneration interval (30 minutes)
-$interval = 60 * 120;
+$interval = 60 * 300;
 
 if (!isset($_SESSION["last_regeneration"]) || (time() - $_SESSION["last_regeneration"] >= $interval)) {
   regenerate_session_id();
