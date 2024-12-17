@@ -58,24 +58,30 @@ require_once "../includes/views/users_view.inc.php";
 <section id="password">
   <div class="container">
     <h2 class="title">Change Password</h2>
-    <form action="#">
+    <form action="../includes/change-password.inc.php" method="post" autocomplete="off">
       <div class="user-details">
         <div class="input-box">
           <label for="old-password" class="details">Old password</label>
-          <input id="old-password" type="password" placeholder="Enter your password" required />
+          <input id="old-password" type="password" placeholder="Enter your password" name="oldPassword" required />
         </div>
         <div class="input-box">
           <label for="new-password" class="details">New password</label>
-          <input id="new-password" type="password" placeholder="Enter your password" required />
+          <input id="new-password" type="password" placeholder="Enter your password" name="newPassword" required />
         </div>
         <div class="input-box">
           <label for="confirm-password" class="details">Confirm new password</label>
-          <input id="confirm-password" type="password" placeholder="Confirm your password" required />
+          <input id="confirm-password" type="password" placeholder="Confirm your password" name="confirmPassword"
+            required />
         </div>
       </div>
       <div class="button">
         <button type="submit">Update</button>
       </div>
+      <?php
+      if (isset($_GET["error"]) && isset($_SESSION["errors_pwd"])) {
+        echo "<p class='error-message'>" . $_SESSION['errors_pwd'][0] . "</p>";
+      }
+      ?>
     </form>
   </div>
 </section>

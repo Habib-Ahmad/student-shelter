@@ -19,7 +19,6 @@ try {
     array_push($errors, "Field cannot be empty");
   }
 
-  // verify if phone number is valid
   if (!is_phone_valid($phone)) {
     array_push($errors, "Invalid phone number");
   }
@@ -33,6 +32,7 @@ try {
   update_user_phone($pdo, $phone, $_SESSION["user_id"]);
 
   $_SESSION["user_phone"] = $phone;
+  $_SESSION["errors_profile"] = null;
 
   header("Location: ../profile?message=success");
   $pdo = null;

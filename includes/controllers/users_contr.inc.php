@@ -21,3 +21,8 @@ function is_phone_valid(string $phone)
 {
   return preg_match("/^(?:\+33|0)[0-9]{9}$/", $phone);
 }
+
+function update_user_password(object $pdo, int $id, string $password)
+{
+  change_password($pdo, $id, $password);
+}
