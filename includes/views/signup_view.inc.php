@@ -50,7 +50,6 @@ function signup_inputs()
   <?php
 }
 
-
 function check_signup_errors()
 {
 

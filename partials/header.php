@@ -23,14 +23,18 @@ $css_file = get_css_file();
 
 <body>
   <!-- Beginning navbar section-->
-<nav class="navbar">
-    <div class="logo">
+  <header>
+    <nav>
+      <div class="logo">
       <img src="<?php echo $_SERVER['DOCUMENT_ROOT'] ?>  '/assets/S_logo.PNG'?>" alt="Logo" />
     </div>
-    <ul>
-        <li><a href="/studentShelter">Home</a></li>
-        <li><a href="/studentShelter/login">Login</a></li>
-        <li><a href="/studentShelter/signup">Signup</a></li>
+      <ul>
+        <li><a href="/studentshelter">Home</a></li>
+        <li><a href="/studentshelter/login">Login</a></li>
+        <li><a href="/studentshelter/signup">Signup</a></li>
+        <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'student'): ?>
+          <li><a href="/studentshelter/profile">Profile</a></li>
+        <?php endif; ?>
         <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'landlord'): ?>
           <li><a href="/studentShelter/properties">Properties</a></li>
         <?php endif; ?>
@@ -47,6 +51,7 @@ $css_file = get_css_file();
       <span></span>
     </div>
 </nav>
+      </header>
 <!-- End of  navbar section-->
 
 

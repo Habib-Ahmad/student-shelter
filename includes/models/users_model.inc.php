@@ -35,3 +35,21 @@ function verify_user(object $pdo, int $id)
   $stmt->bindParam(':id', $id, PDO::PARAM_INT);
   $stmt->execute();
 }
+
+function update_user(object $pdo, int $id, string $phone)
+{
+  $query = "UPDATE users SET phone = :phone WHERE id = :id";
+  $stmt = $pdo->prepare($query);
+  $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+  $stmt->bindParam(':phone', $phone, PDO::PARAM_STR);
+  $stmt->execute();
+}
+
+function change_password(object $pdo, int $id, string $password)
+{
+  $query = "UPDATE users SET pwd = :password WHERE id = :id";
+  $stmt = $pdo->prepare($query);
+  $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+  $stmt->bindParam(':password', $password, PDO::PARAM_STR);
+  $stmt->execute();
+}

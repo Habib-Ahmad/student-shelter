@@ -26,15 +26,19 @@ function addUnit() {
     <br />
 
    <h4>Facilities</h4>
-    <div>
-      ${facilities.map(
-    (facility) => `
+    <div class="unit-facilities">
+      ${facilities
+        .map(
+          (facility) => `
+    <div class="facility-container">
         <label>
           <input type="checkbox" name="units[${unitCount}][facilities][]" value="${facility.id}">
           ${facility.name}
         </label>
+    </div>
       `
-  ).join('')}
+        )
+        .join("")}
     </div>
     <br />
 
@@ -45,7 +49,7 @@ function addUnit() {
 }
 
 function removeUnit(unitDiv) {
-  const unitsContainer = document.getElementById('units');
+  const unitsContainer = document.getElementById("units");
   if (unitsContainer.children.length > 1) {
     unitsContainer.removeChild(unitDiv);
     unitCount--;
@@ -55,7 +59,9 @@ function removeUnit(unitDiv) {
 }
 
 function confirmDelete(propertyId) {
-  const userConfirmed = confirm("Are you sure you want to delete this property?");
+  const userConfirmed = confirm(
+    "Are you sure you want to delete this property?"
+  );
   if (userConfirmed) {
     window.location.href = `../includes/delete_property.inc.php?property_id=${propertyId}`;
   }

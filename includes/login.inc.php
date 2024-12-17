@@ -45,6 +45,7 @@ try {
   $_SESSION["user_firstName"] = $result["firstName"];
   $_SESSION["user_lastName"] = $result["lastName"];
   $_SESSION["user_role"] = $result["userRole"];
+  $_SESSION["user_phone"] = $result["phone"];
 
   $_SESSION["last_regeneration"] = time();
 
