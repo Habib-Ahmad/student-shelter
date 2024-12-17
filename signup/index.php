@@ -1,5 +1,5 @@
 <?php require_once '../partials/header.php'; ?>
-<?php require_once "../includes/config_session.inc.php" ?>
+<?php require_once '../includes/config_session.inc.php' ?>
 <?php require_once "../includes/views/signup_view.inc.php" ?>
 
 <h1>Sign Up</h1>
