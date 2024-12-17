@@ -9,125 +9,97 @@ function signup_inputs()
   $email = $_SESSION["signup_data"]["email"] ?? '';
   $phone = $_SESSION["signup_data"]["phone"] ?? '';
   $role = $_SESSION["signup_data"]["role"] ?? 'student';
-?>
-
-
+  ?>
   <div class="form-container">
-
-    <img src="../assets/S_logo.png" alt="Logo" class="form-logo">
+    <a href="/studentshelter/"><img src="../assets/S_logo.PNG" alt="Logo" class="logo" /></a>
 
     <h1>Registration Form</h1>
-    <form action="/submit" method="POST">
+    <form action="../includes/signup.inc.php" method="POST" enctype="multipart/form-data">
+      <!-- First Name -->
       <div class="form-group">
         <label for="firstName">First Name:</label>
-        <input
-          type="text"
-          id="firstName"
-          name="firstName"
-          placeholder="Enter your first Name"
-          required
+        <input type="text" id="firstName" name="firstName" placeholder="Enter your first Name" required
           value="<?php echo htmlspecialchars($firstName); ?>" />
       </div>
 
+      <!-- Last Name -->
       <div class="form-group">
-        <label for="last Name">Last Name:</label>
-        <input
-          type="text"
-          id="last Name"
-          name="last Name"
-          placeholder="Enter your last Name"
-          required
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" placeholder="Enter your last Name" required
           value="<?php echo htmlspecialchars($lastName); ?>" />
       </div>
 
+      <!-- Email -->
       <div class="form-group">
         <label for="email">Email:</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          placeholder="Enter your email"
-          required
+        <input type="email" id="email" name="email" placeholder="Enter your email" required
           value="<?php echo htmlspecialchars($email); ?>" />
       </div>
+
+      <!-- Password -->
       <div class="form-group">
         <label for="password">Password:</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          placeholder="*********"
-          required />
+        <input type="password" id="password" name="password" placeholder="*********" required />
       </div>
 
+      <!-- Confirm Password -->
       <div class="form-group">
         <label for="confirmpassword">Confirm Password:</label>
-        <div class="input-container">
-          <input
-            type="password"
-            id="password"
-            name="Confirmpassword"
-            placeholder="*********"
-            required />
-          <i class="bx bxs-lock-alt"></i>
-        </div>
+        <input type="password" id="confirmpassword" name="confirmpassword" placeholder="*********" required />
       </div>
 
+      <!-- Phone -->
       <div class="form-group">
         <label for="phone">Phone:</label>
-        <div class="input-container">
-          <input
-            type="tel"
-            id="phone"
-            name="phone"
-            placeholder="Enter your mobile number"
-            pattern="[+]{1}[0-9]{1,14}"
-            required
-            value="<?php echo htmlspecialchars($phone); ?>" />
-        </div>
-        <br />
-        <div>
-          Register as:
-          <label>
-            <input type="radio" name="role" value="student" <?php echo ($role === 'student') ? 'checked' : ''; ?> required />
-            Student
-          </label>
-          <label>
-            <input type="radio" name="role" value="landlord" <?php echo ($role === 'landlord') ? 'checked' : ''; ?> required />
-            Landlord
-          </label>
-        </div>
-        </br>
+        <input type="tel" id="phone" name="phone" placeholder="Enter your mobile number" pattern="[+]{1}[0-9]{1,14}"
+          required value="<?php echo htmlspecialchars($phone); ?>" />
+      </div>
 
+      <!-- Role Selection -->
+      <div>
+        Register as:
+        <label>
+          <input type="radio" name="role" value="student" <?php echo ($role === 'student') ? 'checked' : ''; ?> required
+            onclick="toggleUploadSections()" />
+          Student
+        </label>
+        <label>
+          <input type="radio" name="role" value="landlord" <?php echo ($role === 'landlord') ? 'checked' : ''; ?> required
+            onclick="toggleUploadSections()" />
+          Landlord
+        </label>
+      </div>
 
+      <!-- File Uploads for Students -->
+      <div id="studentUploadSections">
         <div class="form-group">
-          <label class="form-label">StudentProof:</label>
+          <label class="form-label">Student Proof:</label>
           <div class="file-input-wrapper">
-            <label for="fileInput" class="file-upload-label">Choose file</label>
-            <input type="file" id="fileInput" class="file-upload-input" required>
-            <span id="fileName" class="file-name">No file chosen</span>
+            <label for="studentProof" class="file-upload-label">Choose file</label>
+            <input type="file" id="studentProof" name="studentProof" class="file-upload-input" required>
+            <span id="fileName1" class="file-name">No file chosen</span>
           </div>
         </div>
 
         <div class="form-group">
           <label class="form-label">Valid Proof:</label>
           <div class="file-input-wrapper">
-            <label for="fileInput" class="file-upload-label">Choose file</label>
-            <input type="file" id="fileInput" class="file-upload-input" required>
-            <span id="fileName" class="file-name">No file chosen</span>
+            <label for="validProof" class="file-upload-label">Choose file</label>
+            <input type="file" id="validProof" name="validProof" class="file-upload-input" required>
+            <span id="fileName2" class="file-name">No file chosen</span>
           </div>
         </div>
+      </div>
 
-
-        <button type="submit" class="btn-register">Register</button>
+      <button type="submit" class="btn-register">Register</button>
     </form>
-    <div class="form-footer">
-      <p>Already registered? <a href="login.html">Login here</a></p>
-    </div>
 
+    <div class="form-footer">
+      <p>Already registered? <a href="/studentshelter/login">Login here</a></p>
+    </div>
+  </div>
   <?php
 }
-
 
 function check_signup_errors()
 {

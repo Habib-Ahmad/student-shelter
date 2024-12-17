@@ -1,15 +1,17 @@
-body {
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700&display=swap");
+
+* {
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
-
-  background-size: cover;
+  font-family: "Nunito", sans-serif;
+  box-sizing: border-box;
 }
 
 .form-container {
-  background: rgba(249, 248, 248, 0.797); 
+  background: rgba(249, 248, 248, 0.797);
   color: #1d0202;
-  width: 400px;
+  width: 90%;
+  max-width: 400px;
   margin: 100px auto;
   padding: 30px 20px;
   border-radius: 10px;
@@ -17,10 +19,17 @@ body {
   text-align: center;
 }
 
+.logo {
+  display: block;
+  max-width: 120px;
+  height: auto;
+  margin: 0 auto 20px;
+}
+
 h1 {
   font-size: 24px;
   margin-bottom: 20px;
- color: #007bff;
+  color: #11445b;
 }
 
 .form-group {
@@ -29,20 +38,16 @@ h1 {
 }
 
 .form-logo {
-    display: block;
-    max-width: 100px;
-    margin: 0 auto 20px;
-     
-  }
-  
+  display: block;
+  max-width: 100px;
+  margin: 0 auto 20px;
+}
 
 label {
   display: inline-block;
   margin-bottom: 5px;
   font-size: 14px;
   align-items: center;
-  
-  
 }
 
 input[type="text"],
@@ -60,22 +65,19 @@ input[type="file"] {
   box-sizing: border-box;
 }
 
-
 .form-group {
   margin-bottom: 20px;
-  font-family:sans-serif;
+  font-family: sans-serif;
 }
-
 
 .file-upload-input {
-  display: none; 
+  display: none;
 }
-
 
 .file-upload-label {
   display: inline-block;
-  background-color:#007bff; 
-  color: #ffffff; 
+  background-color: #11445b;
+  color: #ffffff;
   font-size: 16px;
   font-weight: 600;
   padding: 5px 8px;
@@ -85,47 +87,42 @@ input[type="file"] {
   transition: background-color 0.3s ease;
 }
 
-
 .file-upload-label:hover {
-  background-color:#007bff; 
+  background-color: #11445b;
 }
 
-
-.btn-register{
-  background-color: #007bff; 
-  color: #fff; 
-  width: 100%; 
-  padding: 10px 0; 
-  font-size: 16px; 
-  border: none; 
-  border-radius: 5px; 
-  text-align: center; 
-  cursor: pointer; 
-  font-family: Arial, sans-serif; 
+.btn-register {
+  background-color: #11445b;
+  color: #fff;
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+  font-family: Arial, sans-serif;
 }
 
 .btn-register:hover {
-  background-color: #0056b3; 
-  transition: background-color 0.3s ease; 
+  background-color: #185977;
+  transition: background-color 0.3s ease;
 }
 
+.form-footer {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 14px;
+}
 
-  .form-footer {
-    text-align: center;
-    margin-top: 10px;
-    font-size: 14px;
-  }
+.form-footer a {
+  color: #11445b;
+  text-decoration: none;
+}
 
-  .form-footer a {
-    color: #007bff;
-    text-decoration: none;
-  }
-
-  .form-footer a:hover {
-    text-decoration: underline;
-  }
-
-
+.form-footer a:hover {
+  text-decoration: underline;
+}
 
 .error-msg {
   color: red;
