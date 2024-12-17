@@ -38,6 +38,9 @@ function get_css_file()
     case 'property-details':
       $css_file = "{$BASEURL}property-details.css";
       break;
+    case 'admin':
+      $css_file = "{$BASEURL}admin.css";
+      break;
     default:
       break;
   }
