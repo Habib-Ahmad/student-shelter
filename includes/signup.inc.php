@@ -56,12 +56,48 @@ try {
     die();
   }
 
-  create_user($pdo, $firstName, $lastName, $email, $phone, $password, $role);
+  // Begin transaction
+  $pdo->beginTransaction();
+
+  // Create the user
+  $userId = create_user($pdo, $firstName, $lastName, $email, $phone, $password, $role);
+
+  // Save document paths (only for students)
+  if ($role === 'student') {
+    $uploadDir = "../uploads/$userId/";
+
+    if (!is_dir($uploadDir)) {
+      mkdir($uploadDir, 0777, true);
+    }
+
+    $result = validate_and_upload_documents($_FILES, $uploadDir);
+
+    if ($result['errors']) {
+      // Rollback on document upload failure
+      $pdo->rollBack();
+      array_push($errors, ...$result['errors']);
+      $_SESSION["errors_signup"] = $errors;
+      header("Location: ../signup");
+      die();
+    }
+
+    // Save document paths
+    $validIdPath = $result['paths']['validId'];
+    $studentProofPath = $result['paths']['studentProof'];
+
+    save_user_document($pdo, $userId, 'Valid ID', $validIdPath);
+    save_user_document($pdo, $userId, 'Proof of Student', $studentProofPath);
+  }
+
+  // Commit transaction
+  $pdo->commit();
 
   header("Location: ../?signup=success");
   $pdo = null;
-  $stmt = null;
   die();
 } catch (PDOException $e) {
+  if ($pdo->inTransaction()) {
+    $pdo->rollBack();
+  }
   die("Query failed: " . $e->getMessage());
 }

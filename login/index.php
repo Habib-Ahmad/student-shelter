@@ -1,6 +1,6 @@
 <?php require_once '../partials/header.php'; ?>
-<?php require_once "../includes/config_session.inc.php" ?>
-<?php require_once "../includes/views/login_view.inc.php" ?>
+<?php require_once "../includes/config_session.inc.php"; ?>
+<?php require_once "../includes/views/login_view.inc.php"; ?>
 
 <h1>Login</h1>
 <form action="../includes/login.inc.php" method="post">

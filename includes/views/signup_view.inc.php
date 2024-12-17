@@ -38,10 +38,17 @@ function signup_inputs()
     <label for="landlord">Landlord</label>
   </div>
 
+  <div id="student-documents">
+    <label for="validId">Valid ID:</label>
+    <input type="file" id="validId" name="validId" accept=".pdf,.jpg,.jpeg,.png">
+
+    <label for="studentProof">Proof of Student:</label>
+    <input type="file" id="studentProof" name="studentProof" accept=".pdf,.jpg,.jpeg,.png">
+  </div>
+
   <button>Submit</button>
   <?php
 }
-
 
 function check_signup_errors()
 {
