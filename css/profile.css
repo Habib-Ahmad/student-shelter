@@ -17,16 +17,16 @@ body {
 }
 
 .container {
-  background: #FFF;
+  background: #fff;
   overflow: hidden;
   background-color: var(--color-bg-light);
   border: 1px solid var(--color-border);
-  border-radius: .8rem;
+  border-radius: 0.8rem;
   /* box-shadow: 0 3px 6px 0 var(--color-shadow); */
   margin: 0 auto;
   max-width: 450px;
   padding: 40px;
-  box-shadow: 0 .4rem .8rem #0005;
+  box-shadow: 0 0.4rem 0.8rem #0005;
 }
 
 .horizontal-nav {
@@ -131,7 +131,6 @@ h2.title {
   border-bottom: 1px solid #ddd;
 }
 
-
 /* Grid Layout */
 .property_columns {
   display: grid;
@@ -206,9 +205,6 @@ h2.title {
 
 /* General Container Styling */
 
-
-
-
 /* Table Styling */
 .booking-table {
   width: 100%;
@@ -247,4 +243,11 @@ h2.title {
 .booking-table td {
   color: #555;
   font-size: 0.9rem;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 10px;
+  text-align: center;
 }
