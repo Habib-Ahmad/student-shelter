@@ -445,23 +445,37 @@ function list_all_properties()
     echo "<p>No properties found</p>";
   } else {
     ?>
-      <?php foreach ($properties as $property): ?>
-        <a href="/studentshelter/property-details?id=<?php echo $property['id']; ?>">
-          <div class="property-card">
-            <img src="./profile/assets/ss1.jpeg" alt="Property 1">
-            <div class="property-details">
-              <h3>$<?php echo htmlspecialchars($property['monthlyPrice']); ?></h3>
-              <span class="favorite-icon">❤️</span>
-            </div>
-            <h4><?php echo htmlspecialchars($property['name']); ?></h4>
-            <p>
-              <?php echo htmlspecialchars($property['streetAddress'] . ', ' . $property['city'] . ', ' . $property['postalCode']); ?>
-            </p>
-            <!-- <button class="payment-button">Make Payment</button> -->
+    <?php foreach ($properties as $property): ?>
+      <a href="/studentshelter/property-details?id=<?php echo $property['id']; ?>">
+        <div class="property-card">
+          <img src="./profile/assets/Property.png" alt="Property 1">
+          <div class="property-details">
+            <h3>$<?php echo htmlspecialchars($property['monthlyPrice']); ?></h3>
+            <span class="favorite-icon"></span>
           </div>
-        </a>
-      <?php endforeach; ?>
-      <?php
+          <h4><?php echo htmlspecialchars($property['name']); ?></h4>
+          <p>
+            <?php echo htmlspecialchars($property['streetAddress'] . ', ' . $property['city'] . ', ' . $property['postalCode']); ?>
+          </p>
+          <!-- <button class="payment-button">Make Payment</button> -->
+        </div>
+      </a>
+
+
+
+
+
+
+      <!-- <div class="property-card">
+            <h3><?php echo htmlspecialchars($property['name']); ?></h3>
+            <p><?php echo htmlspecialchars($property['description']); ?></p>
+            <p><?php echo htmlspecialchars($property['type']); ?></p>
+            <p><?php echo htmlspecialchars($property['streetAddress']); ?></p>
+            <p><?php echo htmlspecialchars($property['city']); ?></p>
+            <p><?php echo htmlspecialchars($property['postalCode']); ?></p>
+          </div> -->
+    <?php endforeach; ?>
+  <?php
   }
 }
 
@@ -486,12 +500,12 @@ function get_property_details()
   }
   ?>
 
-    <div class="container">
-      <div class="main-content">
-        <div class="details">
-          <div class="main-image">
-            <img src="../profile/assets/image (5).jpg" alt="Room Image">
-          </div>
+  <div class="container">
+    <div class="main-content">
+      <div class="details">
+        <div class="main-image">
+          <img src="../profile/assets/Picture1.png" alt="Room Image">
+        </div>
 
           <div class="property-details">
             <h2 id="property-name"><?php echo htmlspecialchars($property[0]["property_name"]); ?></h2>
