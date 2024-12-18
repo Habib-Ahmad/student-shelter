@@ -15,9 +15,9 @@ function is_unit_input_invalid(array $units)
     }
 
     // Check if the unit has at least one image uploaded (assuming images are passed via $_FILES)
-    if (!isset($_FILES['unit_images']['name'][$unitIndex]) || empty($_FILES['unit_images']['tmp_name'][$unitIndex])) {
-      return true;
-    }
+    // if (!isset($_FILES['unit_images']['name'][$unitIndex]) || empty($_FILES['unit_images']['tmp_name'][$unitIndex])) {
+    //   return true;
+    // }
   }
   return false;
 }

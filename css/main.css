@@ -97,7 +97,7 @@ nav.navbar .logo img {
 }
 
 .nav-actions .login-link:hover {
-  color: #f1c40f;
+  color: #1a252f;
 }
 
 .nav-actions .rent-button {
@@ -111,7 +111,7 @@ nav.navbar .logo img {
 }
 
 .nav-actions .rent-button:hover {
-  background-color: #e67e22;
+  background-color: #1a252f;
 }
 
 /* Responsive Hamburger Menu */
@@ -167,7 +167,7 @@ nav.navbar .logo img {
 /* Hero Section Styling */
 .hero {
   height: 80vh; /*  viewport height */
-  background: url('../profile/assets/main_bg.png') no-repeat center center/cover;
+  background: url("../profile/assets/main_bg.png") no-repeat center center/cover;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -184,7 +184,7 @@ nav.navbar .logo img {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+  background: rgba(0, 0, 0, 0.35); /* Dark overlay */
   z-index: 1;
 }
 
@@ -281,9 +281,11 @@ nav.navbar .logo img {
   overflow: hidden;
 }
 
-.property-card h3, h4, p, a{
+.property-card h3,
+h4,
+p,
+a {
   text-decoration: none;
-  
 }
 
 .property-card img {
@@ -298,8 +300,8 @@ nav.navbar .logo img {
   font-size: 12px;
   padding: 5px 5px;
 }
-.property-details h3{
-  color: #11445B;
+.property-details h3 {
+  color: #11445b;
   font-weight: bold;
 }
 

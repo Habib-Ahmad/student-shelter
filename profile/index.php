@@ -8,11 +8,10 @@ require_once "../includes/views/users_view.inc.php";
 
 <div class="horizontal-nav">
   <button onclick="scrollToSection('profile-edit')">Profile</button>
-  <button onclick="scrollToSection('password')">Password</button>
+  <button onclick="scrollToSection('password')">Change password</button>
   <button onclick="scrollToSection('my-documents')">Documents</button>
   <button onclick="scrollToSection('bookings')">Bookings</button>
   <button onclick="scrollToSection('favorites')">Favorites</button>
-  <button onclick="scrollToSection('FAQ')">FAQ</button>
 </div>
 
 <section class="profile-edit">
