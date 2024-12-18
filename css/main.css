@@ -31,6 +31,7 @@ main {
 /* General Reset */
   body {
     font-family: var(--font-family);
+   
   }
   
   /* Navbar Styling */
@@ -57,14 +58,14 @@ main {
     margin: 0 15px;
   }
   
-  .nav-links a {
+  .navbar ul li a {
     text-decoration: none;
     color: black;
     font-size: 16px;
     transition: color 0.3s;
   }
   
-  .nav-links a:hover {
+  .nav a:hover {
     color: rgb(6, 6, 61);
   }
   
@@ -155,7 +156,7 @@ main {
 /* Hero Section Styling */
 .hero {
   height: 80vh; /*  viewport height */
-  background: url('../profile/assets/bg2.jpeg') no-repeat center center/cover;
+  background: url('../profile/assets/main_bg.png') no-repeat center center/cover;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -253,7 +254,7 @@ main {
 .properties {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 15px;
   justify-content: center;
   padding: 20px;
 }
@@ -262,11 +263,15 @@ main {
   background: #f9f9f9;
   border: 1px solid #ddd;
   border-radius: 8px;
-  width: 25%; /* Default width for large screens */
-  min-width: 250px;
-  text-align: center;
+  width: 30%; /* Default width for large screens */
+  min-width: 300px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+}
+
+.property-card h3, h4, p, a{
+  text-decoration: none;
+  
 }
 
 .property-card img {
@@ -278,8 +283,12 @@ main {
 .property-details {
   display: flex;
   justify-content: space-between;
-  padding: 10px 15px;
   font-size: 12px;
+  padding: 5px 5px;
+}
+.property-details h3{
+  color: #11445B;
+  font-weight: bold;
 }
 
 .favorite-icon {
@@ -290,11 +299,13 @@ main {
 .property-card h4 {
   font-size: 14px;
   margin: 10px 0 5px;
+  padding: 5px 5px;
 }
 
 .property-card p {
   font-size: 14px;
   color: #555;
+  padding: 5px 5px 15px 5px;
 }
 
 .payment-button {
@@ -332,6 +343,7 @@ main {
   color: white;
   text-align: center;
   padding: 80px 20px;
+  
 }
 
 .midnight-section .section-header p {
@@ -405,6 +417,11 @@ main {
 
  /* Beginning Footer Styling */
  .footer {
+  /* Fixes the footer at the bottom */
+  /*position: fixed; 
+  bottom: 0;
+  left: 0;
+  width: 100%; */
   display: flex;
   flex-wrap: wrap; /* Makes it responsive */
   justify-content: space-between;

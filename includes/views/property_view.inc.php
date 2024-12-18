@@ -306,10 +306,10 @@ function list_all_properties()
     <?php foreach ($properties as $property): ?>
       <a href="/studentshelter/property-details?id=<?php echo $property['id']; ?>">
         <div class="property-card">
-          <img src="./profile/assets/ss1.jpeg" alt="Property 1">
+          <img src="./profile/assets/Property.png" alt="Property 1">
           <div class="property-details">
             <h3>$<?php echo htmlspecialchars($property['monthlyPrice']); ?></h3>
-            <span class="favorite-icon">❤️</span>
+            <span class="favorite-icon"></span>
           </div>
           <h4><?php echo htmlspecialchars($property['name']); ?></h4>
           <p>
@@ -363,7 +363,7 @@ function get_property_details()
     <div class="main-content">
       <div class="details">
         <div class="main-image">
-          <img src="../profile/assets/image (5).jpg" alt="Room Image">
+          <img src="../profile/assets/Picture1.png" alt="Room Image">
         </div>
 
         <div class="property-details">
