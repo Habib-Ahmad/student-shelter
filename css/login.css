@@ -1,12 +1,105 @@
-form input {
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Nunito", sans-serif;
+  box-sizing: border-box;
+}
+
+.form-container {
+  background: rgba(249, 248, 248, 0.797);
+  color: #1d0202;
+  width: 90%;
+  max-width: 400px;
+  padding: 30px 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(201, 192, 192, 0.832);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.logo {
   display: block;
-  margin-bottom: 10px;
+  max-width: 120px;
+  height: auto;
+  margin: 0 auto 20px;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #11445b;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.form-logo {
+  display: block;
+  max-width: 100px;
+  margin: 0 auto 20px;
+}
+
+label {
+  display: inline-block;
+  margin-bottom: 5px;
+  font-size: 14px;
+  align-items: center;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+input[type="fileInput"] {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin: 0 auto;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  font-family: sans-serif;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background: #11445b;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin-top: 10px;
+}
+
+button:hover {
+  background: #185977;
 }
 
 .error-msg {
   color: red;
 }
 
-h1 {
-  margin-top: 40px;
+.register {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.register a {
+  color: #11445b;
+  text-decoration: none;
 }

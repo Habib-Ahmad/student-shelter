@@ -1,22 +1,34 @@
-function setupRoleToggle() {
-  const roleInputs = document.querySelectorAll('input[name="role"]');
-  const studentDocuments = document.getElementById('student-documents');
+function toggleUploadSections() {
+  const studentUploadSections = document.getElementById("studentUploadSections");
+  const studentRadio = document.querySelector('input[name="role"][value="student"]');
 
-  if (!roleInputs || !studentDocuments) return;
-
-  roleInputs.forEach(input => {
-    input.addEventListener('change', function () {
-      if (this.value === 'student') {
-        studentDocuments.style.display = 'block';
-      } else {
-        studentDocuments.style.display = 'none';
-      }
-    });
-  });
-
-  // Initialize the visibility based on the pre-selected role
-  const selectedRole = document.querySelector('input[name="role"]:checked');
-  if (selectedRole && selectedRole.value === 'student') {
-    studentDocuments.style.display = 'block';
+  // Toggle visibility based on 'student' selection
+  if (studentRadio.checked) {
+    studentUploadSections.style.display = "block";
+  } else {
+    studentUploadSections.style.display = "none";
   }
 }
+
+// Ensure correct state on page load
+document.addEventListener("DOMContentLoaded", () => {
+  toggleUploadSections();
+});
+
+// Function to update file name on upload
+function updateFileName(inputElement) {
+  const fileNameSpan = inputElement.nextElementSibling; // Target the adjacent <span> for file name
+  if (inputElement.files.length > 0) {
+    fileNameSpan.textContent = inputElement.files[0].name; // Update with the uploaded file name
+  } else {
+    fileNameSpan.textContent = "No file chosen"; // Reset if no file is uploaded
+  }
+}
+
+// Add event listeners to all file inputs
+document.addEventListener("DOMContentLoaded", () => {
+  const fileInputs = document.querySelectorAll(".file-upload-input");
+  fileInputs.forEach((input) => {
+    input.addEventListener("change", () => updateFileName(input));
+  });
+});

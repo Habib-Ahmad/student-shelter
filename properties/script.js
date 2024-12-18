@@ -1,22 +1,27 @@
-let unitCount = 1;
-
 function addUnit() {
   const unitsContainer = document.getElementById("units");
 
   const newUnit = document.createElement("div");
-  newUnit.classList.add("unit");
+  let unitCount = unitsContainer.children.length;
+  newUnit.classList.add("unit-block");
+  newUnit.id = `unit_${unitCount}`;
   newUnit.innerHTML = `
-    <label for="unit_type">Unit Type:</label>
-    <input type="text" name="units[${unitCount}][unit_type]">
+    <h4>Unit ${unitCount + 1}</h4>
 
-    <label for="numberOfRooms">Number of Rooms:</label>
-    <input type="number" name="units[${unitCount}][numberOfRooms]" min="1">
+    <label for="description_${unitCount}" class="form-label">Description:</label>
+    <textarea id="description_${unitCount}" class="form-input" name="units[${unitCount}][description]"></textarea>
 
-    <label for="quantity">Quantity:</label>
-    <input type="number" name="units[${unitCount}][quantity]" min="1">
+    <label class="form-label" for="unit_type">Unit Type:</label>
+    <input class="form-input" type="text" name="units[${unitCount}][unit_type]">
 
-    <label for="monthlyPrice">Monthly Price:</label>
-    <input type="number" name="units[${unitCount}][monthlyPrice]">
+    <label class="form-label" for="numberOfRooms">Number of Rooms:</label>
+    <input class="form-input" type="number" name="units[${unitCount}][numberOfRooms]" min="1">
+
+    <label class="form-label" for="quantity">Quantity:</label>
+    <input class="form-input" type="number" name="units[${unitCount}][quantity]" min="1">
+
+    <label class="form-label" for="monthlyPrice">Monthly Price:</label>
+    <input class="form-input" type="number" name="units[${unitCount}][monthlyPrice]">
     <br />
     <br />
 
@@ -26,15 +31,19 @@ function addUnit() {
     <br />
 
    <h4>Facilities</h4>
-    <div>
-      ${facilities.map(
-    (facility) => `
+    <div class="unit-facilities">
+      ${facilities
+      .map(
+        (facility) => `
+    <div class="facility-container">
         <label>
           <input type="checkbox" name="units[${unitCount}][facilities][]" value="${facility.id}">
           ${facility.name}
         </label>
+    </div>
       `
-  ).join('')}
+      )
+      .join("")}
     </div>
     <br />
 
@@ -45,7 +54,7 @@ function addUnit() {
 }
 
 function removeUnit(unitDiv) {
-  const unitsContainer = document.getElementById('units');
+  const unitsContainer = document.getElementById("units");
   if (unitsContainer.children.length > 1) {
     unitsContainer.removeChild(unitDiv);
     unitCount--;
@@ -55,7 +64,9 @@ function removeUnit(unitDiv) {
 }
 
 function confirmDelete(propertyId) {
-  const userConfirmed = confirm("Are you sure you want to delete this property?");
+  const userConfirmed = confirm(
+    "Are you sure you want to delete this property?"
+  );
   if (userConfirmed) {
     window.location.href = `../includes/delete_property.inc.php?property_id=${propertyId}`;
   }

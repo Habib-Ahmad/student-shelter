@@ -10,46 +10,96 @@ function signup_inputs()
   $phone = $_SESSION["signup_data"]["phone"] ?? '';
   $role = $_SESSION["signup_data"]["role"] ?? 'student';
   ?>
+  <div class="form-container">
+    <a href="/studentshelter/"><img src="../assets/S_logo.PNG" alt="Logo" class="logo" /></a>
 
-  <label for="firstName">First Name:</label>
-  <input type="text" id="firstName" name="firstName" value="<?php echo htmlspecialchars($firstName); ?>">
+    <h1>Registration Form</h1>
+    <form action="../includes/signup.inc.php" method="POST" enctype="multipart/form-data">
+      <!-- First Name -->
+      <div class="form-group">
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName" placeholder="Enter your first Name" required
+          value="<?php echo htmlspecialchars($firstName); ?>" />
+      </div>
 
-  <label for="lastName">Last Name:</label>
-  <input type="text" id="lastName" name="lastName" value="<?php echo htmlspecialchars($lastName); ?>">
+      <!-- Last Name -->
+      <div class="form-group">
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" placeholder="Enter your last Name" required
+          value="<?php echo htmlspecialchars($lastName); ?>" />
+      </div>
 
-  <label for="email">Email:</label>
-  <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>">
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required
+          value="<?php echo htmlspecialchars($email); ?>" />
+      </div>
 
-  <label for="password">Password:</label>
-  <input type="password" id="password" name="password"> <!-- No value for security reasons -->
+      <!-- Password -->
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" placeholder="*********" required />
+      </div>
 
-  <label for="confirmPassword">Confirm Password:</label>
-  <input type="password" id="confirmPassword" name="confirmPassword"> <!-- No value for security reasons -->
+      <!-- Confirm Password -->
+      <div class="form-group">
+        <label for="confirmpassword">Confirm Password:</label>
+        <input type="password" id="confirmpassword" name="confirmpassword" placeholder="*********" required />
+      </div>
 
-  <label for="phone">Phone:</label>
-  <input type="tel" id="phone" name="phone" value="<?php echo htmlspecialchars($phone); ?>">
+      <!-- Phone -->
+      <div class="form-group">
+        <label for="phone">Phone:</label>
+        <input type="tel" id="phone" name="phone" placeholder="Enter your mobile number" pattern="[+]{1}[0-9]{1,14}"
+          required value="<?php echo htmlspecialchars($phone); ?>" />
+      </div>
 
-  <label>Role:</label>
-  <div class="role">
-    <input type="radio" id="student" name="role" value="student" <?php echo ($role === 'student') ? 'checked' : ''; ?>>
-    <label for="student">Student</label>
+      <!-- Role Selection -->
+      <div>
+        Register as:
+        <label>
+          <input type="radio" name="role" value="student" <?php echo ($role === 'student') ? 'checked' : ''; ?> required
+            onclick="toggleUploadSections()" />
+          Student
+        </label>
+        <label>
+          <input type="radio" name="role" value="landlord" <?php echo ($role === 'landlord') ? 'checked' : ''; ?> required
+            onclick="toggleUploadSections()" />
+          Landlord
+        </label>
+      </div>
 
-    <input type="radio" id="landlord" name="role" value="landlord" <?php echo ($role === 'landlord') ? 'checked' : ''; ?>>
-    <label for="landlord">Landlord</label>
+      <!-- File Uploads for Students -->
+      <div id="studentUploadSections">
+        <div class="form-group">
+          <label class="form-label">Student Proof:</label>
+          <div class="file-input-wrapper">
+            <label for="studentProof" class="file-upload-label">Choose file</label>
+            <input type="file" id="studentProof" name="studentProof" class="file-upload-input" required>
+            <span id="fileName1" class="file-name">No file chosen</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Valid Proof:</label>
+          <div class="file-input-wrapper">
+            <label for="validProof" class="file-upload-label">Choose file</label>
+            <input type="file" id="validProof" name="validProof" class="file-upload-input" required>
+            <span id="fileName2" class="file-name">No file chosen</span>
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-register">Register</button>
+    </form>
+
+    <div class="form-footer">
+      <p>Already registered? <a href="/studentshelter/login">Login here</a></p>
+    </div>
   </div>
-
-  <div id="student-documents">
-    <label for="validId">Valid ID:</label>
-    <input type="file" id="validId" name="validId" accept=".pdf,.jpg,.jpeg,.png">
-
-    <label for="studentProof">Proof of Student:</label>
-    <input type="file" id="studentProof" name="studentProof" accept=".pdf,.jpg,.jpeg,.png">
-  </div>
-
-  <button>Submit</button>
   <?php
 }
-
 
 function check_signup_errors()
 {
