@@ -16,7 +16,6 @@
   <form action="../includes/signup.inc.php" method="post" enctype="multipart/form-data">
     <?php signup_inputs(); ?>
   </form>
-  <?php check_signup_errors() ?>
 </div>
 
 <script src="./script.js"></script>

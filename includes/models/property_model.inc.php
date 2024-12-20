@@ -166,7 +166,7 @@ function get_property_by_id(object $pdo, int $propertyId)
     if (!isset($units[$row['unit_id']])) {
       $units[$row['unit_id']] = [
         'id' => $row['unit_id'],
-        'type' => $row['unit_type'],
+        'unit_type' => $row['unit_type'],
         'description' => $row['unit_description'],
         'numberOfRooms' => $row['numberOfRooms'],
         'quantity' => $row['quantity'],

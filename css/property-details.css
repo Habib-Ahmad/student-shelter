@@ -1,145 +1,153 @@
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
 .main-content {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
 .main-image {
-    flex: 2;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .main-image img {
-    width: 100%;
-    border-radius: 10px;
+  width: 100%;
+  border-radius: 10px;
 }
 
 .details {
-    flex: 3;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .property-details {
-    margin-top: 20px;
-    display: flex;
-    justify-content: space-between;
-    font-size: 16px;
-    align-items: center;
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  align-items: center;
 }
 
-.property-details, h2 {
-    font-size: 16px;
+.property-details,
+h2 {
+  font-size: 16px;
 }
 
 .property-description {
-    padding: 10px;
-    background-color: #f9f9f9;
-    
+  padding: 10px;
+  background-color: #f9f9f9;
 }
-  
+
 .property-description h2 {
-    margin-bottom: 10px;
-    font-size: 16px;
+  margin-bottom: 10px;
+  font-size: 16px;
 }
-  
+
 .property-description p {
-    font-size: 1rem;
-    color: #555;
+  font-size: 1rem;
+  color: #555;
 }
 
-
-.facilities, .landlord-rules, .availability {
-    background: #f9f9f9;
-    padding: 15px;
-    border-radius: 10px;
+.facilities,
+.landlord-rules,
+.availability {
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 10px;
 }
 
-.facilities ul, .landlord-rules ul {
-    list-style: none;
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
+.facilities ul,
+.landlord-rules ul {
+  list-style: none;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
-.facilities ul li, .landlord-rules ul li {
-    background: #e0e0e0;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 14px;
+.facilities ul li,
+.landlord-rules ul li {
+  background: #e0e0e0;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
 }
 
 .booking-request {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .booking-request button {
-    background: #2c3e50;
-    color: #fff;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+  background: #2c3e50;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .booking-request button:hover {
-    background: #2c3e50;
+  background: #11445b;
+}
+
+.booking-request button:disabled {
+  background: rgba(90, 91, 92, 0.507);
+  cursor: not-allowed;
 }
 
 .similar-properties {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 .similar-properties h2 {
-    font-size: 20px;
-    margin-bottom: 15px;
-}                                                
+  font-size: 20px;
+  margin-bottom: 15px;
+}
 
 .similar-properties .cards {
-    display: flex;
-    gap: 10px;
-    overflow-x: auto;
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
 }
 
 .similar-properties .card {
-    min-width: 200px;
-    background: #f9f9f9;
-    padding: 10px;
-    border-radius: 10px;
-    cursor: pointer;
+  min-width: 200px;
+  background: #f9f9f9;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
 .similar-properties .card img {
-    width: 100%;
-    border-radius: 10px;
+  width: 100%;
+  border-radius: 10px;
 }
 
 @media (max-width: 768px) {
-    .main-content {
-        flex-direction: column;
-    }
+  .main-content {
+    flex-direction: column;
+  }
 
-    .booking-request {
-        align-self: center;
-    }
+  .booking-request {
+    align-self: center;
+  }
 
-    .similar-properties .cards {
-        flex-direction: column;
-    }
+  .similar-properties .cards {
+    flex-direction: column;
+  }
 
-    .similar-properties .card {
-        width: 100%;
-    }
+  .similar-properties .card {
+    width: 100%;
+  }
 }

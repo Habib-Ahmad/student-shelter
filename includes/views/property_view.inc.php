@@ -252,6 +252,8 @@ function edit_property_inputs()
         <?php foreach ($units as $index => $unit): ?>
           <div class="unit-block" id="unit_<?php echo $index; ?>">
             <h4>Unit <?php echo $index + 1; ?></h4>
+            <input type="hidden" name="units[<?php echo $index; ?>][id]" value="<?php echo $unit['id']; ?>">
+
             <label for="description_<?php echo $index; ?>" class="form-label">Description:</label>
             <textarea id="description_<?php echo $index; ?>" class="form-input"
               name="units[<?php echo $index; ?>][description]"><?php echo htmlspecialchars($unit['description'] ?? ''); ?></textarea>
@@ -306,47 +308,11 @@ function edit_property_inputs()
             </div>
             <br />
 
-            <h4 class="form-selection-title">Unit Images</h4>
+            <h4>Add New Images</h4>
             <input type="file" name="unit_images[<?php echo $index; ?>][]" multiple accept="image/*"
               onchange="previewImages(this)">
-            <small>Maximum 6 images allowed</small>
             <div class="image-preview-container"
               style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 10px;"></div>
-
-            <script>
-              function previewImages(input) {
-                const container = input.nextElementSibling.nextElementSibling;
-
-                if (input.files.length > 6) {
-                  alert('Please select maximum 6 files');
-                  input.value = '';
-                  container.innerHTML = '';
-                  return;
-                }
-
-                container.innerHTML = '';
-
-                if (input.files) {
-                  Array.from(input.files).forEach(file => {
-                    if (file.type.startsWith('image/')) {
-                      const reader = new FileReader();
-                      reader.onload = function (e) {
-                        const img = document.createElement('img');
-                        img.src = e.target.result;
-                        img.style.width = '100%';
-                        img.style.height = '200px';
-                        img.style.objectFit = 'cover';
-                        container.appendChild(img);
-                      }
-                      reader.readAsDataURL(file);
-                    }
-                  });
-                }
-              }
-            </script>
-
-            <h4>Add New Images</h4>
-            <input type="file" name="unit_images[<?php echo $index; ?>][]" multiple>
             <br />
             <br />
 
@@ -371,6 +337,7 @@ function edit_property_inputs()
             <button type="button" onclick="removeUnit(this.parentElement)">Remove Unit</button>
           </div>
         <?php endforeach; ?>
+        <?php check_add_property_errors(); ?>
       </div>
 
       <script>
@@ -378,6 +345,39 @@ function edit_property_inputs()
           const unitElement = document.getElementById(`unit_${index}`);
           if (unitElement) {
             unitElement.remove();
+          }
+        }
+      </script>
+
+      <script>
+        function previewImages(input) {
+          const container = input.closest('div').querySelector('.image-preview-container');
+
+          if (input.files.length > 6) {
+            alert('Please select maximum 6 files');
+            input.value = '';
+            container.innerHTML = '';
+            return;
+          }
+
+          container.innerHTML = '';
+
+          if (input.files) {
+            Array.from(input.files).forEach(file => {
+
+              if (file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                  const img = document.createElement('img');
+                  img.src = e.target.result;
+                  img.style.width = '100%';
+                  img.style.height = '200px';
+                  img.style.objectFit = 'cover';
+                  container.appendChild(img);
+                }
+                reader.readAsDataURL(file);
+              }
+            });
           }
         }
       </script>
@@ -445,37 +445,23 @@ function list_all_properties()
     echo "<p>No properties found</p>";
   } else {
     ?>
-    <?php foreach ($properties as $property): ?>
-      <a href="/studentshelter/property-details?id=<?php echo $property['id']; ?>">
-        <div class="property-card">
-          <img src="./profile/assets/Property.png" alt="Property 1">
-          <div class="property-details">
-            <h3>$<?php echo htmlspecialchars($property['monthlyPrice']); ?></h3>
-            <span class="favorite-icon"></span>
-          </div>
-          <h4><?php echo htmlspecialchars($property['name']); ?></h4>
-          <p>
-            <?php echo htmlspecialchars($property['streetAddress'] . ', ' . $property['city'] . ', ' . $property['postalCode']); ?>
-          </p>
-          <!-- <button class="payment-button">Make Payment</button> -->
-        </div>
-      </a>
-
-
-
-
-
-
-      <!-- <div class="property-card">
-            <h3><?php echo htmlspecialchars($property['name']); ?></h3>
-            <p><?php echo htmlspecialchars($property['description']); ?></p>
+      <?php foreach ($properties as $property): ?>
+        <a href="/studentshelter/property-details?id=<?php echo $property['id']; ?>">
+          <div class="property-card">
+            <img src="./profile/assets/Property.png" alt="Property 1">
+            <div class="property-details">
+              <h3>$<?php echo htmlspecialchars($property['monthlyPrice']); ?>/month</h3>
+              <div class="favorite-icon"><img src="./assets/heart.png" /></div>
+            </div>
+            <h4><?php echo htmlspecialchars($property['name']); ?></h4>
             <p><?php echo htmlspecialchars($property['type']); ?></p>
-            <p><?php echo htmlspecialchars($property['streetAddress']); ?></p>
-            <p><?php echo htmlspecialchars($property['city']); ?></p>
-            <p><?php echo htmlspecialchars($property['postalCode']); ?></p>
-          </div> -->
-    <?php endforeach; ?>
-  <?php
+            <p>
+              <?php echo htmlspecialchars($property['streetAddress'] . ', ' . $property['city'] . ', ' . $property['postalCode']); ?>
+            </p>
+          </div>
+        </a>
+      <?php endforeach; ?>
+      <?php
   }
 }
 
@@ -500,12 +486,12 @@ function get_property_details()
   }
   ?>
 
-  <div class="container">
-    <div class="main-content">
-      <div class="details">
-        <div class="main-image">
-          <img src="../profile/assets/Picture1.png" alt="Room Image">
-        </div>
+    <div class="container">
+      <div class="main-content">
+        <div class="details">
+          <div class="main-image">
+            <img src="../profile/assets/Picture1.png" alt="Room Image">
+          </div>
 
           <div class="property-details">
             <h2 id="property-name"><?php echo htmlspecialchars($property[0]["property_name"]); ?></h2>
@@ -559,7 +545,15 @@ function get_property_details()
           <input type="date" id="check-out">
 
           <?php if (isset($_SESSION['user_id'])) {
-            echo "<button>Check Booking</button>";
+            if (isset($_SESSION['user_role']) && $_SESSION['user_role'] != 'student') {
+              echo "<button disabled>Landlords cannot book</button>";
+            } else {
+              if (isset($_SESSION['status']) && $_SESSION['status'] === 'verified') {
+                echo "<button onclick='makeBooking()'>Make Booking</button>";
+              } else {
+                echo "<button disabled>Awaiting Verfication</button>";
+              }
+            }
           } else {
             echo "<a href='../login'>Login</a>";
           }

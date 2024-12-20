@@ -44,15 +44,15 @@ function signup_inputs()
 
       <!-- Confirm Password -->
       <div class="form-group">
-        <label for="confirmpassword">Confirm Password:</label>
-        <input type="password" id="confirmpassword" name="confirmpassword" placeholder="*********" required />
+        <label for="confirmPassword">Confirm Password:</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="*********" required />
       </div>
 
       <!-- Phone -->
       <div class="form-group">
         <label for="phone">Phone:</label>
-        <input type="tel" id="phone" name="phone" placeholder="Enter your mobile number" pattern="[+]{1}[0-9]{1,14}"
-          required value="<?php echo htmlspecialchars($phone); ?>" />
+        <input type="tel" id="phone" name="phone" placeholder="Enter your mobile number" required
+          value="<?php echo htmlspecialchars($phone); ?>" />
       </div>
 
       <!-- Role Selection -->
@@ -71,6 +71,15 @@ function signup_inputs()
       </div>
 
       <!-- File Uploads for Students -->
+      <div class="form-group">
+        <label class="form-label">Valid ID:</label>
+        <div class="file-input-wrapper">
+          <label for="validId" class="file-upload-label">Choose file</label>
+          <input type="file" id="validId" name="validId" class="file-upload-input" required>
+          <span id="fileName2" class="file-name">No file chosen</span>
+        </div>
+      </div>
+
       <div id="studentUploadSections">
         <div class="form-group">
           <label class="form-label">Student Proof:</label>
@@ -80,18 +89,10 @@ function signup_inputs()
             <span id="fileName1" class="file-name">No file chosen</span>
           </div>
         </div>
-
-        <div class="form-group">
-          <label class="form-label">Valid Proof:</label>
-          <div class="file-input-wrapper">
-            <label for="validProof" class="file-upload-label">Choose file</label>
-            <input type="file" id="validProof" name="validProof" class="file-upload-input" required>
-            <span id="fileName2" class="file-name">No file chosen</span>
-          </div>
-        </div>
       </div>
 
       <button type="submit" class="btn-register">Register</button>
+      <?php check_signup_errors(); ?>
     </form>
 
     <div class="form-footer">

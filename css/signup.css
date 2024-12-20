@@ -126,4 +126,5 @@ input[type="file"] {
 
 .error-msg {
   color: red;
+  margin-top: 10px;
 }

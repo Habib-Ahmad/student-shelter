@@ -70,7 +70,7 @@ function list_students()
               } else {
                 ?>
                 <button class="verify-btn" data-id="<?php echo $student['id']; ?>">Verify</button>
-                <button class="reject-btn" data-id="<?php echo $student['id']; ?>">Reject</button>
+                <button class="reject-btn" data-id="<?php echo $student['id']; ?>">Rework</button>
                 <?php
               }
               ?>

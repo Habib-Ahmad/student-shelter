@@ -297,6 +297,7 @@ a {
 .property-details {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   font-size: 12px;
   padding: 5px 5px;
 }
@@ -306,14 +307,19 @@ a {
 }
 
 .favorite-icon {
+}
+
+.favorite-icon img {
+  width: 20px;
+  height: auto;
+  object-fit: contain;
   cursor: pointer;
-  font-size: 16px;
 }
 
 .property-card h4 {
-  font-size: 14px;
+  /* font-size: 14px;
   margin: 10px 0 5px;
-  padding: 5px 5px;
+  padding: 5px 5px; */
 }
 
 .property-card p {

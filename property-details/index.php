@@ -6,6 +6,8 @@ require_once '../includes/views/property_view.inc.php';
 
 <?php get_property_details(); ?>
 
+<script src="./property-details.js"></script>
+
 <?php
 require_once '../partials/footer.php';
 ?>

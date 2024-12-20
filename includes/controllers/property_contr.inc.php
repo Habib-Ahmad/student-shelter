@@ -14,6 +14,7 @@ function is_unit_input_invalid(array $units)
       return true;
     }
 
+
     // Check if the unit has at least one image uploaded (assuming images are passed via $_FILES)
     // if (!isset($_FILES['unit_images']['name'][$unitIndex]) || empty($_FILES['unit_images']['tmp_name'][$unitIndex])) {
     //   return true;
@@ -101,6 +102,7 @@ function update_user_property(object $pdo, int $propertyId, string $name, string
   update_property($pdo, $propertyId, $name, $description, $type, $streetAddress, $city, $postalCode);
 
   foreach ($units as $unitIndex => $unit) {
+    var_dump($unit);
     $unitId = (int) $unit['id'];
 
     update_unit($pdo, $unitId, $unit['unit_type'], (int) $unit['numberOfRooms'], (int) $unit['quantity'], (int) $unit['monthlyPrice'], $unit['description']);

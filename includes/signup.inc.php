@@ -17,13 +17,14 @@ try {
   require_once "dbh.inc.php";
   require_once "models/signup_model.inc.php";
   require_once "controllers/signup_contr.inc.php";
+  require_once "controllers/users_contr.inc.php";
 
   // Error handlers
   $errors = [];
   if (is_input_empty($firstName, $lastName, $phone, $email, $password, $confirmPassword, $role)) {
     array_push($errors, "Fill all fields please");
   }
-  if (is_email_invalid($email)) {
+  if (is_email_invalid(email: $email)) {
     array_push($errors, "E-mail is invalid");
   }
   if (is_email_registered($pdo, $email)) {
@@ -31,6 +32,9 @@ try {
   }
   if (do_pwds_not_match($password, $confirmPassword)) {
     array_push($errors, "Passwords do not match");
+  }
+  if (!is_phone_valid($phone)) {
+    array_push($errors, "Invalid phone number");
   }
   if (is_role_invalid($role)) {
     array_push($errors, "Invalid role (options: 'student', 'landlord')");
@@ -91,6 +95,21 @@ try {
 
   // Commit transaction
   $pdo->commit();
+
+  $newSessionId = session_create_id();
+  $sessionId = $newSessionId . "_" . $userId;
+  session_id($sessionId);
+
+  $_SESSION["user_id"] = $userId;
+  $_SESSION["user_email"] = $email;
+  $_SESSION["user_firstName"] = $firstName;
+  $_SESSION["user_lastName"] = $lastName;
+  $_SESSION["user_role"] = $role;
+  $_SESSION["user_phone"] = $phone;
+  $_SESSION["status"] = "pending";
+  $_SESSION["errors_signup"] = null;
+
+  $_SESSION["last_regeneration"] = time();
 
   header("Location: ../?signup=success");
   $pdo = null;

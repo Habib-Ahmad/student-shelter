@@ -45,6 +45,7 @@ $css_file = get_css_file();
             <li><a href="/studentShelter/admin">Admin</a></li>
           <?php endif; ?>
           <li><a href="/studentshelter/contact">Contact Us</a></li>
+          <li><a href="/studentshelter/faq">FAQ</a></li>
         </ul>
         <div class="nav-actions">
           <a href="/studentshelter/login" class="rent-button">Login</a>

@@ -16,10 +16,9 @@ require_once "../../includes/views/property_view.inc.php"
 
   <button type="button" class="page-end-button" onclick="addUnit()">Add Unit</button>
   <br />
-  <button type="submit" name="submit" class="page-end-button">Update Property</button>
+  <button name="submit" class="page-end-button">Update Property</button>
 </form>
 
 <script src="../script.js"></script>
-<?php check_add_property_errors(); ?>
 
 <?php require_once '../../partials/footer.php'; ?>

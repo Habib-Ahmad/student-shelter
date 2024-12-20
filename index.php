@@ -48,13 +48,13 @@ require_once "./includes/views/property_view.inc.php";
       <div class="column">
         <h1>1</h1>
         <h4>Choose a place</h4>
-        <p>Explore an extensive range of quality rooms, studios, and apartments. Save the ones you love and book them
+        <p>Explore an extensive range of quality rooms, studios, and apartments. Save the ones you love and book them
           effortlessly.</p>
       </div>
       <div class="column">
         <h1>2</h1>
         <h4>Accepting a reservation</h4>
-        <p>Expect to receive the owner's acceptance of your reservation within a few hours. You won’t be left guessing
+        <p>Expect to receive the owner's acceptance of your reservation within a few hours. You won’t be left guessing
           or waiting for long.</p>
       </div>
       <div class="column">
