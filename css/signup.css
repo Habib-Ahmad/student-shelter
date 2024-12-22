@@ -7,6 +7,10 @@
   box-sizing: border-box;
 }
 
+a {
+  text-decoration: none;
+}
+
 .form-container {
   background: rgba(249, 248, 248, 0.797);
   color: #1d0202;
@@ -124,7 +128,14 @@ input[type="file"] {
   text-decoration: underline;
 }
 
-.error-msg {
-  color: red;
+.error-list {
   margin-top: 10px;
+  text-decoration: none;
+  list-style: none;
+  color: red;
+  font-size: 0.85rem;
+}
+
+.error-list li {
+  margin-bottom: 5px;
 }

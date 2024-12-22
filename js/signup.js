@@ -2,7 +2,6 @@ function toggleUploadSections() {
   const studentUploadSections = document.getElementById("studentUploadSections");
   const studentRadio = document.querySelector('input[name="role"][value="student"]');
 
-  // Toggle visibility based on 'student' selection
   if (studentRadio.checked) {
     studentUploadSections.style.display = "block";
   } else {
@@ -10,23 +9,18 @@ function toggleUploadSections() {
   }
 }
 
-// Ensure correct state on page load
-document.addEventListener("DOMContentLoaded", () => {
-  toggleUploadSections();
-});
-
-// Function to update file name on upload
 function updateFileName(inputElement) {
-  const fileNameSpan = inputElement.nextElementSibling; // Target the adjacent <span> for file name
+  const fileNameSpan = inputElement.nextElementSibling;
   if (inputElement.files.length > 0) {
-    fileNameSpan.textContent = inputElement.files[0].name; // Update with the uploaded file name
+    fileNameSpan.textContent = inputElement.files[0].name;
   } else {
-    fileNameSpan.textContent = "No file chosen"; // Reset if no file is uploaded
+    fileNameSpan.textContent = "No file chosen";
   }
 }
 
-// Add event listeners to all file inputs
 document.addEventListener("DOMContentLoaded", () => {
+  toggleUploadSections();
+
   const fileInputs = document.querySelectorAll(".file-upload-input");
   fileInputs.forEach((input) => {
     input.addEventListener("change", () => updateFileName(input));
