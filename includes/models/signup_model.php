@@ -1,6 +1,8 @@
 <?php
 
-function create_user($pdo, $firstName, $lastName, $email, $phone, $password, $role)
+declare(strict_types=1);
+
+function create_user(object $pdo, string $firstName, string $lastName, string $email, string $phone, string $password, string $role)
 {
   $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
   $stmt = $pdo->prepare("INSERT INTO users (firstName, lastName, email, phone, pwd, userRole) VALUES (?, ?, ?, ?, ?, ?)");
@@ -8,7 +10,7 @@ function create_user($pdo, $firstName, $lastName, $email, $phone, $password, $ro
   return $pdo->lastInsertId();
 }
 
-function save_user_documents($pdo, $userId, $documentPaths)
+function save_user_documents(object $pdo, int $userId, array $documentPaths)
 {
   $documentNames = [
     'validId' => 'Valid ID',

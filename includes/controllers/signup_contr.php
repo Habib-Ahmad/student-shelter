@@ -1,7 +1,5 @@
 <?php
 
-require_once 'includes/models/signup_model.php';
-
 function handleSignup()
 {
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {

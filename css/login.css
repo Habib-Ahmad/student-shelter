@@ -90,8 +90,21 @@ button:hover {
   background: #185977;
 }
 
-.error-msg {
+.forgot-pwd {
+  margin: 10px 0;
+  float: right;
+}
+
+.error-list {
+  margin-top: 10px;
+  text-decoration: none;
+  list-style: none;
   color: red;
+  font-size: 0.85rem;
+}
+
+.error-list li {
+  margin-bottom: 5px;
 }
 
 .register {

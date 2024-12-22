@@ -34,22 +34,41 @@ $css_file = get_css_file();
         </div>
         <ul class="nav-links">
           <li><a href="/studentshelter">Home</a></li>
-          <li><a href="/studentshelter/profile">Profile</a></li>
-          <!-- <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'student'): ?>
-            <li><a href="/studentshelter/profile">Profile</a></li>
-            <?php endif; ?> -->
+          <li><a href="/studentshelter/about">About Us</a></li>
+          <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'student'): ?>
+            <li><a href="/studentshelter/bookings">My Bookings</a></li>
+          <?php endif; ?>
           <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'landlord'): ?>
-            <li><a href="/studentShelter/properties">My Properties</a></li>
+            <li><a href="/studentShelter/properties">Manage Properties</a></li>
           <?php endif; ?>
           <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin'): ?>
             <li><a href="/studentShelter/admin">Admin</a></li>
           <?php endif; ?>
-          <li><a href="/studentshelter/contact">Contact Us</a></li>
           <li><a href="/studentshelter/faq">FAQ</a></li>
+          <li><a href="/studentshelter/contact">Contact Us</a></li>
         </ul>
+
         <div class="nav-actions">
-          <a href="/studentshelter/login" class="rent-button">Login</a>
+          <?php if (isset($_SESSION['user_id'])): ?>
+            <!-- User is logged in -->
+            <div class="user-dropdown">
+              <!-- <img src="/studentShelter/uploads/profile_pictures/<?php echo $_SESSION['user_id']; ?>.jpg"
+                alt="Profile Picture" class=""> -->
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDwmG52pVI5JZfn04j9gdtsd8pAGbqjjLswg&s"
+                alt="Profile Picture" class="profile-picture">
+              <span><?php echo htmlspecialchars($_SESSION['user_firstName']) . ' ' . htmlspecialchars($_SESSION['user_lastName']); ?></span>
+              <div class="dropdown-menu">
+                <a href="/studentshelter/profile">Profile</a>
+                <a href="/studentshelter/favorites">Favorites</a>
+                <a href="/studentshelter/logout">Logout</a>
+              </div>
+            </div>
+          <?php else: ?>
+            <!-- User is not logged in -->
+            <a href="/studentshelter/login" class="rent-button">Login</a>
+          <?php endif; ?>
         </div>
+
         <div class="hamburger-menu">
           <span></span>
           <span></span>
