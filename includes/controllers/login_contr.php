@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 function handleLogin()
 {
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {

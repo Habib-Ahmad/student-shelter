@@ -1,7 +1,7 @@
 <?php
 function get_css_file()
 {
-  $current_page = basename($_SERVER['REQUEST_URI']);
+  $current_page = basename(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
   $css_file = "";
   $BASEURL = "/studentShelter/css/";
 

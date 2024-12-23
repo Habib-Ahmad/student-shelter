@@ -15,11 +15,17 @@ $subpage = null;
 $action = null;
 $id = null;
 
-foreach ($parts as $key => $part) {
-  if (is_numeric($part)) {
-    $id = (int) $part;
-    unset($parts[$key]);
-    break;
+// Check for query string in the URL
+if (isset($_GET['id'])) {
+  $id = (int) $_GET['id']; // Safely cast to an integer
+} else {
+  // Fallback to extracting numeric values from the URI if not a query string
+  foreach ($parts as $key => $part) {
+    if (is_numeric($part)) {
+      $id = (int) $part;
+      unset($parts[$key]);
+      break;
+    }
   }
 }
 
@@ -31,8 +37,7 @@ $controllerFile = "includes/controllers/{$page}_contr.php";
 if (file_exists($controllerFile)) {
   require_once $controllerFile;
 
-
-  $controllerFunction = "handle" . ucfirst($page);
+  $controllerFunction = "handle" . ucfirst(str_replace('-', '', $page));
   if (function_exists($controllerFunction)) {
     $controllerFunction($subpage, $action, $id);
   } else {

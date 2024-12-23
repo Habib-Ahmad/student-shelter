@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 function handleSignup()
 {
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -95,7 +97,7 @@ function render_signup_page()
   render_signup_form($errors, $formData);
 }
 
-function validate_signup_inputs($firstName, $lastName, $phone, $email, $password, $confirmPassword, $role)
+function validate_signup_inputs(string $firstName, string $lastName, string $phone, string $email, string $password, string $confirmPassword, string $role)
 {
   $errors = [];
 
