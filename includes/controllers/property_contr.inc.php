@@ -102,7 +102,6 @@ function update_user_property(object $pdo, int $propertyId, string $name, string
   update_property($pdo, $propertyId, $name, $description, $type, $streetAddress, $city, $postalCode);
 
   foreach ($units as $unitIndex => $unit) {
-    var_dump($unit);
     $unitId = (int) $unit['id'];
 
     update_unit($pdo, $unitId, $unit['unit_type'], (int) $unit['numberOfRooms'], (int) $unit['quantity'], (int) $unit['monthlyPrice'], $unit['description']);
@@ -138,7 +137,7 @@ function update_user_property(object $pdo, int $propertyId, string $name, string
 
 function fetch_user_properties(object $pdo, int $userId)
 {
-  return get_user_properties($pdo, $userId);
+  return get_all_user_properties($pdo, $userId);
 }
 
 function fetch_property(object $pdo, int $propertyId)

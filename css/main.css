@@ -17,6 +17,19 @@
   box-sizing: border-box;
   font-family: var(--font-family);
 }
+
+.error-list {
+  margin-top: 10px;
+  text-decoration: none;
+  list-style: none;
+  color: red;
+  font-size: 0.85rem;
+}
+
+.error-list li {
+  margin-bottom: 5px;
+  text-align: center;
+}
 /* end of global variables */
 
 /* General Reset */

@@ -4,15 +4,12 @@ require_once 'includes/config_session.inc.php';
 $baseFolder = "/studentshelter/";
 
 $requestUri = $_SERVER['REQUEST_URI'];
-$request = str_replace($baseFolder, '', $requestUri);
+$request = str_replace($baseFolder, '', parse_url($requestUri, PHP_URL_PATH));
 $request = trim($request, '/');
 
 $parts = explode('/', $request);
 
 $page = $parts[0] ? $parts[0] : 'home';
-
-$subpage = null;
-$action = null;
 $id = null;
 
 // Check for query string in the URL

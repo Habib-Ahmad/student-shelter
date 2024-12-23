@@ -308,6 +308,10 @@ h3 {
   margin: 20px;
 } */
 
+.property-container {
+  padding: 0 10vw;
+}
+
 /* General Table Styling */
 table {
   margin: 20px auto;
@@ -335,7 +339,14 @@ th {
 
 .table-description {
   text-align: left;
-  max-width: 450px;
+  max-width: 400px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.table-address {
+  max-width: 300px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

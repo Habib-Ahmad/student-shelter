@@ -39,10 +39,10 @@ $css_file = get_css_file();
             <li><a href="/studentshelter/bookings">My Bookings</a></li>
           <?php endif; ?>
           <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'landlord'): ?>
-            <li><a href="/studentShelter/properties">Manage Properties</a></li>
+            <li><a href="/studentshelter/properties">Manage Properties</a></li>
           <?php endif; ?>
           <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin'): ?>
-            <li><a href="/studentShelter/admin">Admin</a></li>
+            <li><a href="/studentshelter/admin">Admin</a></li>
           <?php endif; ?>
           <li><a href="/studentshelter/faq">FAQ</a></li>
           <li><a href="/studentshelter/contact">Contact Us</a></li>

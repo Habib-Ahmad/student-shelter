@@ -127,15 +127,3 @@ input[type="file"] {
 .form-footer a:hover {
   text-decoration: underline;
 }
-
-.error-list {
-  margin-top: 10px;
-  text-decoration: none;
-  list-style: none;
-  color: red;
-  font-size: 0.85rem;
-}
-
-.error-list li {
-  margin-bottom: 5px;
-}
