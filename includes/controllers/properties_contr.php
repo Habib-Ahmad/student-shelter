@@ -32,6 +32,7 @@ function handleProperties($subpage, $action, $id)
   }
 }
 
+// View
 function handle_view_properties()
 {
   require_once "includes/models/dbh.php";
@@ -46,13 +47,143 @@ function handle_view_properties()
   render_properties($properties);
 }
 
+// Add
 function handle_add_property()
 {
-  // Redirect to the Add Property page (you can include the form or handle it directly here)
-  header("Location: /studentshelter/properties/add");
-  exit;
+  require_once "includes/models/dbh.php";
+  require_once "includes/models/property_model.php";
+  require_once "includes/views/properties_view.php";
+
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $userId = $_SESSION['user_id'];
+    $name = $_POST['name'];
+    $description = $_POST['description'];
+    $type = $_POST['type'];
+    $streetAddress = $_POST['streetAddress'];
+    $city = $_POST['city'];
+    $postalCode = $_POST['postalCode'];
+    $units = $_POST['units'];
+
+    try {
+      // Error handlers
+      $errors = validate_add_property_input(compact("name", "description", "type", "streetAddress", "city", "postalCode", "units"));
+
+      var_dump($_FILES['unit_images']['name'][0][0]);
+      echo "<br>";
+      echo empty($_FILES['unit_images']['name'][0][0]) ? "true" : "false";
+
+      if ($errors) {
+        $_SESSION["add_property_data"] = compact("name", "description", "type", "streetAddress", "city", "postalCode", "units");
+        $_SESSION["add_property_errors"] = $errors;
+        header("Location: /studentshelter/properties/add");
+        die();
+      }
+
+      create_property($pdo, $userId, $name, $description, $type, $streetAddress, $city, $postalCode, $units);
+
+      $_SESSION["add_property_data"] = null;
+      $_SESSION["add_property_errors"] = null;
+      header("Location: /studentshelter/properties");
+      $pdo = null;
+      $stmt = null;
+      die();
+    } catch (PDOException $e) {
+      die("Query failed: " . $e->getMessage());
+    }
+  } else {
+    $property = null;
+    $facilities = [];
+    $errors = $_SESSION["add_property_errors"] ?? [];
+
+    if (isset($_SESSION["add_property_data"])) {
+      $property = $_SESSION["add_property_data"];
+    }
+
+    if (isset($_SESSION["facilities"])) {
+      $facilities = $_SESSION["facilities"];
+    } else {
+      $facilities = get_all_facilities($pdo);
+      $_SESSION["facilities"] = $facilities;
+    }
+
+    render_add_property_form($facilities, $errors);
+  }
 }
 
+function validate_add_property_input(array $input)
+{
+  $errors = [];
+
+  if (empty($input['name']) || empty($input['description']) || empty($input['type']) || empty($input['streetAddress']) || empty($input['city']) || empty($input['postalCode'])) {
+    $errors[] = "Please fill in all property fields.";
+  }
+
+  foreach ($input['units'] as $unitIndex => $unit) {
+    if (empty($unit['description']) || empty($unit['unit_type']) || $unit['numberOfRooms'] < 1 || $unit['quantity'] < 1 || $unit['monthlyPrice'] < 1) {
+      $errors[] = "Invalid unit information. Ensure all fields are correctly filled.";
+      break;
+    }
+
+    // Check if the unit has at least one image uploaded (assuming images are passed via $_FILES)
+    if (empty($_FILES['unit_images']['name'][$unitIndex][0])) {
+      $errors[] = "Please upload at least one image for each unit.";
+      break;
+    }
+  }
+
+  return $errors;
+}
+
+function create_property(object $pdo, int $userId, string $name, string $description, string $type, string $streetAddress, string $city, string $postalCode, array $units)
+{
+  $pdo->beginTransaction();
+
+  try {
+    $propertyId = add_property($pdo, $userId, $name, $description, $type, $streetAddress, $city, $postalCode);
+
+    foreach ($units as $unitIndex => $unit) {
+      $unit['numberOfRooms'] = (int) $unit['numberOfRooms'];
+      $unit['quantity'] = (int) $unit['quantity'];
+      $unit['monthlyPrice'] = (int) $unit['monthlyPrice'];
+
+      $unitId = add_unit($pdo, $propertyId, $unit['unit_type'], $unit['numberOfRooms'], $unit['quantity'], $unit['monthlyPrice'], $unit['description']);
+
+      // Handle unit images upload
+      $baseDir = $_SERVER['DOCUMENT_ROOT'] . '/studentshelter/uploads';
+      $uploadDir = $baseDir . "/unit_images/$unitId/";
+
+      if (!is_dir($uploadDir)) {
+        mkdir($uploadDir, 0777, true);
+      }
+
+      $uploadResult = validate_and_upload_unit_images($_FILES['unit_images'], $unitIndex, $uploadDir, $baseDir);
+
+      if ($uploadResult['errors']) {
+        throw new Exception("Error uploading images for unit " . ($unitIndex + 1) . ": " . implode(', ', $uploadResult['errors']));
+      }
+
+      // Save the new image paths to the database
+      foreach ($uploadResult['paths'] as $filePath) {
+        save_unit_image($pdo, $unitId, $filePath);
+      }
+
+      // Add facilities to the unit
+      if (!empty($unit['facilities'])) {
+        foreach ($unit['facilities'] as $facilityId) {
+          $facilityId = (int) $facilityId;
+          add_unit_facility($pdo, $unitId, $facilityId);
+        }
+      }
+    }
+
+    $pdo->commit();
+  } catch (Exception $e) {
+    $pdo->rollBack();
+    throw $e;
+  }
+}
+
+// Edit
 function handle_edit_property(int $id)
 {
   if (!$id) {
@@ -227,6 +358,7 @@ function validate_and_upload_unit_images(array $files, int $unitIndex, string $u
   return ['errors' => $errors, 'paths' => $paths];
 }
 
+// Delete
 function handle_delete_property(int $id)
 {
   require_once "includes/models/dbh.php";

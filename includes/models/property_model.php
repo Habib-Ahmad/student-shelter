@@ -313,3 +313,42 @@ function insert_new_unit(object $pdo, int $propertyId, string $unitType, int $nu
 
   return $pdo->lastInsertId();
 }
+
+function add_property(object $pdo, int $userId, string $name, string $description, string $type, string $streetAddress, string $city, string $postalCode): int
+{
+  $query = "INSERT INTO property (userId, name, description, type, streetAddress, city, postalCode) VALUES (:userId, :name, :description, :type, :streetAddress, :city, :postalCode)";
+  $stmt = $pdo->prepare($query);
+  $stmt->bindParam(":userId", $userId);
+  $stmt->bindParam(":name", $name);
+  $stmt->bindParam(":description", $description);
+  $stmt->bindParam(":type", $type);
+  $stmt->bindParam(":streetAddress", $streetAddress);
+  $stmt->bindParam(":city", $city);
+  $stmt->bindParam(":postalCode", $postalCode);
+  $stmt->execute();
+  return (int) $pdo->lastInsertId();
+}
+
+function add_unit(object $pdo, int $propertyId, string $type, int $numberOfRooms, int $quantity, int $monthlyPrice, string $description)
+{
+  $query = "INSERT INTO unit (propertyId, type, numberOfRooms, quantity, isAvailable, monthlyPrice, description) VALUES (:propertyId, :type, :numberOfRooms, :quantity, 1, :monthlyPrice, :description)";
+  $stmt = $pdo->prepare($query);
+  $stmt->bindParam(":propertyId", $propertyId);
+  $stmt->bindParam(":type", $type);
+  $stmt->bindParam(":numberOfRooms", $numberOfRooms);
+  $stmt->bindParam(":quantity", $quantity);
+  $stmt->bindParam(":monthlyPrice", $monthlyPrice);
+  $stmt->bindParam(":description", $description);
+  $stmt->execute();
+
+  return (int) $pdo->lastInsertId();
+}
+
+function add_unit_facility(object $pdo, int $unitId, int $facilityId)
+{
+  $query = "INSERT INTO unit_facility (unitId, facilityId) VALUES (:unitId, :facilityId)";
+  $stmt = $pdo->prepare($query);
+  $stmt->bindParam(":unitId", $unitId);
+  $stmt->bindParam(":facilityId", $facilityId);
+  $stmt->execute();
+}
