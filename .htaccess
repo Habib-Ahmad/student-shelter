@@ -1,0 +1,15 @@
+RewriteEngine On
+
+# Ensure the base directory is correct
+RewriteBase /studentshelter/
+
+# Skip routing for files in the /uploads directory
+RewriteCond %{REQUEST_URI} ^/studentshelter/uploads/ [NC]
+RewriteRule ^ - [L]
+
+# If the file or directory exists, serve it directly
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Otherwise, route the request to index.php
+RewriteRule ^(.*)$ index.php [L,QSA]

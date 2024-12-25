@@ -1,19 +1,13 @@
 <?php
 function get_css_file()
 {
-  $current_page = basename(dirname($_SERVER['PHP_SELF']));
+  $current_page = basename(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
   $css_file = "";
   $BASEURL = "/studentShelter/css/";
 
   switch ($current_page) {
     case 'studentShelter':
       $css_file = "{$BASEURL}main.css";
-      break;
-    case 'signup':
-      $css_file = "{$BASEURL}signup.css";
-      break;
-    case 'login':
-      $css_file = "{$BASEURL}login.css";
       break;
     case 'profile':
       $css_file = "{$BASEURL}profile.css";

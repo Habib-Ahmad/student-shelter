@@ -90,8 +90,9 @@ button:hover {
   background: #185977;
 }
 
-.error-msg {
-  color: red;
+.forgot-pwd {
+  margin: 10px 0;
+  float: right;
 }
 
 .register {

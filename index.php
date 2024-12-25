@@ -1,76 +1,45 @@
 <?php
-require_once './partials/header.php';
-require_once "./includes/config_session.inc.php";
-require_once "./includes/views/login_view.inc.php";
-require_once "./includes/views/property_view.inc.php";
-?>
+require_once 'includes/config_session.php';
 
-<main>
-  <!-- Beginning Hero section-->
-  <section class="hero">
-    <div class="hero-content">
-      <h1>Your Guide To Safe Student Housing</h1>
-      <p>Need help finding the right accommodation? We are ready to guide you toward a place that suits your needs.</p>
-    </div>
-  </section>
-  <!-- End of Hero section-->
+$baseFolder = "/studentshelter/";
 
-  <!-- Beginning of display property section -->
-  <header class="search-header">
-    <div class="search-filters">
-      <select>
-        <option value="">propety type</option>
-        <option value="apartment">Apartment</option>
-        <option value="studio">Studio</option>
-        <option value="house">House</option>
-      </select>
-      <input type="number" placeholder="Max Budget" />
-      <input placeholder="check-in" type="date" />
-      <button class="search-button">Search</button>
-    </div>
-  </header>
+$requestUri = $_SERVER['REQUEST_URI'];
+$request = str_replace($baseFolder, '', parse_url($requestUri, PHP_URL_PATH));
+$request = trim($request, '/');
 
-  <section class="properties-section">
-    <div class="properties">
+$parts = explode('/', $request);
 
-      <?php list_all_properties(); ?>
-    </div>
-  </section>
-  <!-- End of display property section-->
+$page = $parts[0] ? $parts[0] : 'home';
+$id = null;
 
-  <!-- Beginning of Booking Process section-->
-  <section class="midnight-section">
-    <div class="section-header">
-      <p>Reservations Process</p>
-      <h3>Fast, Intuitive And Absolutely Safe!</h3>
-    </div>
-    <div class="columns">
-      <div class="column">
-        <h1>1</h1>
-        <h4>Choose a place</h4>
-        <p>Explore an extensive range of quality rooms, studios, and apartments. Save the ones you love and book them
-          effortlessly.</p>
-      </div>
-      <div class="column">
-        <h1>2</h1>
-        <h4>Accepting a reservation</h4>
-        <p>Expect to receive the owner's acceptance of your reservation within a few hours. You won’t be left guessing
-          or waiting for long.</p>
-      </div>
-      <div class="column">
-        <h1>3</h1>
-        <h4>Make Payment</h4>
-        <p>Once you get the confirmation, just send the payment, and you're nearly finished!</p>
-      </div>
-      <div class="column">
-        <h1>4</h1>
-        <h4>Get your keys!</h4>
-        <p>Accommodation secured! Get ready to move and check in on the date you picked.</p>
-      </div>
-    </div>
-  </section>
-  <!-- End of Booking section-->
+// Check for query string in the URL
+if (isset($_GET['id'])) {
+  $id = (int) $_GET['id']; // Safely cast to an integer
+} else {
+  // Fallback to extracting numeric values from the URI if not a query string
+  foreach ($parts as $key => $part) {
+    if (is_numeric($part)) {
+      $id = (int) $part;
+      unset($parts[$key]);
+      break;
+    }
+  }
+}
 
-</main>
+$subpage = $parts[1] ?? null;
+$action = $parts[2] ?? null;
 
-<?php require_once 'partials/footer.php'; ?>
+$controllerFile = "includes/controllers/{$page}_contr.php";
+
+if (file_exists($controllerFile)) {
+  require_once $controllerFile;
+
+  $controllerFunction = "handle" . ucfirst(str_replace('-', '', $page));
+  if (function_exists($controllerFunction)) {
+    $controllerFunction($subpage, $action, $id);
+  } else {
+    die("Invalid request: Controller function '$controllerFunction' not found.");
+  }
+} else {
+  die("Page not found.");
+}
