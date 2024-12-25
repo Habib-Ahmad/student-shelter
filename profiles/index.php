@@ -107,6 +107,7 @@ require_once "../includes/views/users_view.inc.php";
   </div>
 </section>
 <br>
+
 <section id="bookings">
   <div class="container">
     <h2 class="title">Previous Booking History</h2>

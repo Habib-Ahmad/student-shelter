@@ -4,7 +4,7 @@
   <div class="main-content">
     <div class="details">
       <div class="main-image">
-        <img src="../profile/assets/Picture1.png" alt="Room Image">
+        <img src="/studentshelter/assets/Picture1.png" alt="Room Image">
       </div>
 
       <div class="property-details">
@@ -80,19 +80,19 @@
     <h2>Similar Properties</h2>
     <div class="cards">
       <div class="card">
-        <img src="../profile/assets/ss2.jpeg" alt="Property 1">
+        <img src="/studentshelter/assets/ss2.jpeg" alt="Property 1">
         <p>Room 7 in Casa Monteiro | $700/Month</p>
       </div>
       <div class="card">
-        <img src="../profile/assets/ss3.jpeg" alt="Property 2">
+        <img src="/studentshelter/assets/ss3.jpeg" alt="Property 2">
         <p>Room 8 in Casa Monteiro | $700/Month</p>
       </div>
       <div class="card">
-        <img src="../profile/assets/ss4.jpeg" alt="Property 3">
+        <img src="/studentshelter/assets/ss4.jpeg" alt="Property 3">
         <p>Room 9 in Casa Monteiro | $700/Month</p>
       </div>
       <div class="card">
-        <img src="../profile/assets/ss4.jpeg" alt="Property 3">
+        <img src="/studentshelter/assets/ss4.jpeg" alt="Property 3">
         <p>Room 9 in Casa Monteiro | $700/Month</p>
       </div>
     </div>
