@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/studentShelter/includes/config_session.inc.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/studentShelter/includes/config_session.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/studentShelter/functions/get_css_file.php';
 $css_file = get_css_file();
 ?>

@@ -1,5 +1,5 @@
 <?php
-require_once 'includes/config_session.inc.php';
+require_once 'includes/config_session.php';
 
 $baseFolder = "/studentshelter/";
 

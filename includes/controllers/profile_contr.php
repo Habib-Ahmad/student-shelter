@@ -55,7 +55,7 @@ function handle_profile_update(int $id)
 
 
   try {
-    require_once 'includes/dbh.inc.php';
+    require_once 'includes/models/dbh.php';
     require_once 'includes/models/profile_model.php';
 
     update_user($pdo, $id, $firstName, $lastName, $phone);
