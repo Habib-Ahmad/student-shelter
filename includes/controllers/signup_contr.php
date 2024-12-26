@@ -39,26 +39,6 @@ function process_signup()
 
     $userId = create_user($pdo, $firstName, $lastName, $email, $phone, $password, $role);
 
-    // Handle document uploads for students
-    if ($role === 'student') {
-      $baseDir = $_SERVER['DOCUMENT_ROOT'] . '/studentshelter/uploads';
-      $uploadDir = $baseDir . "/user_documents/$userId/";
-
-      if (!is_dir($uploadDir))
-        mkdir($uploadDir, 0777, true);
-
-      $result = validate_and_upload_documents($_FILES, $uploadDir, $baseDir);
-      if ($result['errors']) {
-        $pdo->rollBack();
-        $_SESSION['errors_signup'] = $result['errors'];
-        $_SESSION['signup_data'] = compact('firstName', 'lastName', 'email', 'phone', 'role');
-        header("Location: /studentshelter/signup");
-        exit;
-      }
-
-      save_user_documents($pdo, $userId, $result['paths']);
-    }
-
     $pdo->commit();
 
     $sessionId = session_create_id();
@@ -70,7 +50,7 @@ function process_signup()
     $_SESSION["user_lastName"] = $lastName;
     $_SESSION["user_role"] = $role;
     $_SESSION["user_phone"] = $phone;
-    $_SESSION["status"] = "pending";
+    $_SESSION["user_status"] = "pending";
     $_SESSION["errors_signup"] = null;
 
     $_SESSION["last_regeneration"] = time();
@@ -115,41 +95,4 @@ function validate_signup_inputs(string $firstName, string $lastName, string $pho
   }
 
   return $errors;
-}
-
-function validate_and_upload_documents(array $files, string $uploadDir, string $baseDir)
-{
-  $errors = [];
-  $paths = [];
-
-  // Required files
-  $requiredFiles = ['validId', 'studentProof'];
-  foreach ($requiredFiles as $fileKey) {
-    if (empty($files[$fileKey]['name'])) {
-      $errors[] = ucfirst($fileKey) . " is required.";
-    }
-  }
-
-  if (!$errors) {
-    $allowedTypes = ['image/jpeg', 'image/png', 'application/pdf'];
-    foreach ($requiredFiles as $fileKey) {
-      if (!in_array($files[$fileKey]['type'], $allowedTypes)) {
-        $errors[] = "Invalid file type for " . ucfirst($fileKey) . ".";
-      }
-    }
-
-    if (!$errors) {
-      foreach ($requiredFiles as $fileKey) {
-        $filePath = $uploadDir . uniqid($fileKey . '_') . '.' . pathinfo($files[$fileKey]['name'], PATHINFO_EXTENSION);
-
-        if (move_uploaded_file($files[$fileKey]['tmp_name'], $filePath)) {
-          $paths[$fileKey] = str_replace($baseDir, '', $filePath);
-        } else {
-          $errors[] = "Error uploading " . ucfirst($fileKey) . ".";
-        }
-      }
-    }
-  }
-
-  return ['errors' => $errors, 'paths' => $paths];
 }

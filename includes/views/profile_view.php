@@ -6,7 +6,10 @@ function render_profile_form()
 {
   require_once 'partials/header.php';
 
-  $id = $_SESSION['user_id'];
+  $id = $_SESSION['user_id'] ?? '';
+  $role = $_SESSION['user_role'] ?? '';
+  $status = $_SESSION['user_status'] ?? '';
+
   ?>
   <section class="profile">
     <div class="container">
@@ -22,12 +25,12 @@ function render_profile_form()
           <div class="input-box">
             <label for="first-name" class="details">First name</label>
             <input id="first-name" type="text" placeholder="Enter your first name" name="firstName"
-              value="<?php echo $_SESSION['user_firstName'] ?? ''; ?>" <?php echo $_SESSION['user_role'] === 'student' ? 'disabled' : ''; ?> />
+              value="<?php echo $_SESSION['user_firstName'] ?? ''; ?>" <?php echo $role === 'student' ? 'disabled' : ''; ?> />
           </div>
           <div class="input-box">
             <label for="last-name" class="details">Last name</label>
             <input id="last-name" type="text" placeholder="Enter your last name" name="lastName"
-              value="<?php echo $_SESSION['user_lastName'] ?? ''; ?>" <?php echo $_SESSION['user_role'] === 'student' ? 'disabled' : ''; ?> />
+              value="<?php echo $_SESSION['user_lastName'] ?? ''; ?>" <?php echo $role === 'student' ? 'disabled' : ''; ?> />
           </div>
           <div class="input-box">
             <label for="email-id" class="details">E-mail</label>
@@ -85,26 +88,43 @@ function render_profile_form()
       <br />
       <br />
 
-      <div id="my-documents">
-        <div class="container">
-          <h2 class="title">Documents</h2>
-          <form>
-            <div class="adding-documents">
-              <div class="input-box">
-                <label for="fileinput" class="details">Upload Documents</label>
-                <input type="file" id="fileinput" multiple />
-                <button type="button" onclick="uploadFiles()">Upload</button>
+      <?php if ($role === 'student' && $status === 'pending'): ?>
+        <div id="my-documents">
+          <div class="container">
+            <h2 class="title">Upload Documents</h2>
+            <form action="/studentshelter/profile/documents?id=<?= $id ?>" method="post" enctype="multipart/form-data">
+              <div id="studentUploadSections">
+                <div class="form-group">
+                  <label class="form-label">Valid ID:</label>
+                  <div class="file-input-wrapper">
+                    <label for="validId" class="file-upload-label">Choose file</label>
+                    <input type="file" id="validId" name="validId" class="file-upload-input">
+                    <span id="fileName2" class="file-name">No file chosen</span>
+                  </div>
+                </div>
+                <br />
+
+                <div class="form-group">
+                  <label class="form-label">Student Proof:</label>
+                  <div class="file-input-wrapper">
+                    <label for="studentProof" class="file-upload-label">Choose file</label>
+                    <input type="file" id="studentProof" name="studentProof" class="file-upload-input">
+                    <span id="fileName1" class="file-name">No file chosen</span>
+                  </div>
+                </div>
               </div>
-              <div class="file-list">
-                <h3>Uploaded Files</h3>
-                <ul id="fileList">
-                  <!-- Uploaded files will be listed here -->
-                </ul>
+              <div class="button">
+                <button type="submit">Upload</button>
               </div>
-            </div>
-          </form>
+              <?php
+              if (isset($_SESSION["errors_docs"])) {
+                echo "<p class='error-message'>" . $_SESSION['errors_docs'][0] . "</p>";
+              }
+              ?>
+            </form>
+          </div>
         </div>
-      </div>
+      <?php endif; ?>
     </div>
   </section>
   <script src="/studentshelter/js/profile.js"></script>

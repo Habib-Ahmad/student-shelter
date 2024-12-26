@@ -62,7 +62,7 @@
         if (isset($_SESSION['user_role']) && $_SESSION['user_role'] != 'student') {
           echo "<button disabled>Landlords cannot book</button>";
         } else {
-          if (isset($_SESSION['status']) && $_SESSION['status'] === 'verified') {
+          if (isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'verified') {
             echo "<button onclick='makeBooking()'>Make Booking</button>";
           } else {
             echo "<button disabled>Awaiting Verfication</button>";

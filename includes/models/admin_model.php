@@ -30,7 +30,7 @@ function get_students(object $pdo)
 
 function update_student_status(object $pdo, int $id, string $status)
 {
-  $allowedStatuses = ['pending', 'in review', 'rejected', 'verified'];
+  $allowedStatuses = ['pending', 'in review', 'verified'];
 
   if (!in_array($status, $allowedStatuses, true)) {
     return false;
