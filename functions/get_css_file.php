@@ -9,6 +9,9 @@ function get_css_file()
     case 'studentShelter':
       $css_file = "{$BASEURL}main.css";
       break;
+    case 'about':
+      $css_file = "{$BASEURL}about.css";
+      break;
     case 'profile':
       $css_file = "{$BASEURL}profile.css";
       break;
