@@ -28,7 +28,7 @@ function handleManageReservations($subpage, $action, $id)
         $user = get_user_by_id($pdo, $reservation['userId']);
         $property = get_property_by_reservation_id($pdo, (int) $id);
         $subject = 'Reservation Accepted';
-        $message = "Hello {$user['firstName']},\n\nYour reservation for the property {$property['name']} has been accepted. You can now proceed with the payment.\n\nThank you!";
+        $message = "Hello {$user['firstName']},<br><br>Your reservation for the property {$property['name']} has been accepted. You can now proceed with the payment.<br><br>Thank you!";
         send_email($user['email'], $subject, $message);
 
         header('Location: /studentshelter/manage-reservations?message=Reservation+confirmed+successfully');
@@ -56,7 +56,7 @@ function handleManageReservations($subpage, $action, $id)
         $user = get_user_by_id($pdo, $reservation['userId']);
         $property = get_property_by_reservation_id($pdo, (int) $id);
         $subject = 'Reservation Rejected';
-        $message = "Hello {$user['firstName']},\n\nYour reservation for the property {$property['name']} has been rejected. Please try again with another property.\n\nThank you!";
+        $message = "Hello {$user['firstName']},<br><br>Your reservation for the property {$property['name']} has been rejected. Please try again with another property.<br><br>Thank you!";
         send_email($user['email'], $subject, $message);
 
         header('Location: /studentshelter/manage-reservations?message=Reservation+rejected+successfully');
