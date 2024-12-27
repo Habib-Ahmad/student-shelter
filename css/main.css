@@ -131,6 +131,7 @@ nav.navbar .logo img {
   display: none;
   flex-direction: column;
   z-index: 10;
+  white-space: nowrap;
 }
 
 .dropdown-menu a {

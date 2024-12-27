@@ -35,12 +35,6 @@ $css_file = get_css_file();
         <ul class="nav-links">
           <li><a href="/studentshelter">Home</a></li>
           <li><a href="/studentshelter/about">About Us</a></li>
-          <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'student'): ?>
-            <li><a href="/studentshelter/bookings">My Bookings</a></li>
-          <?php endif; ?>
-          <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'landlord'): ?>
-            <li><a href="/studentshelter/properties">Manage Properties</a></li>
-          <?php endif; ?>
           <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin'): ?>
             <li><a href="/studentshelter/admin">Admin</a></li>
           <?php endif; ?>
@@ -60,6 +54,14 @@ $css_file = get_css_file();
               <div class="dropdown-menu">
                 <a href="/studentshelter/profile">Profile</a>
                 <a href="/studentshelter/favorites">Favorites</a>
+                <?php
+                if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'student') {
+                  echo '<a href="/studentshelter/reservations">My Reservations</a>';
+                }
+                if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'landlord') {
+                  echo '<a href="/studentshelter/manage-reservations">Manage Reservations</a>';
+                }
+                ?>
                 <a href="/studentshelter/logout">Logout</a>
               </div>
             </div>
