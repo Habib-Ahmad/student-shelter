@@ -12,7 +12,7 @@ function handleFaq($subpage = null, $action = null, $id = null)
       if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $title = $_POST['title'] ?? '';
         $description = $_POST['description'] ?? '';
-        addFaq($pdo, $title, $description);
+        add_faq($pdo, $title, $description);
         header('Location: /studentshelter/faq');
         die();
       }
@@ -23,12 +23,12 @@ function handleFaq($subpage = null, $action = null, $id = null)
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           $title = $_POST['title'] ?? '';
           $description = $_POST['description'] ?? '';
-          updateFaq($pdo, $id, $title, $description);
+          update_faq($pdo, $id, $title, $description);
           header('Location: /studentshelter/faq');
           die();
         } else {
-          $faq = getFaqById($pdo, $id);
-          renderFaqEdit($faq);
+          $faq = get_faq_by_id($pdo, $id);
+          render_faq_edit($faq);
           return;
         }
       }
@@ -36,15 +36,15 @@ function handleFaq($subpage = null, $action = null, $id = null)
 
     case 'delete':
       if ($_SESSION['user_role'] === 'admin' && $id && $_SERVER['REQUEST_METHOD'] === 'POST') {
-        deleteFaq($pdo, $id);
+        delete_faq($pdo, $id);
         header('Location: /studentshelter/faq');
         die();
       }
       break;
 
     default:
-      $faqs = getAllFaqs($pdo);
-      renderFaqList($faqs);
+      $faqs = get_all_faqs($pdo);
+      render_faq_list($faqs);
       break;
   }
 }

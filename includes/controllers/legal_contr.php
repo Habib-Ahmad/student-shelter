@@ -1,19 +1,57 @@
 <?php
 
-function handleLegal()
+function handleLegal($subpage, $action, $id)
 {
-  $legalClauses = [
-    "Platform Usage" => "Our platform is intended for students and landlords to connect for the purpose of renting student accommodation. Misuse of the platform is prohibited.",
-    "Accuracy of Listings" => "Student Shelters does not guarantee the accuracy or completeness of property information provided by landlords.",
-    "No Rental Guarantees" => "We do not guarantee the availability or suitability of any property listed on the platform.",
-    "User Responsibilities" => "Users are responsible for ensuring their actions comply with local laws and regulations regarding tenancy agreements.",
-    "Privacy and Data Security" => "We strive to protect your personal data but cannot be held liable for breaches beyond our control.",
-    "Disputes and Resolutions" => "Any disputes between tenants and landlords must be resolved independently. Student Shelters is not responsible for mediating disputes.",
-    "Content Ownership" => "All images and descriptions uploaded by landlords remain their property but must comply with platform guidelines.",
-    "External Links Disclaimer" => "We may provide links to third-party websites for your convenience but are not responsible for their content or accuracy.",
-    "Limitation of Liability" => "Student Shelters is not liable for any financial losses, damages, or inconveniences arising from the use of this platform.",
-    "Changes to Terms" => "We reserve the right to update these terms and conditions at any time without prior notice."
-  ];
+  require_once 'includes/models/dbh.php';
+  require_once 'includes/models/legal_model.php';
 
-  require_once 'includes/views/legal_view.php';
+  switch ($subpage) {
+    case 'add':
+      if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $title = $_POST['title'] ?? '';
+        $description = $_POST['description'] ?? '';
+
+        if ($title && $description) {
+          add_legal_clause($pdo, $title, $description);
+          header('Location: /studentshelter/legal');
+          die();
+        }
+      }
+      require_once 'includes/views/legal_view.php';
+      render_legal_form();
+      break;
+
+    case 'edit':
+      if ($id) {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+          $title = $_POST['title'] ?? '';
+          $description = $_POST['description'] ?? '';
+
+          if ($title && $description) {
+            update_legal_clause($pdo, $id, $title, $description);
+            header('Location: /studentshelter/legal');
+            die();
+          }
+        }
+
+        $legalClause = get_legal_clause_by_id($pdo, $id);
+        require_once 'includes/views/legal_view.php';
+        render_legal_form($legalClause);
+      }
+      break;
+
+    case 'delete':
+      if ($id) {
+        delete_legal_clause($pdo, $id);
+        header('Location: /studentshelter/legal');
+        die();
+      }
+      break;
+
+    default:
+      $legalClauses = get_legal_clauses($pdo);
+      require_once 'includes/views/legal_view.php';
+      render_legal($legalClauses);
+      break;
+  }
 }

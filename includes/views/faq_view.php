@@ -1,6 +1,6 @@
 <?php
 
-function renderFaqList($faqs)
+function render_faq_list($faqs)
 {
   require_once 'partials/header.php';
 
@@ -43,7 +43,7 @@ function renderFaqList($faqs)
   require_once 'partials/footer.php';
 }
 
-function renderFaqEdit($faq)
+function render_faq_edit($faq)
 {
   require_once 'partials/header.php';
   ?>
