@@ -1,15 +1,50 @@
 <?php
 
-function handleFaq()
-{
-  $faqs = [
-    "What is the Student Accommodation Management System by Student Shelters?" => "The Student Accommodation Management System (SAMS) by Student Shelters is a web application designed to help students find, manage, and rent accommodation easily and securely.",
-    "Who can use this platform?" => "Our platform is designed for students, property managers, landlords, and educational institutions.",
-    "Is it free to use?" => "Creating an account is free for students. Some premium features may have fees.",
-    "How do I apply for accommodation?" => "Create a profile, browse properties, and submit an application.",
-    "How are rent payments handled?" => "Rent payments can be made through our secure payment gateway.",
-    "How is my personal data protected?" => "We prioritize the security of your personal information with strict data protection."
-  ];
+require_once 'includes/models/faq_model.php';
+require_once 'includes/views/faq_view.php';
 
-  require_once 'includes/views/faq_view.php';
+function handleFaq($subpage = null, $action = null, $id = null)
+{
+  require_once 'includes/models/dbh.php';
+
+  switch ($subpage) {
+    case 'add':
+      if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $title = $_POST['title'] ?? '';
+        $description = $_POST['description'] ?? '';
+        addFaq($pdo, $title, $description);
+        header('Location: /studentshelter/faq');
+        die();
+      }
+      break;
+
+    case 'edit':
+      if ($_SESSION['user_role'] === 'admin' && $id) {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+          $title = $_POST['title'] ?? '';
+          $description = $_POST['description'] ?? '';
+          updateFaq($pdo, $id, $title, $description);
+          header('Location: /studentshelter/faq');
+          die();
+        } else {
+          $faq = getFaqById($pdo, $id);
+          renderFaqEdit($faq);
+          return;
+        }
+      }
+      break;
+
+    case 'delete':
+      if ($_SESSION['user_role'] === 'admin' && $id && $_SERVER['REQUEST_METHOD'] === 'POST') {
+        deleteFaq($pdo, $id);
+        header('Location: /studentshelter/faq');
+        die();
+      }
+      break;
+
+    default:
+      $faqs = getAllFaqs($pdo);
+      renderFaqList($faqs);
+      break;
+  }
 }

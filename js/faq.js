@@ -1,17 +1,17 @@
-const faqQuestions = document.querySelectorAll('.faq-question');
+document.addEventListener('DOMContentLoaded', () => {
+  const faqQuestions = document.querySelectorAll('.faq-question');
 
-faqQuestions.forEach(question => {
-  question.addEventListener('click', () => {
-    const item = question.parentElement;
+  faqQuestions.forEach(question => {
+    question.addEventListener('click', () => {
+      const item = question.parentElement;
 
-    // Toggle the active class
-    item.classList.toggle('active');
+      item.classList.toggle('active');
 
-    // Close other open items
-    document.querySelectorAll('.faq-item').forEach(otherItem => {
-      if (otherItem !== item) {
-        otherItem.classList.remove('active');
-      }
+      document.querySelectorAll('.faq-item').forEach(otherItem => {
+        if (otherItem !== item) {
+          otherItem.classList.remove('active');
+        }
+      });
     });
   });
 });
