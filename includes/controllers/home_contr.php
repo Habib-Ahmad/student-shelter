@@ -42,6 +42,8 @@ function handle_add_to_favorites(object $pdo, int $propertyId)
     add_to_favorites($pdo, $userId, $propertyId);
   }
 
-  header("Location: /studentshelter");
+  // Add scroll parameter to the redirect URL if present
+  $scroll = isset($_GET['scroll']) ? (int) $_GET['scroll'] : 0;
+  header("Location: /studentshelter?scroll=$scroll");
   die();
 }

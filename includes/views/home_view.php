@@ -50,8 +50,8 @@ function render_home_page($pdo, $properties)
                   $favoriteLink = "/studentshelter/login"; // Redirect to login
                 }
                 ?>
-                <a href="/studentshelter/home/add-to-favorites?id=<?php echo $property['id']; ?>" class="favorite-icon">
-                  <img src="/studentshelter/assets/<?php echo $favoriteIcon; ?>" alt="Add to Favorites">
+                <a href="<?php echo $favoriteLink; ?>" class="favorite-icon" data-id="<?php echo $property['id']; ?>">
+                  <img src="/studentshelter/assets/<?php echo $favoriteIcon; ?>" alt="<?php echo $favoriteAlt; ?>">
                 </a>
               </div>
               <h4><?php echo htmlspecialchars($property['name']); ?></h4>
