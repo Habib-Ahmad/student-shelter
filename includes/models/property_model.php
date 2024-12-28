@@ -2,13 +2,6 @@
 
 declare(strict_types=1);
 
-function get_all_properties(object $pdo)
-{
-  $query = "SELECT u.id, p.name, u.description, CONCAT(p.type, ', ', u.type) AS type, u.numberOfRooms, u.monthlyPrice, p.streetAddress, p.city, p.postalCode FROM unit u LEFT JOIN property p ON u.propertyId=p.id;";
-  $stmt = $pdo->query($query);
-  return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
-
 function get_all_facilities(object $pdo)
 {
   $query = "SELECT * FROM facility";
