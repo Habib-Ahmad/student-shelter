@@ -16,19 +16,37 @@ function render_home_page($pdo, $properties)
     <!-- End of Hero section-->
 
     <!-- Beginning of display property section -->
-    <div class="search-header">
-      <div class="search-filters">
-        <select>
-          <option value="">Property type</option>
-          <option value="apartment">Apartment</option>
-          <option value="studio">Studio</option>
-          <option value="house">House</option>
+    <div class="search-filters" id="search-filters">
+      <form action="/studentshelter" method="GET">
+        <label for="city">City</label>
+        <input type="text" name="city" id="city" placeholder="Enter city name"
+          value="<?php echo htmlspecialchars($_GET['city'] ?? ''); ?>">
+
+        <label for="maxBudget">Max Budget</label>
+        <input type="number" name="maxBudget" id="maxBudget" placeholder="Enter max budget"
+          value="<?php echo htmlspecialchars($_GET['maxBudget'] ?? ''); ?>">
+
+        <label for="type">Type</label>
+        <select name="type" id="type">
+          <option value="">Any</option>
+          <option value="Apartment" <?php echo isset($_GET['type']) && $_GET['type'] === 'Apartment' ? 'selected' : ''; ?>>
+            Apartment</option>
+          <option value="Hostel" <?php echo isset($_GET['type']) && $_GET['type'] === 'Hostel' ? 'selected' : ''; ?>>Hostel
+          </option>
+          <option value="Shared House" <?php echo isset($_GET['type']) && $_GET['type'] === 'Shared House' ? 'selected' : ''; ?>>Shared House
+          </option>
         </select>
-        <input type="number" placeholder="Max Budget" />
-        <input placeholder="Check-in" type="date" />
-        <button class="search-button">Search</button>
-      </div>
+
+        <label for="numberOfRooms">Number of Rooms</label>
+        <input type="number" name="numberOfRooms" id="numberOfRooms" placeholder="Enter number of rooms"
+          value="<?php echo htmlspecialchars($_GET['numberOfRooms'] ?? ''); ?>">
+        <br>
+
+        <button type="submit" class="search-button">Search</button>
+        <a href="/studentshelter">Reset</a>
+      </form>
     </div>
+
 
     <section class="properties-section">
       <div class="properties">
@@ -100,7 +118,7 @@ function render_home_page($pdo, $properties)
     <!-- End of Booking section-->
   </main>
 
-  <script src="/studentsshelter/js/home.js"></script>
+  <script src="/studentshelter/js/home.js"></script>
 
   <?php
   require_once './partials/footer.php';

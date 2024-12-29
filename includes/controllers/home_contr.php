@@ -9,16 +9,25 @@ function handleHome($subpage, $action, $id)
   require_once 'includes/views/home_view.php';
 
   switch ($subpage) {
-    case 'search':
-      // handle_search($pdo);
-      break;
-
     case 'add-to-favorites':
       handle_add_to_favorites($pdo, $id);
       break;
 
     default:
       $properties = get_all_properties($pdo);
+
+      // if there are no query parameters, display all properties. Otherwise, filter the properties
+      if (empty($_GET)) {
+        $properties = get_all_properties($pdo);
+      } else {
+        $city = $_GET['city'] ?? '';
+        $maxBudget = $_GET['maxBudget'] ?? '';
+        $type = $_GET['type'] ?? '';
+        $numberOfRooms = $_GET['numberOfRooms'] ?? '';
+
+        $properties = get_filtered_properties($pdo, $city, $maxBudget, $type, $numberOfRooms);
+      }
+
       render_home_page($pdo, $properties);
       break;
   }
