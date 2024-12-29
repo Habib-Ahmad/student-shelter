@@ -1,0 +1,60 @@
+.container {
+    width: 70%;
+    margin: 0 auto;
+    padding: 20px 0;
+    text-align: center; 
+}
+
+.legal-section {
+    padding: 20px 0;
+    text-align: center; 
+}
+
+.legal-title {
+    font-size: 20px; 
+    margin-bottom: 20px;
+    text-align: center;
+    color: #1e90ff; 
+}
+
+.legal-clause {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.legal-clause-title {
+    font-weight: bold;
+    font-size: 15px; 
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.legal-clause-description {
+    font-size: 13px; 
+    line-height: 1.5;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+        text-align: center;
+    }
+
+    header h1 {
+        font-size: 17px; 
+        text-align: center;
+    }
+
+    .legal-title {
+        font-size: 20px; 
+    }
+
+    .legal-clause-title {
+        font-size: 15px;
+    }
+
+    .legal-clause-description {
+        font-size: 13px;
+    }
+}

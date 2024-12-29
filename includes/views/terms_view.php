@@ -7,16 +7,16 @@ function render_terms($terms)
   $role = $_SESSION['user_role'] ?? '';
   ?>
 
-  <section>
-    <h2>Terms and Conditions</h2>
+  <section id="terms" class="terms-container">
+    <h2 class="terms-title">Terms and Conditions</h2>
 
     <?php if ($role === 'admin'): ?>
       <a href="/studentshelter/terms/add">Add New Term</a>
     <?php endif; ?>
     <?php foreach ($terms as $term): ?>
       <div>
-        <h3><?php echo htmlspecialchars($term['title']); ?></h3>
-        <p><?php echo htmlspecialchars($term['description']); ?></p>
+        <h3 class="terms-subtitle"><?php echo htmlspecialchars($term['title']); ?></h3>
+        <p class="terms-description"><?php echo htmlspecialchars($term['description']); ?></p>
         <?php if ($role === 'admin'): ?>
           <a href="/studentshelter/terms/edit/<?php echo $term['id']; ?>">Edit</a>
           <a href="#" onclick="confirmDelete(<?php echo $term['id']; ?>)">Delete</a>
