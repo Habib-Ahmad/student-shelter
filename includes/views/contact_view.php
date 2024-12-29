@@ -8,7 +8,7 @@
     <?php if ($messageSent): ?>
       <p class="success-message">Thank you for your message! We'll get back to you shortly.</p>
     <?php else: ?>
-      <form action="/studentShelter/contact" method="POST" class="contact-form">
+      <form action="/studentshelter/contact" method="POST" class="contact-form">
         <div class="form-group">
           <label for="name">Full Name</label>
           <input type="text" id="name" name="name" placeholder="Enter your full name" required>
@@ -29,5 +29,11 @@
     <?php endif; ?>
   </div>
 </section>
+
+<?php
+if (isset($_GET['message'])) {
+  echo "<script>alert('{$_GET['message']}');</script>";
+}
+?>
 
 <?php require_once 'partials/footer.php'; ?>

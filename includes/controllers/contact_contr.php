@@ -2,6 +2,8 @@
 
 function handleContact()
 {
+  require_once 'functions/send_mail.php';
+
   $messageSent = false;
 
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -10,8 +12,19 @@ function handleContact()
     $message = filter_input(INPUT_POST, 'message', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
     if ($name && $email && $message) {
-      // TODO: Send the email
-      $messageSent = true; // Simulating successful submission
+      $subject = 'New Contact Form Submission';
+      $message = "Name: $name\nEmail: $email\n\n$message";
+      $messageSent = send_email('', $subject, $message);
+
+      if ($messageSent) {
+        $name = $email = $message = '';
+
+        header('Location: /studentshelter/contact?message=Message+sent+successfully');
+        die();
+      } else {
+        header('Location: /studentshelter/contact?message=Failed+to+send+message');
+        die();
+      }
     }
   }
 

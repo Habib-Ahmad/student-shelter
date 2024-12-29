@@ -50,30 +50,34 @@
       </div>
     </div>
 
-    <div class="booking-request">
+    <form class="booking-request"
+      action="/studentshelter/property-details/make-booking/<?php echo $property[0]["unit_id"]; ?>" method="POST">
       <h3>Booking Request</h3>
       <label for="check-in">Check-in:</label>
-      <input type="date" id="check-in">
+      <input type="date" id="check-in" name="check-in">
 
       <label for="check-out">Check-out:</label>
-      <input type="date" id="check-out">
+      <input type="date" id="check-out" name="check-out">
 
       <?php if (isset($_SESSION['user_id'])) {
         if (isset($_SESSION['user_role']) && $_SESSION['user_role'] != 'student') {
-          echo "<button disabled>Landlords cannot book</button>";
+          echo "<p>Only students can make reservations.</p>";
         } else {
-          if (isset($_SESSION['status']) && $_SESSION['status'] === 'verified') {
-            echo "<button onclick='makeBooking()'>Make Booking</button>";
+          if (isset($_SESSION['user_status']) && $_SESSION['user_status'] === 'verified') {
+            echo "<button type='submit'>Make Reservation</button>";
           } else {
-            echo "<button disabled>Awaiting Verfication</button>";
+            echo "<p>Your account must be verified to make a reservation.</p>";
           }
         }
       } else {
-        echo "<a href='../login'>Login</a>";
+        echo "<a href='/studentshelter/login'>Login</a>";
+      }
+      if (isset($_SESSION['error_booking'])) {
+        echo "<p class='error'>" . $_SESSION['error_booking'] . "</p>";
+        unset($_SESSION['error_booking']);
       }
       ?>
-
-    </div>
+    </form>
   </div>
 
   <div class="similar-properties">
@@ -100,5 +104,15 @@
 </div>
 
 <script src="/studentshelter/js/property-details.js"></script>
+<?php
+if (isset($_GET['message'])) {
+  echo "<script>
+    alert('" . str_replace("\n", "\\n", $_GET['message']) . "');
+    const url = new URL(window.location.href);
+    url.searchParams.delete('message');
+    window.history.replaceState(null, '', url);
+  </script>";
+}
+?>
 
 <?php require_once 'partials/footer.php'; ?>

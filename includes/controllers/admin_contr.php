@@ -7,13 +7,13 @@ function handleAdmin($subpage, $action, $id)
   require_once 'includes/models/dbh.php';
   require_once 'includes/models/admin_model.php';
 
-  if (!$id) {
-    header('Location: /studentshelter/admin?error=Missing+student+ID');
-    die();
-  }
 
   switch ($subpage) {
     case 'verify':
+      if (!$id) {
+        header('Location: /studentshelter/admin?error=Missing+student+ID');
+        die();
+      }
       $success = update_student_status($pdo, (int) $id, 'verified');
       if ($success) {
         header('Location: /studentshelter/admin?message=Student+verified+successfully');
@@ -23,7 +23,11 @@ function handleAdmin($subpage, $action, $id)
       die();
 
     case 'reject':
-      $success = update_student_status($pdo, (int) $id, 'rejected');
+      if (!$id) {
+        header('Location: /studentshelter/admin?error=Missing+student+ID');
+        die();
+      }
+      $success = update_student_status($pdo, (int) $id, 'pending');
       if ($success) {
         header('Location: /studentshelter/admin?message=Student+rejected+successfully');
       } else {

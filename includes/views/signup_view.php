@@ -84,27 +84,6 @@ function render_signup_form($errors, $formData)
           </label>
         </div>
 
-        <!-- File Uploads for Students -->
-        <div id="studentUploadSections">
-          <div class="form-group">
-            <label class="form-label">Valid ID:</label>
-            <div class="file-input-wrapper">
-              <label for="validId" class="file-upload-label">Choose file</label>
-              <input type="file" id="validId" name="validId" class="file-upload-input">
-              <span id="fileName2" class="file-name">No file chosen</span>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">Student Proof:</label>
-            <div class="file-input-wrapper">
-              <label for="studentProof" class="file-upload-label">Choose file</label>
-              <input type="file" id="studentProof" name="studentProof" class="file-upload-input">
-              <span id="fileName1" class="file-name">No file chosen</span>
-            </div>
-          </div>
-        </div>
-
         <button type="submit" class="btn-register">Register</button>
         <?php if ($errors): ?>
           <ul class="error-list">

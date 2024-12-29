@@ -50,7 +50,7 @@ function process_login()
     $_SESSION["user_lastName"] = $user["lastName"];
     $_SESSION["user_role"] = $user["userRole"];
     $_SESSION["user_phone"] = $user["phone"];
-    $_SESSION["status"] = $user["status"];
+    $_SESSION["user_status"] = $user["status"];
 
     $_SESSION["last_regeneration"] = time();
 

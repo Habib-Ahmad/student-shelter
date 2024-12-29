@@ -6,6 +6,11 @@ function render_student_table(array $students)
 {
   require_once 'partials/header.php';
 
+  $firstName = $_SESSION['user_firstName'] ?? '';
+  $lastName = $_SESSION['user_lastName'] ?? '';
+  $email = $_SESSION['user_email'] ?? '';
+  $role = $_SESSION['user_role'] ?? '';
+
   if (count($students) === 0) {
     echo '<p>No students found</p>';
     return;
@@ -41,11 +46,9 @@ function render_student_table(array $students)
                 if ($student['status'] === 'verified') {
                   echo '<span style="color: green; font-weight: bold;">Verified</span>';
                 } elseif ($student['status'] === 'in review') {
-                  echo '<span style="color: orange; font-weight: bold;">Waiting for Re-upload</span>';
-                } elseif ($student['status'] === 'rejected') {
-                  echo '<span style="color: red; font-weight: bold;">Rejected</span>';
+                  echo '<span style="color: orange; font-weight: bold;">In Review</span>';
                 } else {
-                  echo '<span style="color: orange; font-weight: bold;">' . htmlspecialchars($student['status']) . '</span>';
+                  echo '<span style="color: blue; font-weight: bold;">' . 'Pending' . '</span>';
                 }
                 ?>
               </td>
@@ -68,7 +71,7 @@ function render_student_table(array $students)
               </td>
               <td>
                 <?php
-                if ($student['status'] === 'verified' || $student['status'] === 'rejected') {
+                if ($student['status'] !== 'in review') {
                   echo "N/A";
                 } else {
                   ?>
