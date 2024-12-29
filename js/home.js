@@ -3,19 +3,15 @@ document.addEventListener('DOMContentLoaded', function () {
     link.addEventListener('click', function (e) {
       e.preventDefault();
       e.stopPropagation();
-
-      const scrollTop = window.scrollY || document.documentElement.scrollTop;
-      const url = new URL(link.href);
-      url.searchParams.set('scroll', scrollTop);
-      window.location.href = url.toString();
     });
   });
 
-  const params = new URLSearchParams(window.location.search);
-  const scroll = params.get('scroll');
+  const url = new URL(window.location.href);
+  const scroll = url.searchParams.get('city');
   if (scroll) {
-    window.scrollTo(0, parseInt(scroll, 10));
+    const searchFiltersElement = document.getElementById('search-filters');
+    if (searchFiltersElement) {
+      searchFiltersElement.scrollIntoView({ behavior: 'smooth' });
+    }
   }
-
-  // TODO: Fix scroll
 });
