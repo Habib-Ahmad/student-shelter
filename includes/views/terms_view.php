@@ -1,13 +1,13 @@
 <?php require_once "partials/header.php"; ?>
 
-<div>
-  <section id="terms">
-    <h2>Terms and Conditions</h2>
+<section id="terms" class="terms-section">
+  <div class="terms-container">
+    <h2 class="terms-title">Terms and Conditions</h2>
     <?php foreach ($termsClauses as $title => $description): ?>
-      <h3><?php echo $title; ?></h3>
-      <p><?php echo $description; ?></p>
+      <h3 class="terms-subtitle"><?php echo $title; ?></h3>
+      <p class="terms-description"><?php echo $description; ?></p>
     <?php endforeach; ?>
-  </section>
-</div>
+  </div>
+</section>
 
 <?php require_once "partials/footer.php"; ?>
