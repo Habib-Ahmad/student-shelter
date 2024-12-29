@@ -14,8 +14,12 @@ function handleProfile($subpage, $action, $id)
         handle_password_update($id);
         break;
 
+      case 'documents':
+        handle_documents_upload($id);
+        break;
+
       default:
-        header("Location: /studentshelter/profile?error=Invalid+request");
+        header("Location: /studentshelter/profile?message=Invalid+request");
         die();
     }
   } else {
@@ -49,7 +53,7 @@ function handle_profile_update(int $id)
 
   if ($errors) {
     $_SESSION['errors_profile'] = $errors;
-    header("Location: /studentshelter/profile?error=invalid+input");
+    header("Location: /studentshelter/profile?message=invalid+input");
     die();
   }
 
@@ -125,4 +129,74 @@ function handle_password_update($id)
   } catch (PDOException $e) {
     die("Query failed: " . $e->getMessage());
   }
+}
+
+function handle_documents_upload($id)
+{
+  $baseDir = $_SERVER['DOCUMENT_ROOT'] . '/studentshelter/uploads';
+  $uploadDir = $baseDir . "/user_documents/$id/";
+
+  if (!is_dir($uploadDir))
+    mkdir($uploadDir, 0777, true);
+
+  $result = validate_and_upload_documents($_FILES, $uploadDir, $baseDir);
+  if ($result['errors']) {
+    $_SESSION['errors_docs'] = $result['errors'];
+    header("Location: /studentshelter/profile?message=Document+Upload+Failed");
+    die();
+  }
+
+  try {
+    require_once 'includes/models/dbh.php';
+    require_once 'includes/models/profile_model.php';
+
+    save_user_documents($pdo, $id, $result['paths']);
+    update_user_status($pdo, $id, 'in review');
+    $_SESSION['user_status'] = 'in review';
+
+    $pdo = null;
+    $_SESSION['errors_docs'] = null;
+
+    header("Location: /studentshelter/profile?message=Documents+Uploaded+Successfully");
+    die();
+  } catch (PDOException $e) {
+    die("Query failed: " . $e->getMessage());
+  }
+}
+
+function validate_and_upload_documents(array $files, string $uploadDir, string $baseDir)
+{
+  $errors = [];
+  $paths = [];
+
+  // Required files
+  $requiredFiles = ['validId', 'studentProof'];
+  foreach ($requiredFiles as $fileKey) {
+    if (empty($files[$fileKey]['name'])) {
+      $errors[] = ucfirst($fileKey) . " is required.";
+    }
+  }
+
+  if (!$errors) {
+    $allowedTypes = ['image/jpeg', 'image/png', 'application/pdf'];
+    foreach ($requiredFiles as $fileKey) {
+      if (!in_array($files[$fileKey]['type'], $allowedTypes)) {
+        $errors[] = "Invalid file type for " . ucfirst($fileKey) . ".";
+      }
+    }
+
+    if (!$errors) {
+      foreach ($requiredFiles as $fileKey) {
+        $filePath = $uploadDir . uniqid($fileKey . '_') . '.' . pathinfo($files[$fileKey]['name'], PATHINFO_EXTENSION);
+
+        if (move_uploaded_file($files[$fileKey]['tmp_name'], $filePath)) {
+          $paths[$fileKey] = str_replace($baseDir, '', $filePath);
+        } else {
+          $errors[] = "Error uploading " . ucfirst($fileKey) . ".";
+        }
+      }
+    }
+  }
+
+  return ['errors' => $errors, 'paths' => $paths];
 }
