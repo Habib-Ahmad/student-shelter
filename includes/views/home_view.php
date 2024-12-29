@@ -1,6 +1,6 @@
 <?php
 
-function render_home_page($properties)
+function render_home_page($pdo, $properties)
 {
   require_once './partials/header.php';
   ?>
@@ -38,7 +38,21 @@ function render_home_page($properties)
               <img src="/studentshelter/assets/Property.png" alt="Property 1">
               <div class="property-details">
                 <h3>$<?php echo htmlspecialchars($property['monthlyPrice']); ?>/month</h3>
-                <div class="favorite-icon"><img src="/studentshelter/assets/heart.png" /></div>
+                <?php
+                if (isset($_SESSION['user_id'])) {
+                  $isFavorite = is_property_favorite($pdo, $_SESSION['user_id'], $property['id']);
+                  $favoriteIcon = $isFavorite ? 'heart-filled.svg' : 'heart.svg';
+                  $favoriteAlt = $isFavorite ? 'Remove from Favorites' : 'Add to Favorites';
+                  $favoriteLink = "/studentshelter/home/add-to-favorites?id=" . $property['id'];
+                } else {
+                  $favoriteIcon = 'heart.svg'; // Default unfilled heart for guests
+                  $favoriteAlt = 'Login to add to favorites';
+                  $favoriteLink = "/studentshelter/login"; // Redirect to login
+                }
+                ?>
+                <a href="<?php echo $favoriteLink; ?>" class="favorite-icon" data-id="<?php echo $property['id']; ?>">
+                  <img src="/studentshelter/assets/<?php echo $favoriteIcon; ?>" alt="<?php echo $favoriteAlt; ?>">
+                </a>
               </div>
               <h4><?php echo htmlspecialchars($property['name']); ?></h4>
               <p><?php echo htmlspecialchars($property['type']); ?></p>
@@ -85,6 +99,8 @@ function render_home_page($properties)
     </section>
     <!-- End of Booking section-->
   </main>
+
+  <script src="/studentsshelter/js/home.js"></script>
 
   <?php
   require_once './partials/footer.php';

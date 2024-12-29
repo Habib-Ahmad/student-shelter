@@ -368,6 +368,7 @@ a {
 }
 
 .favorite-icon {
+  z-index: 100;
 }
 
 .favorite-icon img {
