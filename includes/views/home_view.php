@@ -16,6 +16,7 @@ function render_home_page($pdo, $properties)
     <!-- End of Hero section-->
 
     <!-- Beginning of display property section -->
+    <br>
     <div class="search-filters" id="search-filters">
       <form action="/studentshelter" method="GET">
         <label for="city">City</label>
@@ -40,6 +41,7 @@ function render_home_page($pdo, $properties)
         <label for="numberOfRooms">Number of Rooms</label>
         <input type="number" name="numberOfRooms" id="numberOfRooms" placeholder="Enter number of rooms"
           value="<?php echo htmlspecialchars($_GET['numberOfRooms'] ?? ''); ?>">
+        <br>
         <br>
 
         <button type="submit" class="search-button">Search</button>

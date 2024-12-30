@@ -11,7 +11,7 @@ function render_legal($legalClauses)
     <h2 class="legal-title">Legal Notice</h2>
 
     <?php if ($role === 'admin'): ?>
-      <a href="/studentshelter/legal/add">Add New Legal Clause</a>
+      <a href="/studentshelter/legal/add" class="btn-add">Add New Legal Clause</a> <br><br>
     <?php endif; ?>
 
     <?php foreach ($legalClauses as $clause): ?>
@@ -19,8 +19,8 @@ function render_legal($legalClauses)
         <h3 class="legal-clause-title"><?php echo htmlspecialchars($clause['title']); ?></h3>
         <p class="legal-clause-description"><?php echo htmlspecialchars($clause['description']); ?></p>
         <?php if ($role === 'admin'): ?>
-          <a href="/studentshelter/legal/edit/<?php echo $clause['id']; ?>">Edit</a>
-          <a href="#" onclick="confirmDelete(<?php echo $clause['id']; ?>)">Delete</a>
+            <a href="/studentshelter/legal/edit/<?php echo $clause['id']; ?>" class="btn-edit">Edit</a>
+            <a href="#" onclick="confirmDelete(<?php echo $clause['id']; ?>)" class="btn-delete">Delete</a>
         <?php endif; ?>
       </div>
     <?php endforeach; ?>
@@ -39,14 +39,18 @@ function render_legal_form($clause = null)
 
   require_once "partials/header.php"; ?>
 
-  <form action="<?php echo $action; ?>" method="POST" class="container"></form>
-    <label for="title">Title</label>
-    <input type="text" id="title" name="title" value="<?php echo htmlspecialchars($title); ?>" required>
+  <form action="<?php echo $action; ?>" method="POST" class="container-form-legal">
+    <div class="form-group">
+      <label for="title" class="form-label">Title</label>
+      <input type="text" id="title" name="title" class="form-control" value="<?php echo htmlspecialchars($title); ?>" required>
+    </div>
 
-    <label for="description">Description</label>
-    <textarea id="description" name="description" required><?php echo htmlspecialchars($description); ?></textarea>
+    <div class="form-group">
+      <label for="description" class="form-label">Description</label>
+      <textarea id="description" name="description" class="form-control" required><?php echo htmlspecialchars($description); ?></textarea>
+    </div>
 
-    <button type="submit"><?php echo $clause ? 'Update' : 'Add'; ?> Legal Clause</button>
+    <button type="submit" class="btn btn-primary"><?php echo $clause ? 'Update' : 'Add'; ?> Legal Clause</button>
   </form>
 
   <?php require_once "partials/footer.php";

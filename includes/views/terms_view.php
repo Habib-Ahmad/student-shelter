@@ -11,15 +11,15 @@ function render_terms($terms)
     <h2 class="terms-title">Terms and Conditions</h2>
 
     <?php if ($role === 'admin'): ?>
-      <a href="/studentshelter/terms/add">Add New Term</a>
+      <a href="/studentshelter/terms/add" class="btn-add">Add New Term</a>
     <?php endif; ?>
     <?php foreach ($terms as $term): ?>
       <div>
         <h3 class="terms-subtitle"><?php echo htmlspecialchars($term['title']); ?></h3>
         <p class="terms-description"><?php echo htmlspecialchars($term['description']); ?></p>
         <?php if ($role === 'admin'): ?>
-          <a href="/studentshelter/terms/edit/<?php echo $term['id']; ?>">Edit</a>
-          <a href="#" onclick="confirmDelete(<?php echo $term['id']; ?>)">Delete</a>
+          <a href="/studentshelter/terms/edit/<?php echo $term['id']; ?>" class="btn-edit">Edit</a>
+          <a href="#" onclick="confirmDelete(<?php echo $term['id']; ?>)" class="btn-delete">Delete</a>
         <?php endif; ?>
       </div>
     <?php endforeach; ?>

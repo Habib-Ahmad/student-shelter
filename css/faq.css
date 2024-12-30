@@ -48,3 +48,97 @@ h2 {
 .faq-item.active .faq-answer {
   max-height: 200px;
 }
+
+.admin-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.admin-actions .edit-faq,
+.admin-actions .delete-faq-button {
+  background-color: #007bff;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 3px;
+  text-decoration: none;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.admin-actions .edit-faq:hover,
+.admin-actions .delete-faq-button:hover {
+  background-color: #0056b3;
+}
+
+.admin-actions .delete-faq-button {
+  background-color: #dc3545;
+}
+
+.admin-actions .delete-faq-button:hover {
+  background-color: #c82333;
+}
+
+.add-faq-form {
+  background-color: transparent; 
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px; 
+  max-width: 100%;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+.add-faq-title {
+  font-size: 16px;
+  text-align: center;
+}
+
+.add-faq-label {
+  display: none;
+}
+
+.add-faq-input,
+.add-faq-textarea {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  min-width: 150px; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.add-faq-input-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.add-faq-button {
+  background-color: #007bff;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  flex-shrink: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.add-faq-button:hover {
+  background-color: #bbb;
+}
+
+.add-faq-button-container {
+  display: flex;
+  justify-content: center;
+  width: 100%; 
+}
