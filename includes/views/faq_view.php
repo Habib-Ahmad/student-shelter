@@ -14,9 +14,11 @@ function render_faq_list($faqs)
           <p><?php echo htmlspecialchars($faq['title']); ?></p>
           <?php if ($role === 'admin'): ?>
             <div class="admin-actions">
-              <a href="/studentshelter/faq/edit/<?php echo $faq['id']; ?>" class="edit-faq">Edit</a>
+              <a href="/studentshelter/faq/edit/<?php echo $faq['id']; ?>" class="edit-faq"><img
+              src="/studentshelter/assets/edit.svg" alt="Edit" class="btn-edit"></a>
               <form method="POST" action="/studentshelter/faq/delete/<?php echo $faq['id']; ?>" class="delete-faq-form" style="display:inline;">
-              <button type="submit" class="delete-faq-button" onclick="return confirm('Are you sure you want to delete this FAQ?');">Delete</button>
+              <button type="submit" class="delete-faq-button" onclick="return confirm('Are you sure you want to delete this FAQ?');"><img
+              src="/studentshelter/assets/delete.svg" alt="Delete" class="btn-delete"></button>
               </form>
             </div>
           <?php endif; ?>
@@ -34,7 +36,8 @@ function render_faq_list($faqs)
         <input type="text" id="title" name="title" class="add-faq-input" required placeholder="question">
         <label for="description" class="add-faq-label">Answer</label>
         <textarea id="description" name="description" class="add-faq-textarea" required placeholder="answer"></textarea>
-        <button type="submit" class="add-faq-button">Add FAQ</button>
+        <button type="submit" class="add-faq-button"><img
+        src="/studentshelter/assets/add.svg" alt="Add" class="btn-add">Add FAQ</button>
       </form>
     <?php endif; ?>
   </section>

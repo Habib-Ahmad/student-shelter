@@ -49,14 +49,13 @@ h2 {
   max-height: 200px;
 }
 
-.admin-actions {
+/* .admin-actions {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
   margin-top: 10px;
 }
 
-.admin-actions .edit-faq,
 .admin-actions .delete-faq-button {
   background-color: #007bff;
   color: white;
@@ -69,7 +68,6 @@ h2 {
   transition: background-color 0.3s ease;
 }
 
-.admin-actions .edit-faq:hover,
 .admin-actions .delete-faq-button:hover {
   background-color: #0056b3;
 }
@@ -80,6 +78,28 @@ h2 {
 
 .admin-actions .delete-faq-button:hover {
   background-color: #c82333;
+} */
+
+.btn-edit img {
+  display: inline-block;
+  width: 12px; 
+  height: 12px; 
+  object-fit: contain; 
+  cursor: pointer;
+}
+.btn-add img {
+  display: inline-block;
+  width: 12px; 
+  height: 12px; 
+  object-fit: contain; 
+  cursor: pointer;
+}
+.btn-delete img {
+  display: inline-block;
+  width: 12px; 
+  height: 12px; 
+  object-fit: contain; 
+  cursor: pointer;
 }
 
 .add-faq-form {
@@ -104,7 +124,15 @@ h2 {
   display: none;
 }
 
-.add-faq-input,
+.add-faq-input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  min-width: 150px; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
 .add-faq-textarea {
   flex: 1;
   padding: 8px;
@@ -141,4 +169,53 @@ h2 {
   display: flex;
   justify-content: center;
   width: 100%; 
+}
+
+.faq-edit-container {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.faq-edit-container h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.faq-edit-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.faq-edit-container label {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.faq-edit-container input[type="text"],
+.faq-edit-container textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.faq-edit-container button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.faq-edit-container button:hover {
+  background-color: #0056b3;
 }
