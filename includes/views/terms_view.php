@@ -7,19 +7,22 @@ function render_terms($terms)
   $role = $_SESSION['user_role'] ?? '';
   ?>
 
-  <section>
-    <h2>Terms and Conditions</h2>
+  <section id="terms" class="terms-container">
+    <h2 class="terms-title">Terms and Conditions</h2>
 
     <?php if ($role === 'admin'): ?>
-      <a href="/studentshelter/terms/add">Add New Term</a>
+      <a href="/studentshelter/terms/add" class="btn-add"><img src="/studentshelter/assets/add.svg" alt="add"
+          class="btn-icon">Add new</a>
     <?php endif; ?>
     <?php foreach ($terms as $term): ?>
       <div>
-        <h3><?php echo htmlspecialchars($term['title']); ?></h3>
-        <p><?php echo htmlspecialchars($term['description']); ?></p>
+        <h3 class="terms-subtitle"><?php echo htmlspecialchars($term['title']); ?></h3>
+        <p class="terms-description"><?php echo htmlspecialchars($term['description']); ?></p>
         <?php if ($role === 'admin'): ?>
-          <a href="/studentshelter/terms/edit/<?php echo $term['id']; ?>">Edit</a>
-          <a href="#" onclick="confirmDelete(<?php echo $term['id']; ?>)">Delete</a>
+          <a href="/studentshelter/terms/edit/<?php echo $term['id']; ?>" class="btn-edit"><img
+              src="/studentshelter/assets/edit.svg" alt="Edit" class="btn-icon"></a>
+          <a href="#" onclick="confirmDelete(<?php echo $term['id']; ?>)" class="btn-delete"><img
+              src="/studentshelter/assets/delete.svg" alt="Edit" class="btn-icon"></a>
         <?php endif; ?>
       </div>
     <?php endforeach; ?>
@@ -38,15 +41,21 @@ function render_terms_form($term = null)
 
   require_once "partials/header.php"; ?>
 
-  <form action="<?php echo $action; ?>" method="POST">
-    <label for="title">Title</label>
-    <input type="text" id="title" name="title" value="<?php echo htmlspecialchars($title); ?>" required>
+  <div class="terms-form-container">
+    <form action="<?php echo $action; ?>" method="POST">
+      <label for="title" class="terms-form-label">Title</label>
+      <input type="text" id="title" name="title" value="<?php echo htmlspecialchars($title); ?>" required
+        class="terms-form-input">
 
-    <label for="description">Description</label>
-    <textarea id="description" name="description" required><?php echo htmlspecialchars($description); ?></textarea>
+      <label for="description" class="terms-form-label">Description</label>
+      <textarea id="description" name="description" required
+        class="terms-form-textarea"><?php echo htmlspecialchars($description); ?></textarea>
 
-    <button type="submit"><?php echo $term ? 'Update' : 'Add'; ?> Term</button>
-  </form>
+      <button type="submit" class="terms-form-button"><?php echo $term ? 'Update' : 'Add'; ?> Term</button>
+    </form>
+  </div>
+
+
 
   <?php require_once "partials/footer.php";
 }

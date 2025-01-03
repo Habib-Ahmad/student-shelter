@@ -38,6 +38,9 @@ function get_css_file()
     case 'admin':
       $css_file = "{$BASEURL}admin.css";
       break;
+    case 'favorites':
+      $css_file = "{$BASEURL}favorites.css";
+      break;
     default:
       break;
   }
