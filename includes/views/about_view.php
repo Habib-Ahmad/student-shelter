@@ -4,39 +4,30 @@ require_once 'partials/header.php';
 
 <section class="about-us">
   <div class="container">
-    <h1>About Us</h1>
-    <p>
-      Welcome to <strong>Student Shelter</strong>, your trusted platform for seamless student accommodation. Our mission
-      is to simplify the process of finding and managing student housing, bridging the gap between students and
-      landlords in a way that is reliable, transparent, and user-friendly.
+    <h1 class="title">About Us</h1>
+    <p class="description">
+      Welcome to <strong>Student Shelter</strong>, your trusted companion for hassle-free student housing. Our mission is to bridge the gap between students and landlords by offering a platform that is reliable, transparent, and easy to use.
     </p>
-    <h2>Our Vision</h2>
-    <p>
-      At Student Shelter, we envision a world where every student has access to safe, affordable, and conveniently
-      located housing. Our platform is designed to eliminate the challenges students face in securing suitable
-      accommodations, while empowering landlords to manage properties efficiently.
+    <h2 class="title">Our Vision</h2>
+    <p class="description">
+    We aspire to create a world where every student can find safe, affordable, and conveniently located housing. Our goal is to simplify the search process for students and provide landlords with efficient property management tools
     </p>
-    <h2>What We Offer</h2>
-    <ul>
-      <li><strong>For Students:</strong> A stress-free way to search for, view, and secure accommodations tailored to
-        your needs.</li>
-      <li><strong>For Landlords:</strong> Comprehensive tools to list, manage, and maintain properties while connecting
-        with potential tenants.</li>
-      <li><strong>Support:</strong> A dedicated support system to assist with inquiries, resolve conflicts, and ensure
-        smooth operations.</li>
+    <h2 class="title">What We Offer</h2>
+    <ul class="list">
+      <li class="item"><strong>For Students:</strong> Easily search, view, and secure accommodations tailored to your preferences.</li>
+      <li class="item"><strong>For Landlords:</strong> Manage properties effortlessly with tools to list, maintain, and connect with tenants.</li>
+      <li class="item"><strong>Support:</strong> Dedicated assistance to address inquiries, resolve conflicts, and ensure smooth operations.</li>
     </ul>
-    <h2>Why Choose Us?</h2>
-    <p>
-      Student Shelter is built with students and landlords in mind. From robust security measures to ensure data privacy
-      to a user-friendly interface that streamlines every step of the process, we are committed to making your
-      experience as seamless as possible.
+    <h2 class="title">Why Choose Us?</h2>
+    <p class="description">
+      Student Shelter is built with students and landlords in mind. At Student Shelter, we prioritize security, privacy, and user experience. Our streamlined interface and robust features make finding or managing student housing simple and stress-free.
     </p>
-    <h2>Join Our Community</h2>
-    <p>
+    <h2 class="title">Join Our Community</h2>
+    <p class="description">
       Whether you're a student looking for your next home or a landlord managing properties, Student Shelter is here to
       help. Together, let's make student accommodation hassle-free.
     </p>
-    <p><strong>Welcome to Student Shelter - your home away from home!</strong></p>
+    <p class="welcome-message"><strong>Welcome to Student Shelter - your home away from home!</strong></p>
   </div>
 </section>
 

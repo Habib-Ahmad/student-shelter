@@ -1,6 +1,6 @@
 <?php
 
-function render_home_page($properties)
+function render_home_page($pdo, $properties)
 {
   require_once './partials/header.php';
   ?>
@@ -16,19 +16,39 @@ function render_home_page($properties)
     <!-- End of Hero section-->
 
     <!-- Beginning of display property section -->
-    <div class="search-header">
-      <div class="search-filters">
-        <select>
-          <option value="">Property type</option>
-          <option value="apartment">Apartment</option>
-          <option value="studio">Studio</option>
-          <option value="house">House</option>
+    <br>
+    <div class="search-filters" id="search-filters">
+      <form action="/studentshelter" method="GET">
+        <label for="city">City</label>
+        <input type="text" name="city" id="city" placeholder="Enter city name"
+          value="<?php echo htmlspecialchars($_GET['city'] ?? ''); ?>">
+
+        <label for="maxBudget">Max Budget</label>
+        <input type="number" name="maxBudget" id="maxBudget" placeholder="Enter max budget"
+          value="<?php echo htmlspecialchars($_GET['maxBudget'] ?? ''); ?>">
+
+        <label for="type">Type</label>
+        <select name="type" id="type">
+          <option value="">Any</option>
+          <option value="Apartment" <?php echo isset($_GET['type']) && $_GET['type'] === 'Apartment' ? 'selected' : ''; ?>>
+            Apartment</option>
+          <option value="Hostel" <?php echo isset($_GET['type']) && $_GET['type'] === 'Hostel' ? 'selected' : ''; ?>>Hostel
+          </option>
+          <option value="Shared House" <?php echo isset($_GET['type']) && $_GET['type'] === 'Shared House' ? 'selected' : ''; ?>>Shared House
+          </option>
         </select>
-        <input type="number" placeholder="Max Budget" />
-        <input placeholder="Check-in" type="date" />
-        <button class="search-button">Search</button>
-      </div>
+
+        <label for="numberOfRooms">Number of Rooms</label>
+        <input type="number" name="numberOfRooms" id="numberOfRooms" placeholder="Enter number of rooms"
+          value="<?php echo htmlspecialchars($_GET['numberOfRooms'] ?? ''); ?>">
+        <br>
+        <br>
+
+        <button type="submit" class="search-button">Search</button>
+        <a href="/studentshelter">Reset</a>
+      </form>
     </div>
+
 
     <section class="properties-section">
       <div class="properties">
@@ -38,7 +58,21 @@ function render_home_page($properties)
               <img src="/studentshelter/assets/Property.png" alt="Property 1">
               <div class="property-details">
                 <h3>$<?php echo htmlspecialchars($property['monthlyPrice']); ?>/month</h3>
-                <div class="favorite-icon"><img src="/studentshelter/assets/heart.png" /></div>
+                <?php
+                if (isset($_SESSION['user_id'])) {
+                  $isFavorite = is_property_favorite($pdo, $_SESSION['user_id'], $property['id']);
+                  $favoriteIcon = $isFavorite ? 'heart-filled.svg' : 'heart.svg';
+                  $favoriteAlt = $isFavorite ? 'Remove from Favorites' : 'Add to Favorites';
+                  $favoriteLink = "/studentshelter/home/add-to-favorites?id=" . $property['id'];
+                } else {
+                  $favoriteIcon = 'heart.svg'; // Default unfilled heart for guests
+                  $favoriteAlt = 'Login to add to favorites';
+                  $favoriteLink = "/studentshelter/login"; // Redirect to login
+                }
+                ?>
+                <a href="<?php echo $favoriteLink; ?>" class="favorite-icon" data-id="<?php echo $property['id']; ?>">
+                  <img src="/studentshelter/assets/<?php echo $favoriteIcon; ?>" alt="<?php echo $favoriteAlt; ?>">
+                </a>
               </div>
               <h4><?php echo htmlspecialchars($property['name']); ?></h4>
               <p><?php echo htmlspecialchars($property['type']); ?></p>
@@ -85,6 +119,8 @@ function render_home_page($properties)
     </section>
     <!-- End of Booking section-->
   </main>
+
+  <script src="/studentshelter/js/home.js"></script>
 
   <?php
   require_once './partials/footer.php';

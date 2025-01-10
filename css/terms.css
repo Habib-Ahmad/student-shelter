@@ -1,0 +1,166 @@
+#terms {
+    background-color: transparent;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0);
+}
+
+.terms-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.terms-title {
+    font-size: 22px;
+    color: black;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.terms-subtitle {
+    font-size: 16px;
+    color: black;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.terms-description {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.btn-add {
+    display: inline-block;
+    padding: 8px 16px;
+    font-size: 14px;
+    color: #fff;
+    background-color: rgb(105, 102, 244);
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-add:hover {
+    background-color: #1a75d1;
+}
+/* .btn-edit {
+    display: inline-block;
+    padding: 8px 16px;
+    font-size: 14px;
+    color: #fff;
+    background-color: #11445b;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-edit:hover {
+    background-color: #1a75d1;
+} */
+
+.btn-edit img {
+    display: inline-block;
+    width: 16px; 
+    height: 16px; 
+    object-fit: contain; 
+    cursor: pointer;
+}
+.btn-add img {
+    display: inline-block;
+    width: 16px; 
+    height: 16px; 
+    object-fit: contain; 
+    cursor: pointer;
+}
+.btn-delete img {
+    display: inline-block;
+    width: 16px; 
+    height: 16px; 
+    object-fit: contain; 
+    cursor: pointer;
+}
+
+/* .btn-delete {
+    display: inline-block;
+    padding: 8px 16px;
+    font-size: 14px;
+    color: #fff;
+    background-color: #ff6347;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-delete:hover {
+    background-color: #e5533d;
+} */
+
+
+
+
+/* Form Container */
+.terms-form-container {
+    background-color: transparent;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    max-width: 100%;
+    margin: 0 auto;
+    flex-wrap: wrap;
+}
+
+/* Labels */
+.terms-form-label {
+    display: none;
+}
+
+/* Input Fields */
+.terms-form-input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    min-width: 150px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+/* Button */
+.terms-form-button {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    flex-shrink: 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.terms-form-button:hover {
+    background-color: #bbb;
+}
+
+.terms-form-input-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.terms-form-button-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}

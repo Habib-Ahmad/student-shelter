@@ -26,8 +26,8 @@ function get_css_file()
     case 'faq':
       $css_file = "{$BASEURL}faq.css";
       break;
-    case 'terms_conditions':
-      $css_file = "{$BASEURL}terms_conditions.css";
+    case 'terms':
+      $css_file = "{$BASEURL}terms.css";
       break;
     case 'legal':
       $css_file = "{$BASEURL}legal.css";
@@ -37,6 +37,9 @@ function get_css_file()
       break;
     case 'admin':
       $css_file = "{$BASEURL}admin.css";
+      break;
+    case 'favorites':
+      $css_file = "{$BASEURL}favorites.css";
       break;
     default:
       break;

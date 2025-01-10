@@ -134,6 +134,7 @@ nav.navbar .logo img {
   display: none;
   flex-direction: column;
   z-index: 10;
+  white-space: nowrap;
 }
 
 .dropdown-menu a {
@@ -283,7 +284,7 @@ nav.navbar .logo img {
 
 /* beginning of property section /
 /* Search Header */
-.search-header {
+/* .search-header {
   background-color: white;
   color: black;
   text-align: center;
@@ -317,7 +318,56 @@ nav.navbar .logo img {
 }
 
 .search-button:hover {
-  background-color: #1a252f;
+  background-color: #e67e22;
+} */
+
+.search-filters {
+  background-color: transparent;
+  padding: 10px;
+  display: flex;
+  justify-content: center; /* Center align all items */
+  align-items: center;
+  gap: 10px;
+  max-width: 100%;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+.search-filters label {
+  display: none; /* Hide labels for a cleaner horizontal layout */
+}
+
+.search-filters input,
+.search-filters select {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  min-width: 100px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.search-filters .search-button {
+  background-color: #ccc;
+  color: black;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.search-button {
+  display: block;
+  margin: 0 auto;
+}
+
+.search-filters .search-button:hover {
+  background-color: #bbb;
+}
+
+.search-filters a {
+  display: none; /* Hide the link for a cleaner layout */
 }
 
 /* Property Cards */
@@ -369,9 +419,9 @@ a {
   
 }
 
-/*.favorite-icon {
-  
-}*/
+.favorite-icon {
+  z-index: 100;
+}
 
 .favorite-icon img {
   width: 20px;
