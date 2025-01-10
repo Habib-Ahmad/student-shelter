@@ -49,36 +49,6 @@ h2 {
   max-height: 200px;
 }
 
-/* .admin-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-.admin-actions .delete-faq-button {
-  background-color: #007bff;
-  color: white;
-  padding: 5px 10px;
-  border: none;
-  border-radius: 3px;
-  text-decoration: none;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.admin-actions .delete-faq-button:hover {
-  background-color: #0056b3;
-}
-
-.admin-actions .delete-faq-button {
-  background-color: #dc3545;
-}
-
-.admin-actions .delete-faq-button:hover {
-  background-color: #c82333;
-} */
 
 .btn-edit img {
   display: inline-block;

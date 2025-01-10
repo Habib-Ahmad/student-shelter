@@ -1,9 +1,9 @@
-#terms {
+/* #terms {
     background-color: transparent;
     padding: 40px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0);
-}
+} */
 
 .terms-container {
     max-width: 800px;
@@ -11,27 +11,29 @@
 }
 
 .terms-title {
-    font-size: 22px;
+    font-size: 2rem;
     color: black;
     text-align: center;
     margin-bottom: 20px;
 }
 
 .terms-subtitle {
-    font-size: 16px;
+    font-size: 1.2rem;
     color: black;
     margin-top: 20px;
     margin-bottom: 10px;
 }
 
 .terms-description {
-    font-size: 13px;
+    font-size: 15px;
     color: #666;
     line-height: 1.6;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .btn-add {
+    margin-top: 20px;
+    margin-bottom: 20px;
     display: inline-block;
     padding: 8px 16px;
     font-size: 14px;
