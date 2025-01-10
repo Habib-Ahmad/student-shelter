@@ -13,17 +13,17 @@
   </div>
   <div class="footer-column">
     <h4>Navigations</h4>
-    <a href="#">Home</a>
-    <a href="#">About</a>
-    <a href="#">Services</a>
-    <a href="#">Contact</a>
+    <a href="/studentshelter/">Home</a>
+    <a href="/studentshelter/about">About Us</a>
+    <a href="/studentshelter/faq">FAQ</a>
+    <a href="/studentshelter/contact">Contact Us</a>
   </div>
   <div class="footer-column">
     <h4>Resources</h4>
     <a href="#">Blog</a>
-    <a href="#">FAQ</a>
-    <a href="#">Privacy Policy</a>
-    <a href="#">Terms of Service</a>
+    <a href="/studentshelter/faq">FAQ</a>
+    <a href="/studentshelter/legal">Legal Notice</a>
+    <a href="/studentshelter/terms">Terms of Service</a>
   </div>
   <div class="footer-column">
     <h4>Contact Us</h4>

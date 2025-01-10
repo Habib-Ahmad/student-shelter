@@ -55,6 +55,9 @@ body::-webkit-scrollbar {
   flex: 1;
 }
 
+
+
+
 /* Navbar Styling */
 header {
   z-index: 1000;
@@ -314,7 +317,7 @@ nav.navbar .logo img {
 }
 
 .search-button:hover {
-  background-color: #e67e22;
+  background-color: #1a252f;
 }
 
 /* Property Cards */
@@ -363,23 +366,28 @@ a {
 }
 .property-details h3 {
   color: #11445b;
-  font-weight: bold;
+  
 }
 
-.favorite-icon {
-}
+/*.favorite-icon {
+  
+}*/
 
 .favorite-icon img {
   width: 20px;
   height: auto;
   object-fit: contain;
   cursor: pointer;
+  color: red;
 }
 
 .property-card h4 {
-  /* font-size: 14px;
+  font-size: 16px;
   margin: 10px 0 5px;
-  padding: 5px 5px; */
+  padding: 5px 5px; 
+  color: #11445b;
+  font-weight: bold;
+
 }
 
 .property-card p {
@@ -572,3 +580,5 @@ a {
   }
 }
 /* End of Footer Styling */
+
+

@@ -1,64 +1,66 @@
-/* .terms-section {
-    margin-top: 20px;
-    font-size: 0.95rem;
+
+/* Terms Section */
+#terms-section {
+    background: red;
+    padding: 40px 20px;
+    max-width: 1100px;
+    margin: 30px auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+            
+/* Heading */
+#terms-section h2 {
+    font-size: 2rem;
+    color: #007bff;
+    text-align: center;
+    margin-bottom: 30px;
 }
 
-.terms-section p {
+/* Clause Title */
+#terms-section h3 {
+    font-size: 1.3rem;
+    color: #333;
     margin-bottom: 10px;
-    text-align: justify;
-} */
-
-.terms-section {
-    margin-top: 20px;
-    font-size: 0.95rem;
 }
 
-.terms-section p {
-    margin-bottom: 10px;
-    text-align: justify;
-}
-
-/* Links */
-a {
-    color: #0056b3;
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-/* Buttons (if any) */
-button {
-    display: inline-block;
-    background-color: #0056b3;
-    color: #fff;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
+/* Clause Description */
+#terms-section p {
     font-size: 1rem;
+    color: #555;
+    margin: 0;
 }
 
-button:hover {
-    background-color: #004494;
-}
+/* Responsive Design */
+@media (max-width: 768px) {
+    #terms-section {
+        padding: 20px 10px;
+    }
 
-/* Media Queries */
-@media (max-width: 600px) {
-    body {
+    #terms-section h2 {
+        font-size: 1.8rem;
+    }
+
+    #terms-section h3 {
+        font-size: 1.2rem;
+    }
+
+    #terms-section p {
         font-size: 0.9rem;
     }
+}
 
-    .container {
-        padding: 15px;
+@media (max-width: 480px) {
+    #terms-section h2 {
+        font-size: 1.5rem;
     }
 
-    h1 {
-        font-size: 1.75rem;
+    #terms-section h3 {
+        font-size: 1rem;
     }
 
-    h2 {
-        font-size: 1.25rem;
+    #terms-section p {
+        font-size: 0.85rem;
     }
 }
+

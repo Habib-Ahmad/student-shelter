@@ -2,11 +2,11 @@
 require_once 'partials/header.php';
 ?>
 
-<section>
+<section class="legal-section">
   <h2>Legal Notice</h2>
   <?php foreach ($legalClauses as $title => $description): ?>
     <div>
-      <p><?php echo htmlspecialchars($title); ?></p>
+      <h4><?php echo htmlspecialchars($title); ?></h4>
       <p><?php echo htmlspecialchars($description); ?></p>
     </div>
   <?php endforeach; ?>
