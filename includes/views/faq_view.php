@@ -15,10 +15,11 @@ function render_faq_list($faqs)
           <?php if ($role === 'admin'): ?>
             <div class="admin-actions">
               <a href="/studentshelter/faq/edit/<?php echo $faq['id']; ?>" class="edit-faq"><img
-              src="/studentshelter/assets/edit.svg" alt="Edit" class="btn-edit"></a>
-              <form method="POST" action="/studentshelter/faq/delete/<?php echo $faq['id']; ?>" class="delete-faq-form" style="display:inline;">
-              <button type="submit" class="delete-faq-button" onclick="return confirm('Are you sure you want to delete this FAQ?');"><img
-              src="/studentshelter/assets/delete.svg" alt="Delete" class="btn-delete"></button>
+                  src="/studentshelter/assets/edit.svg" alt="Edit" class="btn-edit"></a>
+              <form method="POST" action="/studentshelter/faq/delete/<?php echo $faq['id']; ?>" class="delete-faq-form">
+                <button type="submit" class="delete-faq-button"
+                  onclick="return confirm('Are you sure you want to delete this FAQ?');"><img
+                    src="/studentshelter/assets/delete.svg" alt="Delete" class="btn-delete"></button>
               </form>
             </div>
           <?php endif; ?>
@@ -36,8 +37,8 @@ function render_faq_list($faqs)
         <input type="text" id="title" name="title" class="add-faq-input" required placeholder="question">
         <label for="description" class="add-faq-label">Answer</label>
         <textarea id="description" name="description" class="add-faq-textarea" required placeholder="answer"></textarea>
-        <button type="submit" class="add-faq-button"><img
-        src="/studentshelter/assets/add.svg" alt="Add" class="btn-add">Add FAQ</button>
+        <button type="submit" class="add-faq-button"><img src="/studentshelter/assets/add.svg" alt="Add" class="btn-add">Add
+          FAQ</button>
       </form>
     <?php endif; ?>
   </section>
@@ -50,18 +51,20 @@ function render_faq_edit($faq)
 {
   require_once 'partials/header.php';
   ?>
-  <section class="faq-edit-container">
-    <h2>Edit FAQ</h2>
+  <div class="faq-edit-page">
+    <section class="faq-edit-container">
+      <h2>Edit FAQ</h2>
 
-    <form method="POST" action="/studentshelter/faq/edit/<?php echo $faq['id']; ?>">
-      <label for="title">Question</label>
-      <input type="text" id="title" name="title" value="<?php echo htmlspecialchars($faq['title']); ?>" required>
-      <label for="description">Answer</label>
-      <textarea id="description" name="description"
-        required><?php echo htmlspecialchars($faq['description']); ?></textarea>
-      <button type="submit">Save Changes</button>
-    </form>
-  </section>
+      <form method="POST" action="/studentshelter/faq/edit/<?php echo $faq['id']; ?>">
+        <label for="title">Question</label>
+        <input type="text" id="title" name="title" value="<?php echo htmlspecialchars($faq['title']); ?>" required>
+        <label for="description">Answer</label>
+        <textarea id="description" name="description"
+          required><?php echo htmlspecialchars($faq['description']); ?></textarea>
+        <button type="submit">Save Changes</button>
+      </form>
+    </section>
+  </div>
   <?php
   require_once 'partials/footer.php';
 }

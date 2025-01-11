@@ -16,7 +16,6 @@ h2 {
 .faq-question {
   border-radius: 5px;
   background-color: rgba(224, 224, 224, 0.6);
-  border: none;
   padding: 1em;
   text-align: left;
   width: 100%;
@@ -37,82 +36,85 @@ h2 {
   padding: 20px 40px;
   border: 1px solid #ddd;
   border-top: none;
-  background-color: #fafafa;
+  background-color: var(--white-text-color);
   font-size: 13px;
 }
 
 .faq-item.active .faq-question {
-  border-radius: 5px 5px 0px 0px;
+  border-radius: 5px;
 }
 
 .faq-item.active .faq-answer {
   max-height: 200px;
 }
 
+.admin-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-.btn-edit img {
-  display: inline-block;
-  width: 12px; 
-  height: 12px; 
-  object-fit: contain; 
+.admin-actions .edit-faq img,
+.admin-actions .delete-faq-button img {
+  width: 20px;
+  height: 20px;
   cursor: pointer;
+  transition: transform 0.3s ease;
 }
-.btn-add img {
-  display: inline-block;
-  width: 12px; 
-  height: 12px; 
-  object-fit: contain; 
-  cursor: pointer;
-}
-.btn-delete img {
-  display: inline-block;
-  width: 12px; 
-  height: 12px; 
-  object-fit: contain; 
-  cursor: pointer;
+
+.admin-actions .edit-faq img:hover,
+.admin-actions .delete-faq-button img:hover {
+  transform: scale(1.2);
 }
 
 .add-faq-form {
-  background-color: transparent; 
-  padding: 10px;
+  background-color: var(--white-text-color);
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 600px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 10px; 
-  max-width: 100%;
-  margin: 0 auto;
-  flex-wrap: wrap;
+  gap: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
 }
 
 .add-faq-title {
-  font-size: 16px;
+  font-size: 18px;
+  margin-bottom: 20px;
   text-align: center;
 }
 
 .add-faq-label {
-  display: none;
+  font-size: 14px;
+  font-weight: bold;
 }
 
-.add-faq-input {
-  flex: 1;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  min-width: 150px; 
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-}
-
+.add-faq-input,
 .add-faq-textarea {
-  flex: 1;
-  padding: 8px;
+  resize: none;
+  padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  min-width: 150px; 
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
 }
 
-.add-faq-input-container {
+.add-faq-button {
+  background-color: var(--button-color);
+  color: var(--white-text-color);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-faq-button:hover {
+  background-color: var(--primary-color);
+}
+
+.add-faq-button-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -120,29 +122,12 @@ h2 {
   width: 100%;
 }
 
-.add-faq-button {
-  background-color: #007bff;
-  color: white;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  flex-shrink: 0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-}
-
-.add-faq-button:hover {
-  background-color: #bbb;
-}
-
-.add-faq-button-container {
-  display: flex;
-  justify-content: center;
-  width: 100%; 
+.faq-edit-page {
+  padding: 5vw 0;
 }
 
 .faq-edit-container {
-  background-color: #f9f9f9;
+  background-color: var(--white-text-color);
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -169,16 +154,17 @@ h2 {
 
 .faq-edit-container input[type="text"],
 .faq-edit-container textarea {
+  resize: none;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
   width: 100%;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
 }
 
 .faq-edit-container button {
-  background-color: #007bff;
-  color: white;
+  background-color: var(--button-color);
+  color: var(--white-text-color);
   padding: 10px 20px;
   border: none;
   border-radius: 4px;
@@ -187,5 +173,5 @@ h2 {
 }
 
 .faq-edit-container button:hover {
-  background-color: #0056b3;
+  background-color: var(--primary-color);
 }

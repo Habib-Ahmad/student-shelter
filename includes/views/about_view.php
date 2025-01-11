@@ -4,7 +4,7 @@ require_once 'partials/header.php';
 
 <section class="about-us">
   <div class="container">
-    <h1 class="title">About Us</h1>
+    <h1 class="main-title">About Us</h1>
     <p class="description">
       Welcome to <strong>Student Shelter</strong>, your trusted companion for hassle-free student housing. Our mission is to bridge the gap between students and landlords by offering a platform that is reliable, transparent, and easy to use.
     </p>
