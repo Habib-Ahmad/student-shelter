@@ -3,17 +3,24 @@
     width: 90%;
     margin: 10px auto;
     padding: 10px;
-    background: #f9f9f9;
-    border: 1px solid #ccc;
+    background: transparent;
     border-radius: 10px;
 }
 
+.main-title {
+    color: var(--black-text-color);
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 22px;
+}
+
 .title {
-    color: #333;
+    color: var(--black-text-color);
     text-align: center;
     margin-top: 20px;
     margin-bottom: 10px;
-    font-size: 15px;
+    font-size: 16px;
 }
 
 .description {
@@ -42,11 +49,11 @@
 
 .welcome-message {
     text-align: center;
-    font-size: 13px;
-    color: #333;
+    font-size: 14px;
     margin-top: 20px;
 }
 
 strong {
     color: #007BFF;
+    font-size: 14px;
 }
