@@ -29,7 +29,11 @@ function get_css_file()
       $css_file = "/studentShelter/css/profile.css";
       break;
     case 'property':
+      $css_file = "/studentShelter/css/property.css";
+      break;
     case 'property/edit':
+      $css_file = "/studentShelter/css/property.css";
+      break;
     case 'property/add':
       $css_file = "/studentShelter/css/property.css";
       break;
@@ -41,6 +45,8 @@ function get_css_file()
       $css_file = "/studentShelter/css/contact.css";
       break;
     case 'terms':
+    case 'terms/edit':
+    case 'terms/add':
       $css_file = "/studentShelter/css/terms.css";
       break;
     case 'legal':

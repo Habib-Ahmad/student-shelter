@@ -7,8 +7,12 @@
   --white-text-color: #ffffff;
   --black-text-color: black;
   --button-color: #11445b;
+  --button-hover-color: #1a252f;
   --font-family: "Nunito", sans-serif;
   --font-size: 16px;
+  --gray-background: rgba(224, 224, 224, 0.6);
+  --white-background: #fff;
+  --item-strong: #333;
 }
 
 * {

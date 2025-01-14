@@ -44,6 +44,7 @@ function render_terms_form($term = null)
 
   <div class="terms-form-container">
     <form action="<?php echo $action; ?>" method="POST">
+    <h2 class="add-terms-title">Edit Terms</h2>
       <label for="title" class="terms-form-label">Title</label>
       <input type="text" id="title" name="title" value="<?php echo htmlspecialchars($title); ?>" required
         class="terms-form-input">

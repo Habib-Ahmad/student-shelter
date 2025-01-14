@@ -1,4 +1,3 @@
-
 .container {
     width: 90%;
     margin: 10px auto;
@@ -24,7 +23,7 @@
 }
 
 .description {
-    color: #666;
+    color: var(--gray-text-color);
     text-align: justify;
     margin-bottom: 20px;
     font-size: 13px;
@@ -36,7 +35,7 @@
 }
 
 .item {
-    background: #e2e2e2;
+    background: var(--gray-background);
     margin: 10px 0;
     padding: 10px;
     border-radius: 5px;
@@ -44,7 +43,7 @@
 }
 
 .item strong {
-    color: #333;
+    color: var(--item-strong);
 }
 
 .welcome-message {
