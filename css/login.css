@@ -104,3 +104,45 @@ button:hover {
   color: #11445b;
   text-decoration: none;
 }
+
+/* For tablets and small desktops (up to 768px wide) */
+
+@media only screen and (max-width: 768px) {
+  .form-container {
+    max-width: 500px; 
+    padding: 30px; 
+  }
+
+  h1 {
+    font-size: 2rem; 
+
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="tel"],
+  input[type="fileInput"] {
+    width: calc(100% - 20px); 
+  }
+}
+}
+
+
+/* For small devices (phones, less than 480px wide) */
+@media only screen and (max-width: 480px) {
+  .form-container {
+    width: 95%; 
+    padding: 25px; 
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="tel"],
+  input[type="fileInput"] {
+    width: calc(100% - 10px); 
+  }
+}

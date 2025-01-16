@@ -44,6 +44,8 @@ function get_css_file()
       $css_file = "/studentShelter/css/terms.css";
       break;
     case 'legal':
+    case 'legal/edit':
+    case 'legal/add':
       $css_file = "/studentShelter/css/legal.css";
       break;
     case 'favorites':
