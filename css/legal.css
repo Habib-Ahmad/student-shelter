@@ -56,8 +56,8 @@ h2 {
 
 .btn-edit img {
     display: inline-block;
-    width: 16px; 
-    height: 16px; 
+    width: 9px; 
+    height: 9px; 
     object-fit: contain; 
     cursor: pointer;
 }
@@ -114,7 +114,6 @@ h2 {
   border: 1px solid #ccc;
   border-radius: 4px;
   width: 100%;
-  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
 }
 
 .legal-edit-container button {

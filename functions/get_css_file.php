@@ -28,9 +28,9 @@ function get_css_file()
     case 'profile':
       $css_file = "/studentShelter/css/profile.css";
       break;
-    case 'property':
-    case 'property/edit':
-    case 'property/add':
+    case 'properties':
+    case 'edit':
+    case 'add':
       $css_file = "/studentShelter/css/property.css";
       break;
     case 'faq':
