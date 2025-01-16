@@ -219,3 +219,253 @@ h2 {
 .faq-edit-container button:hover {
   background-color: #0056b3;
 }
+/* Base Styles */
+.faq-container {
+  padding: 0 10vw;
+  margin: 60px 0 100px;
+}
+
+h2 {
+  font-size: 18px;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.faq-item {
+  margin-bottom: 1em;
+}
+
+.faq-question {
+  border-radius: 5px;
+  background-color: rgba(224, 224, 224, 0.6);
+  border: none;
+  padding: 1em;
+  text-align: left;
+  width: 100%;
+  font-size: 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  transition: all 0.3s ease-out;
+}
+
+.faq-answer {
+  border-radius: 0px 0px 5px 5px;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.3s ease-out;
+  padding: 20px 40px;
+  border: 1px solid #ddd;
+  border-top: none;
+  background-color: #fafafa;
+  font-size: 13px;
+}
+
+.faq-item.active .faq-question {
+  border-radius: 5px 5px 0px 0px;
+}
+
+.faq-item.active .faq-answer {
+  max-height: 200px;
+}
+
+/* Add FAQ Form */
+.add-faq-form {
+  background-color: transparent;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.add-faq-input-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.add-faq-input,
+.add-faq-textarea {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  min-width: 150px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.add-faq-button {
+  background-color: #007bff;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  flex-shrink: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.add-faq-button:hover {
+  background-color: #0056b3;
+}
+
+.add-faq-button-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+/* FAQ Edit Container */
+.faq-edit-container {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.faq-edit-container h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.faq-edit-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.faq-edit-container label {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.faq-edit-container input[type="text"],
+.faq-edit-container textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.faq-edit-container button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.faq-edit-container button:hover {
+  background-color: #0056b3;
+}
+
+/* Media Queries for Responsive Design */
+
+/* For screens smaller than 768px (phones) */
+@media screen and (max-width: 768px) {
+  .faq-container {
+    padding: 0 5vw;
+    margin: 40px 0 80px;
+  }
+
+  h2 {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+
+  .faq-question {
+    font-size: 14px;
+    padding: 0.8em;
+  }
+
+  .faq-answer {
+    padding: 15px 20px;
+    font-size: 12px;
+  }
+
+  .add-faq-input,
+  .add-faq-textarea {
+    padding: 6px;
+    font-size: 14px;
+  }
+
+  .add-faq-button {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+
+  .faq-edit-container {
+    padding: 15px;
+    max-width: 100%;
+  }
+
+  .faq-edit-container h2 {
+    font-size: 20px;
+  }
+
+  .faq-edit-container input[type="text"],
+  .faq-edit-container textarea {
+    font-size: 14px;
+  }
+}
+
+/* For screens larger than 1200px (desktops) */
+@media (min-width: 1200px) {
+  .faq-container {
+    padding: 0 15vw;
+  }
+
+  h2 {
+    font-size: 22px;
+    margin-bottom: 30px;
+  }
+
+  .faq-question {
+    font-size: 16px;
+    padding: 1.2em;
+  }
+
+  .faq-answer {
+    padding: 30px 50px;
+    font-size: 14px;
+  }
+
+  .add-faq-input,
+  .add-faq-textarea {
+    padding: 10px;
+    font-size: 16px;
+  }
+
+  .add-faq-button {
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+
+  .faq-edit-container {
+    padding: 30px;
+    max-width: 800px;
+  }
+
+  .faq-edit-container h2 {
+    font-size: 28px;
+  }
+
+  .faq-edit-container input[type="text"],
+  .faq-edit-container textarea {
+    font-size: 16px;
+  }
+}
