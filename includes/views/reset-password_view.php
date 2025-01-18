@@ -1,9 +1,10 @@
 <?php
 
-function render_login_form($errors)
+declare(strict_types=1);
+
+function render_reset_password_form()
 {
   ?>
-
   <!DOCTYPE html>
   <html lang="en">
 
@@ -20,36 +21,21 @@ function render_login_form($errors)
   <body>
     <div class="form-container">
       <a href="/studentshelter/"><img src="assets/S_logo.PNG" alt="Logo" class="logo" /></a>
-      <h1>Login</h1>
+      <h1>Reset Password</h1>
 
-      <form action="/studentshelter/login" method="post">
-
-
-        <!-- Email -->
+      <form action="/studentshelter/reset-password?token=<?php echo $_GET['token'] ?? ''; ?>" method="post">
         <div class="form-group">
-          <label for="email">Email:</label>
-          <input type="email" id="email" name="email" placeholder="Enter your email" required />
-        </div>
-
-        <!-- Password -->
-        <div class="form-group password">
           <label for="password">Password:</label>
-          <input type="password" id="password" name="password" placeholder="Enter your password" required />
-          <a class="forgot-pwd" href="/studentshelter/forgot-password">Forgot password?</a>
+          <input type="password" id="password" name="password" placeholder="Enter your new password" required />
         </div>
 
-
-        <button type="submit" class="btn">Login</button>
-        <?php if ($errors): ?>
-          <div class="error-list">
-            <?php foreach ($errors as $error): ?>
-              <p><?php echo $error; ?></p>
-            <?php endforeach; ?>
-          </div>
-        <?php endif; ?>
+        <div class="form-group">
+          <label for="confirm_password">Confirm Password:</label>
+          <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm your new password"
+            required />
+        </div>
+        <button type="submit" class="btn">Reset Password</button>
       </form>
-
-      <p class="register">Don't have an account? <a href="/studentshelter/signup">Sign up</a></p>
     </div>
   </body>
 
