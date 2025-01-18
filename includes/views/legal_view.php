@@ -2,56 +2,58 @@
 
 function render_legal($legalClauses)
 {
-  require_once "partials/header.php";
+    require_once "partials/header.php";
 
-  $role = $_SESSION['user_role'] ?? '';
-  ?>
+    $role = $_SESSION['user_role'] ?? '';
+?>
 
-  <section class="container legal-section">
-    <h2 class="legal-title">Legal Notice</h2>
-
-    <?php if ($role === 'admin'): ?>
-      <a href="/studentshelter/legal/add" class="btn-add">Add New Legal Clause</a> <br><br>
-    <?php endif; ?>
-
-    <?php foreach ($legalClauses as $clause): ?>
-      <div class="legal-clause">
-        <h3 class="legal-clause-title"><?php echo htmlspecialchars($clause['title']); ?></h3>
-        <p class="legal-clause-description"><?php echo htmlspecialchars($clause['description']); ?></p>
+    <section id="legal" class="container-legal-section">
+        <h2 class="legal-title">Legal Notice</h2>
+        <?php foreach ($legalClauses as $clause): ?>
+            <div>
+                <h3 class="legal-clause-title"><?php echo htmlspecialchars($clause['title']); ?></h3>
+                <p class="legal-clause-description"><?php echo htmlspecialchars($clause['description']); ?></p>
+                <?php if ($role === 'admin'): ?>
+                    <a href="/studentshelter/legal/edit/<?php echo $clause['id']; ?>" class="btn-edit"><img
+                            src="/studentshelter/assets/edit.svg" alt="Edit" class="btn-icon"></a>
+                    <a href="#" onclick="confirmDelete(<?php echo $clause['id']; ?>)" class="btn-delete"><img
+                            src="/studentshelter/assets/delete.svg" alt="Edit" class="btn-icon"></a>
+                <?php endif; ?>
+            </div>
+        <?php endforeach; ?>
         <?php if ($role === 'admin'): ?>
-            <a href="/studentshelter/legal/edit/<?php echo $clause['id']; ?>" class="btn-edit">Edit</a>
-            <a href="#" onclick="confirmDelete(<?php echo $clause['id']; ?>)" class="btn-delete">Delete</a>
+            <a href="/studentshelter/legal/add" class="btn-add"><img src="/studentshelter/assets/add.svg" alt="add"
+                    class="btn-icon">New Legal Clause</a>
         <?php endif; ?>
-      </div>
-    <?php endforeach; ?>
-  </section>
+    </section>
 
-  <script src="/studentshelter/js/legal.js"></script>
+    <script src="/studentshelter/js/legal.js"></script>
 
-  <?php require_once "partials/footer.php";
+<?php require_once "partials/footer.php";
 }
 
 function render_legal_form($clause = null)
 {
-  $action = $clause ? "/studentshelter/legal/edit/" . $clause['id'] : "/studentshelter/legal/add";
-  $title = $clause['title'] ?? '';
-  $description = $clause['description'] ?? '';
+    $action = $clause ? "/studentshelter/legal/edit/" . $clause['id'] : "/studentshelter/legal/add";
+    $title = $clause['title'] ?? '';
+    $description = $clause['description'] ?? '';
 
-  require_once "partials/header.php"; ?>
+    require_once "partials/header.php"; ?>
+    <div class="legal-edit-page">
+        <section class="legal-edit-container">
+            <h2>Update Legal Notice</h2>
 
-  <form action="<?php echo $action; ?>" method="POST" class="container-form-legal">
-    <div class="form-group">
-      <label for="title" class="form-label">Title</label>
-      <input type="text" id="title" name="title" class="form-control" value="<?php echo htmlspecialchars($title); ?>" required>
-    </div>
+            <form action="<?php echo $action; ?>" method="POST">
+                <label for="title">Title</label>
+                <input type="text" id="title" name="title"  value="<?php echo htmlspecialchars($title); ?>" required>
 
-    <div class="form-group">
-      <label for="description" class="form-label">Description</label>
-      <textarea id="description" name="description" class="form-control" required><?php echo htmlspecialchars($description); ?></textarea>
-    </div>
+                <label for="description">Description</label>
+                <textarea id="description" name="description"  required><?php echo htmlspecialchars($description); ?></textarea>
 
-    <button type="submit" class="btn btn-primary"><?php echo $clause ? 'Update' : 'Add'; ?> Legal Clause</button>
-  </form>
+                <button type="submit">Save Changes</button>
+            </form>
+        </section>
+     </div>
 
-  <?php require_once "partials/footer.php";
+<?php require_once "partials/footer.php";
 }

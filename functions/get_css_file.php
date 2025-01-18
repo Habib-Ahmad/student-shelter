@@ -1,26 +1,13 @@
 <?php
 function get_css_file()
 {
-  $current_page = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+  $current_page = basename(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
+  $css_file = "";
+  $BASEURL = "/studentshelter/css/";
 
-  // Remove '/studentshelter' from the path
-  $relative_path = str_replace('/studentshelter', '', $current_page);
-
-  // Split the remaining path into parts
-  $path_parts = explode('/', trim($relative_path, '/'));
-
-  // Get the first and second parts if they exist
-  $page = $path_parts[0] ?? '';
-  $subpage = $path_parts[1] ?? '';
-
-  $concatenated = $page . ($subpage ? "/$subpage" : '');
-
-  // Default CSS file
-  $css_file = "/studentShelter/css/default.css";
-
-  switch ($concatenated) {
-    case '':
-      $css_file = "/studentShelter/css/home.css";
+  switch ($current_page) {
+    case 'studentshelter':
+      $css_file = "{$BASEURL}home.css";
       break;
     case 'about':
       $css_file = "/studentShelter/css/about.css";
@@ -28,13 +15,9 @@ function get_css_file()
     case 'profile':
       $css_file = "/studentShelter/css/profile.css";
       break;
-    case 'property':
-      $css_file = "/studentShelter/css/property.css";
-      break;
-    case 'property/edit':
-      $css_file = "/studentShelter/css/property.css";
-      break;
-    case 'property/add':
+    case 'properties':
+    case 'edit':
+    case 'add':
       $css_file = "/studentShelter/css/property.css";
       break;
     case 'faq':
@@ -50,6 +33,8 @@ function get_css_file()
       $css_file = "/studentShelter/css/terms.css";
       break;
     case 'legal':
+    case 'legal/edit':
+    case 'legal/add':
       $css_file = "/studentShelter/css/legal.css";
       break;
     case 'favorites':

@@ -13,12 +13,12 @@ function handleSignup()
 
 function process_signup()
 {
-  $firstName = $_POST['firstName'] ?? null;
-  $lastName = $_POST['lastName'] ?? null;
-  $phone = $_POST['phone'] ?? null;
-  $email = $_POST['email'] ?? null;
-  $password = $_POST['password'] ?? null;
-  $confirmPassword = $_POST['confirmPassword'] ?? null;
+  $firstName = filter_input(INPUT_POST, 'firstName', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+  $lastName = filter_input(INPUT_POST, 'lastName', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+  $phone = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+  $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+  $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+  $confirmPassword = filter_input(INPUT_POST, 'confirmPassword', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
   $role = $_POST['role'] ?? null;
 
   // Error handling
