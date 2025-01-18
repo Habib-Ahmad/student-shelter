@@ -10,36 +10,36 @@ function get_css_file()
       $css_file = "{$BASEURL}home.css";
       break;
     case 'about':
-      $css_file = "{$BASEURL}about.css";
+      $css_file = "/studentShelter/css/about.css";
       break;
     case 'profile':
-      $css_file = "{$BASEURL}profile.css";
+      $css_file = "/studentShelter/css/profile.css";
       break;
     case 'properties':
-    case 'add':
     case 'edit':
-      $css_file = "{$BASEURL}property.css";
-      break;
-    case 'contact':
-      $css_file = "{$BASEURL}contact.css";
+    case 'add':
+      $css_file = "/studentShelter/css/property.css";
       break;
     case 'faq':
-      $css_file = "{$BASEURL}faq.css";
+    case 'faq/edit':
+      $css_file = "/studentShelter/css/faq.css";
+      break;
+    case 'contact':
+      $css_file = "/studentShelter/css/contact.css";
       break;
     case 'terms':
-      $css_file = "{$BASEURL}terms.css";
+      $css_file = "/studentShelter/css/terms.css";
       break;
     case 'legal':
-      $css_file = "{$BASEURL}legal.css";
-      break;
-    case 'property-details':
-      $css_file = "{$BASEURL}property-details.css";
-      break;
-    case 'admin':
-      $css_file = "{$BASEURL}admin.css";
+    case 'legal/edit':
+    case 'legal/add':
+      $css_file = "/studentShelter/css/legal.css";
       break;
     case 'favorites':
-      $css_file = "{$BASEURL}favorites.css";
+      $css_file = "/studentShelter/css/favorites.css";
+      break;
+    case 'admin':
+      $css_file = "/studentShelter/css/admin.css";
       break;
     default:
       break;

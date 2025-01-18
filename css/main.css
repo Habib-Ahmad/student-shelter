@@ -9,6 +9,9 @@
   --button-color: #11445b;
   --font-family: "Nunito", sans-serif;
   --font-size: 16px;
+  --gray-background: rgba(224, 224, 224, 0.6);
+  --white-background: #fff;
+  --item-strong: #333;
 }
 
 * {

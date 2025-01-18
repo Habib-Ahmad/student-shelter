@@ -10,10 +10,7 @@ function render_terms($terms)
   <section id="terms" class="terms-container">
     <h2 class="terms-title">Terms and Conditions</h2>
 
-    <?php if ($role === 'admin'): ?>
-      <a href="/studentshelter/terms/add" class="btn-add"><img src="/studentshelter/assets/add.svg" alt="add"
-          class="btn-icon">Add new</a>
-    <?php endif; ?>
+     
     <?php foreach ($terms as $term): ?>
       <div>
         <h3 class="terms-subtitle"><?php echo htmlspecialchars($term['title']); ?></h3>
@@ -26,6 +23,10 @@ function render_terms($terms)
         <?php endif; ?>
       </div>
     <?php endforeach; ?>
+    <?php if ($role === 'admin'): ?>
+      <a href="/studentshelter/terms/add" class="btn-add"><img src="/studentshelter/assets/add.svg" alt="add"
+          class="btn-icon">Add new</a>
+    <?php endif; ?>
   </section>
 
   <script src="/studentshelter/js/terms.js"></script>
