@@ -3,11 +3,11 @@ function get_css_file()
 {
   $current_page = basename(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
   $css_file = "";
-  $BASEURL = "/studentShelter/css/";
+  $BASEURL = "/studentshelter/css/";
 
   switch ($current_page) {
-    case 'studentShelter':
-      $css_file = "{$BASEURL}main.css";
+    case 'studentshelter':
+      $css_file = "{$BASEURL}home.css";
       break;
     case 'about':
       $css_file = "{$BASEURL}about.css";
