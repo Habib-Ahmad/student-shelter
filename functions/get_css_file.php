@@ -28,6 +28,8 @@ function get_css_file()
       $css_file = "/studentShelter/css/contact.css";
       break;
     case 'terms':
+    case 'terms/edit':
+    case 'terms/add':
       $css_file = "/studentShelter/css/terms.css";
       break;
     case 'legal':

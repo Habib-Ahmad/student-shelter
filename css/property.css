@@ -1,6 +1,6 @@
 .page-heading {
   font-size: 2rem;
-  color: #43494d;
+  color: var(--black-text-color);
   margin: 25px auto;
   text-align: center;
   font-weight: 700;
@@ -11,7 +11,7 @@
 
 /* Form Layout */
 .property-form {
-  background-color: #fff;
+  background-color: var(--white-background-color);
   border-radius: 8px;
   padding: 20px;
   max-width: 800px;
@@ -21,7 +21,7 @@
 
 /* Typography */
 .form-selection-title {
-  color: #343a40;
+  color: var(--black-text-color);
   margin-bottom: 16px;
 }
 
@@ -42,7 +42,7 @@ textarea.form-input {
   border-radius: 4px;
   margin-bottom: 16px;
   box-sizing: border-box;
-  background-color: #fff;
+  background-color:var(--white-background-color);
 }
 
 textarea.form-input {
@@ -52,7 +52,7 @@ textarea.form-input {
 
 /* Unit Styles */
 .unit-block {
-  background-color: #f1f3f5;
+  background-color: var(--white-background-color);
   border: 1px solid #e3e3e3;
   border-radius: 8px;
   padding: 16px;
@@ -91,7 +91,7 @@ textarea.form-input {
 }
 
 .facility-checkbox:checked {
-  background-color: #9794eb;
+  background-color: var(--button-color);
 }
 
 .facility-checkbox:checked::after {
@@ -105,7 +105,7 @@ textarea.form-input {
 }
 
 .facility-checkbox:hover {
-  border-color: #0056b3;
+  border-color: var(--button-hover-color);
 }
 
 .facility-label {
@@ -113,6 +113,11 @@ textarea.form-input {
   color: #333;
   white-space: nowrap;
   user-select: none;
+}
+
+button:hover:not(.remove-unit-button):not(.delete) {
+  background-color: var(--button-color);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
 .remove-unit-button {
@@ -140,7 +145,7 @@ textarea.form-input {
   border: 1px solid #ccc;
   padding: 10px;
   border-radius: 5px;
-  background-color: #f9f9f9;
+  background-color: var(--white-background-color);
 }
 
 .unit-image {
@@ -173,7 +178,7 @@ table {
   margin: 20px auto;
   border-collapse: separate;
   border-spacing: 0;
-  background-color: #fff;
+  background-color: var(--white-background-color);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   overflow: hidden;
@@ -188,7 +193,7 @@ td {
 }
 
 th {
-  background-color: #f4f4f4;
+  background-color: var(--white-background-color);
   font-weight: bold;
   color: #333;
 }
@@ -207,6 +212,10 @@ th {
   height: 25px; 
   object-fit: contain; 
   transition: all 0.3s ease;
+}
+
+tr:hover {
+  background-color:var(--white-background-color);
 }
 
 .btn-delete img {
@@ -334,7 +343,7 @@ button {
   padding: 6px 12px;
   border: none;
   color: #fff;
-  background-color: #11445b;
+  background-color: var(--button-color);
   border-radius: 4px;
   cursor: pointer;
   font-size: 0.9em;
@@ -350,8 +359,8 @@ button.delete {
   width: fit-content;
   margin: 40px auto;
   padding: 12px 28px;
-  background-color: #11445b;
-  color: #fff;
+  background-color: var(--button-color);
+  color: var(--white-background-color);
   border-radius: 8px;
   font-weight: 500;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -360,7 +369,7 @@ button.delete {
 }
 
 .page-end-button:hover {
-  background-color: #185977;
+  background-color: var(--button-color);
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
