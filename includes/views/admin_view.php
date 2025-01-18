@@ -6,11 +6,6 @@ function render_student_table(array $students)
 {
   require_once 'partials/header.php';
 
-  $firstName = $_SESSION['user_firstName'] ?? '';
-  $lastName = $_SESSION['user_lastName'] ?? '';
-  $email = $_SESSION['user_email'] ?? '';
-  $role = $_SESSION['user_role'] ?? '';
-
   if (count($students) === 0) {
     echo '<p>No students found</p>';
     return;
