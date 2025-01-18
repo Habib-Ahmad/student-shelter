@@ -1,9 +1,11 @@
 <?php
 function get_css_file()
 {
-  $current_page = basename(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
+  $url = $_SERVER['REQUEST_URI'];
+  $current_page = explode('/', $url)[2];
   $css_file = "";
   $BASEURL = "/studentshelter/css/";
+
 
   switch ($current_page) {
     case 'studentshelter':
@@ -16,8 +18,8 @@ function get_css_file()
       $css_file = "/studentShelter/css/profile.css";
       break;
     case 'properties':
-    case 'edit':
-    case 'add':
+    case 'properties/edit':
+    case 'properties/add':
       $css_file = "/studentShelter/css/property.css";
       break;
     case 'faq':
@@ -42,6 +44,10 @@ function get_css_file()
       break;
     case 'admin':
       $css_file = "/studentShelter/css/admin.css";
+      break;
+    case 'manage-reservations':
+    case 'reservations':
+      $css_file = "/studentShelter/css/manage-reservations.css";
       break;
     default:
       break;

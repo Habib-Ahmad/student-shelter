@@ -7,10 +7,10 @@ function render_terms($terms)
   $role = $_SESSION['user_role'] ?? '';
   ?>
 
-  <section id="terms" class="terms-container">
+  <section class="terms-container">
     <h2 class="terms-title">Terms and Conditions</h2>
 
-     
+
     <?php foreach ($terms as $term): ?>
       <div>
         <h3 class="terms-subtitle"><?php echo htmlspecialchars($term['title']); ?></h3>
@@ -37,27 +37,28 @@ function render_terms($terms)
 function render_terms_form($term = null)
 {
   $action = $term ? "/studentshelter/terms/edit/" . $term['id'] : "/studentshelter/terms/add";
+  $pageTitle = $term ? 'Edit Term' : 'Add Term';
   $title = $term['title'] ?? '';
   $description = $term['description'] ?? '';
 
   require_once "partials/header.php"; ?>
 
-  <div class="terms-form-container">
-    <form action="<?php echo $action; ?>" method="POST">
-    <h2 class="add-terms-title">Edit Terms</h2>
-      <label for="title" class="terms-form-label">Title</label>
-      <input type="text" id="title" name="title" value="<?php echo htmlspecialchars($title); ?>" required
-        class="terms-form-input">
+  <section class="terms-container">
+    <div class="terms-form-container">
+      <form action="<?php echo $action; ?>" method="POST">
+        <h2 class="add-terms-title"><?php echo $pageTitle; ?></h2>
+        <label for="title" class="terms-form-label">Title</label>
+        <input type="text" id="title" name="title" value="<?php echo htmlspecialchars($title); ?>" required
+          class="terms-form-input">
 
-      <label for="description" class="terms-form-label">Description</label>
-      <textarea id="description" name="description" required
-        class="terms-form-textarea"><?php echo htmlspecialchars($description); ?></textarea>
+        <label for="description" class="terms-form-label">Description</label>
+        <textarea id="description" name="description" required
+          class="terms-form-textarea"><?php echo htmlspecialchars($description); ?></textarea>
 
-      <button type="submit" class="terms-form-button"><?php echo $term ? 'Update' : 'Add'; ?> Term</button>
-    </form>
-  </div>
-
-
+        <button type="submit" class="terms-form-button"><?php echo $term ? 'Update' : 'Add'; ?> Term</button>
+      </form>
+    </div>
+  </section>
 
   <?php require_once "partials/footer.php";
 }

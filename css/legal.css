@@ -1,7 +1,6 @@
-
-.container-legal-section {
-    max-width: 800px;
-    margin: 0 auto;
+.container-legal-section,
+.legal-edit-page {
+  padding: 40px 20vw;
 }
 
 h2 {
@@ -11,74 +10,53 @@ h2 {
 }
 
 .legal-title {
-    font-size: 2rem;
-    color: black;
-    text-align: center;
-    margin-bottom: 20px; 
+  font-size: 2rem;
+  color: black;
+  text-align: center;
 }
 
 .legal-clause-title {
-    font-size: 1.2rem;
-    color: black;
-    margin-top: 20px;
-    margin-bottom: 10px;
+  font-size: 1.2rem;
+  color: black;
+  margin-top: 20px;
 }
 
 .legal-clause-description {
-    font-size: 15px;
-    color: #666;
-    line-height: 1.6;
-    margin-bottom: 10px;
+  font-size: 15px;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 10px;
 }
-.btn-add {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    display: inline-block;
-    padding: 8px 16px;
-    font-size: 14px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    background-color: var(--button-color);
-    color: var(--white-text-color);
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
 
+.btn-add {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: inline-block;
+  padding: 8px 16px;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  background-color: var(--button-color);
+  color: var(--white-text-color);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .btn-add:hover {
-    background-color: var(--primary-color);
-
+  background-color: var(--primary-color);
 }
 
-
+.btn-add img,
+.btn-delete img,
 .btn-edit img {
-    display: inline-block;
-    width: 9px; 
-    height: 9px; 
-    object-fit: contain; 
-    cursor: pointer;
-}
-.btn-add img {
-    display: inline-block;
-    width: 16px; 
-    height: 16px; 
-    object-fit: contain; 
-    cursor: pointer;
-}
-.btn-delete img {
-    display: inline-block;
-    width: 16px; 
-    height: 16px; 
-    object-fit: contain; 
-    cursor: pointer;
-}
-
-
-.legal-edit-page {
-  padding: 5vw 0;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  cursor: pointer;
 }
 
 .legal-edit-container {
@@ -131,9 +109,12 @@ h2 {
   background-color: var(--primary-color);
 }
 
+@media screen and (max-width: 768px) {
+  .container-legal-section,
+  .legal-edit-page {
+    padding: 40px 5vw;
+  }
 
- 
-@media (max-width: 480px) {
   .container-form-legal {
     padding: 20px;
   }

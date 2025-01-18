@@ -1,58 +1,61 @@
 .container {
-    width: 90%;
-    margin: 10px auto;
-    padding: 10px;
-    background: transparent;
-    border-radius: 10px;
+  padding: 40px 10vw;
+  background: transparent;
+  border-radius: 10px;
 }
 
 .main-title {
-    color: var(--black-text-color);
-    text-align: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    font-size: 22px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--primary-color);
 }
 
 .title {
-    color: var(--black-text-color);
-    text-align: center;
-    margin-top: 20px;
-    margin-bottom: 10px;
-    font-size: 16px;
+  color: var(--black-text-color);
+  text-align: center;
+  margin-top: 40px;
+  font-size: 18px;
+  font-weight: 600;
 }
 
 .description {
-    color: var(--gray-text-color);
-    text-align: justify;
-    margin-bottom: 20px;
-    font-size: 13px;
+  color: var(--gray-text-color);
+  text-align: justify;
+  font-size: 14px;
 }
 
 .list {
-    list-style-type: none;
-    padding: 0;
+  list-style-type: none;
+  padding: 0;
 }
 
 .item {
-    background: var(--gray-background);
-    margin: 10px 0;
-    padding: 10px;
-    border-radius: 5px;
-    font-size: 13px; 
+  background: var(--gray-background);
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 13px;
 }
 
 .item strong {
-    color: var(--item-strong);
+  color: var(--item-strong);
 }
 
 .welcome-message {
-    text-align: center;
-    font-size: 14px;
-    margin-top: 20px;
+  text-align: center;
+  font-size: 14px;
+  margin-top: 20px;
 }
 
 strong {
-    color: #007BFF;
-    font-size: 14px;
+  color: #007bff;
+  font-size: 14px;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 40px 5vw;
+  }
 }

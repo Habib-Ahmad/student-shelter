@@ -42,7 +42,7 @@ textarea.form-input {
   border-radius: 4px;
   margin-bottom: 16px;
   box-sizing: border-box;
-  background-color:var(--white-background-color);
+  background-color: var(--white-background-color);
 }
 
 textarea.form-input {
@@ -117,7 +117,7 @@ textarea.form-input {
 
 button:hover:not(.remove-unit-button):not(.delete) {
   background-color: var(--button-color);
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+  /* box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); */
 }
 
 .remove-unit-button {
@@ -171,6 +171,7 @@ button:hover:not(.remove-unit-button):not(.delete) {
 
 .property-container {
   padding: 0 10vw;
+  overflow-x: scroll;
 }
 
 /* General Table Styling */
@@ -188,17 +189,17 @@ table {
 th,
 td {
   padding: 12px 15px;
-  text-align: center;
   border-bottom: 1px solid #ddd;
 }
 
 th {
-  background-color: var(--white-background-color);
+  background-color: var(--primary-color);
+  color: var(--white-text-color);
   font-weight: bold;
-  color: #333;
 }
 
-.table-description {
+.table-description,
+.table-address {
   text-align: left;
   max-width: 450px;
   white-space: nowrap;
@@ -206,56 +207,35 @@ th {
   text-overflow: ellipsis;
 }
 
+.table-address {
+  max-width: 250px;
+}
+
 .btn-edit img {
   display: inline-block;
-  width: 25px; 
-  height: 25px; 
-  object-fit: contain; 
+  width: 25px;
+  height: 25px;
+  object-fit: contain;
   transition: all 0.3s ease;
 }
 
 tr:hover {
-  background-color:var(--white-background-color);
+  background-color: var(--white-background-color);
 }
 
 .btn-delete img {
   display: inline-block;
-  width: 25px; 
-  height: 25px; 
-  object-fit: contain; 
+  width: 25px;
+  height: 25px;
+  object-fit: contain;
   cursor: pointer;
   transition: all 0.3s ease-out;
   border: none;
 }
-.page-end-button img {
-  display: inline-block;
-  width: 25px; 
-  height: 25px; 
-  object-fit: contain; 
-  cursor: pointer;
-  transition: all 0.3s ease-out;
-  align-items: center;
-}
-/* Add New Button */
-.page-end-button {
-  display: inline-flex;
-  width: fit-content;
-  margin: 40px 40px;
-  padding: 12px 28px;
-  background-color: var(--button-color);
-  color: #fff;
-  border-radius: 8px;
-  font-weight: 500;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-  text-decoration: none;
-  align-items: center;
-  gap: 10px;
-  justify-content: center;
-}
-.page-end-button:hover,.btn-delete img:hover,.btn-edit img:hover {
+.btn-delete img:hover,
+.btn-edit img:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); */
 }
 .add-new:hover {
   opacity: 0.9;
@@ -333,7 +313,7 @@ textarea.form-input {
 
 .unit-facilities {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 15px;
   margin-bottom: 20px;
 }
@@ -355,17 +335,22 @@ button.delete {
 
 /* Add New Button */
 .page-end-button {
-  display: block;
+  display: flex;
   width: fit-content;
+  align-items: center;
   margin: 40px auto;
-  padding: 12px 28px;
+  padding: 10px 20px;
   background-color: var(--button-color);
-  color: var(--white-background-color);
+  color: var(--white-text-color);
   border-radius: 8px;
   font-weight: 500;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
-  text-decoration: none;
+}
+
+.page-end-button img {
+  margin-right: 10px;
+  width: 24px;
 }
 
 .page-end-button:hover {
@@ -375,7 +360,6 @@ button.delete {
 }
 
 /* Responsive Media Queries */
-
 /* Phones (max-width: 600px) */
 @media (max-width: 600px) {
   .page-heading {
@@ -405,7 +389,7 @@ button.delete {
   }
 
   .unit-facilities {
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-template-columns: repeat(1, 1fr);
     gap: 10px;
   }
 
@@ -442,7 +426,7 @@ button.delete {
   }
 
   .unit-facilities {
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 12px;
   }
 }
@@ -458,7 +442,7 @@ button.delete {
   }
 
   .unit-facilities {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
   }
 
   button {

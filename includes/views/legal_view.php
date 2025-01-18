@@ -5,9 +5,9 @@ function render_legal($legalClauses)
     require_once "partials/header.php";
 
     $role = $_SESSION['user_role'] ?? '';
-?>
+    ?>
 
-    <section id="legal" class="container-legal-section">
+    <section class="container-legal-section">
         <h2 class="legal-title">Legal Notice</h2>
         <?php foreach ($legalClauses as $clause): ?>
             <div>
@@ -29,31 +29,33 @@ function render_legal($legalClauses)
 
     <script src="/studentshelter/js/legal.js"></script>
 
-<?php require_once "partials/footer.php";
+    <?php require_once "partials/footer.php";
 }
 
 function render_legal_form($clause = null)
 {
     $action = $clause ? "/studentshelter/legal/edit/" . $clause['id'] : "/studentshelter/legal/add";
+    $pageTitle = $clause ? 'Edit Legal Notice' : 'Add Legal Notice';
     $title = $clause['title'] ?? '';
     $description = $clause['description'] ?? '';
 
     require_once "partials/header.php"; ?>
     <div class="legal-edit-page">
         <section class="legal-edit-container">
-            <h2>Update Legal Notice</h2>
+            <h2><?php echo $pageTitle; ?></h2>
 
             <form action="<?php echo $action; ?>" method="POST">
                 <label for="title">Title</label>
-                <input type="text" id="title" name="title"  value="<?php echo htmlspecialchars($title); ?>" required>
+                <input type="text" id="title" name="title" value="<?php echo htmlspecialchars($title); ?>" required>
 
                 <label for="description">Description</label>
-                <textarea id="description" name="description"  required><?php echo htmlspecialchars($description); ?></textarea>
+                <textarea id="description" name="description" rows="6"
+                    required><?php echo htmlspecialchars($description); ?></textarea>
 
-                <button type="submit">Save Changes</button>
+                <button type="submit">Submit</button>
             </form>
         </section>
-     </div>
+    </div>
 
-<?php require_once "partials/footer.php";
+    <?php require_once "partials/footer.php";
 }

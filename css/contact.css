@@ -64,3 +64,9 @@
 .submit-btn:hover {
   background-color: #185977;
 }
+
+@media screen and (max-width: 768px) {
+  .contact-section {
+    padding: 50px 5vw;
+  }
+}
