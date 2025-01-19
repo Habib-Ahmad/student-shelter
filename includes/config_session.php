@@ -1,5 +1,4 @@
 <?php
-
 ini_set("session.use_only_cookies", 1);
 ini_set("session.use_strict_mode", 1);
 
@@ -27,7 +26,6 @@ if (!isset($_SESSION["last_regeneration"]) || (time() - $_SESSION["last_regenera
 // Function to regenerate session ID
 function regenerate_session_id()
 {
-  session_regenerate_id(true); // Securely regenerate session ID
+  //session_regenerate_id(true); // Securely regenerate session ID
   $_SESSION["last_regeneration"] = time();
 }
-?>

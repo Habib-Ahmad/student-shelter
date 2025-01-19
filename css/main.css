@@ -62,7 +62,6 @@ body::-webkit-scrollbar {
 header {
   z-index: 1000;
 }
-
 nav.navbar {
   display: flex;
   justify-content: space-between;
@@ -188,6 +187,7 @@ nav.navbar .logo img {
 .hamburger-menu span {
   background: white;
   height: 3px;
+  background-color: black;
   margin: 4px 0;
   width: 25px;
 }
@@ -197,9 +197,9 @@ nav.navbar .logo img {
   .nav-links {
     display: none;
     flex-direction: column;
-    background-color: #333;
+    background-color: white;
     position: absolute;
-    top: 60px;
+    top: 75px;
     left: 0;
     width: 100%;
     text-align: center;
@@ -217,16 +217,8 @@ nav.navbar .logo img {
     display: flex;
   }
 }
-/* Mobile responsiveness */
-@media (max-width: 768px) {
-  nav.navbar {
-    flex-direction: column;
-  }
-  nav.navbar-right {
-    margin-top: 10px;
-    flex-direction: column;
-  }
-}
+
+/* end of navbar styling */
 
 /* Hero Section Styling */
 .hero {
@@ -348,8 +340,8 @@ nav.navbar .logo img {
 }
 
 .search-filters .search-button {
-  background-color: #ccc;
-  color: black;
+  background-color: #11445b;
+  color: white;
   padding: 8px 16px;
   border: none;
   border-radius: 4px;
@@ -363,11 +355,38 @@ nav.navbar .logo img {
 }
 
 .search-filters .search-button:hover {
-  background-color: #bbb;
+  background-color: #11445b;
 }
 
 .search-filters a {
   display: none; /* Hide the link for a cleaner layout */
+}
+
+/* Responsive Design */
+@media (max-width: 300px) {
+  .search-filters {
+    flex-direction: row; /* Keep filters in a row */
+    max-width: 90%; /* Center filters and prevent full-width stretch */
+    margin: 20px auto; /* Add margin to separate from other content */
+    gap: 10px; /* Add a bit of spacing between elements */
+    padding: 15px 10px; /* Add some padding */
+    background-color: #f9f9f9; /* Optional: add a subtle background for clarity */
+    border-radius: 8px; /* Optional: rounded corners for aesthetics */
+  }
+
+  .search-filters input,
+  .search-filters select {
+    font-size: 14px; /* Adjust font size for smaller screens */
+    padding: 6px; /* Smaller padding */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  }
+
+  .search-filters .search-button {
+    font-size: 14px; /* Adjust button font size */
+    padding: 8px; /* Adjust button padding */
+  }
 }
 
 /* Property Cards */
