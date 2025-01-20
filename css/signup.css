@@ -127,3 +127,174 @@ input[type="file"] {
 .form-footer a:hover {
   text-decoration: underline;
 }
+
+
+
+/* Desktop Styles (Default) */
+.form-container {
+  background: rgba(249, 248, 248, 0.797);
+  color: #1d0202;
+  width: 90%;
+  max-width: 400px;
+  margin: 100px auto;
+  padding: 30px 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(201, 192, 192, 0.832);
+  text-align: center;
+}
+
+.logo {
+  display: block;
+  max-width: 120px;
+  height: auto;
+  margin: 0 auto 20px;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #11445b;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+label {
+  display: inline-block;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+input[type="file"] {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin: 0 auto;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.file-upload-input {
+  display: none;
+}
+
+.file-upload-label {
+  display: inline-block;
+  background-color: #11445b;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 5px 8px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.file-upload-label:hover {
+  background-color: #185977;
+}
+
+.btn-register {
+  background-color: #11445b;
+  color: #fff;
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.btn-register:hover {
+  background-color: #185977;
+  transition: background-color 0.3s ease;
+}
+
+.form-footer {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.form-footer a {
+  color: #11445b;
+  text-decoration: none;
+}
+
+.form-footer a:hover {
+  text-decoration: underline;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .form-container {
+    width: 95%;
+    padding: 20px 15px;
+    margin: 50px auto;
+  }
+
+  h1 {
+    font-size: 20px;
+  }
+
+  .btn-register {
+    font-size: 14px;
+    padding: 8px 0;
+  }
+
+  label {
+    font-size: 12px;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="tel"],
+  input[type="file"] {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .form-footer {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .form-container {
+    width: 100%;
+    padding: 15px 10px;
+  }
+
+  h1 {
+    font-size: 18px;
+  }
+
+  .btn-register {
+    font-size: 12px;
+    padding: 6px 0;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="tel"],
+  input[type="file"] {
+    font-size: 10px;
+    padding: 6px;
+  }
+
+  .form-footer {
+    font-size: 10px;
+  }
+}

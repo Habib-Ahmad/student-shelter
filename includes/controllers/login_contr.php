@@ -13,8 +13,8 @@ function handleLogin()
 
 function process_login()
 {
-  $email = $_POST['email'] ?? null;
-  $password = $_POST['password'] ?? null;
+    $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+    $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
   // Error handling
   $errors = validate_login_inputs($email, $password);

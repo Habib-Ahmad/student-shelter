@@ -24,9 +24,12 @@ function handleReservations($subpage, $action, $id)
 
       $success = update_reservation_status($pdo, (int) $id, 'cancelled');
       if ($success) {
-        header('Location: /studentshelter/reservations?message=Reservation+cancelled+successfully');
-      } else {
-        header('Location: /studentshelter/reservations?message=Failed+to+cancel+reservation');
+        // send mail to user
+        $user = get_user_by_id($pdo, $reservation['userId']);
+        $property = get_property_by_reservation_id($pdo, (int) $id);
+        $subject = 'Reservation Cancelled';
+        $message = "Hello {$user['firstName']},<br><br>Your reservation for the property {$property['name']} has been cancelled. You can try again with another property.<br><br>Thank you!";
+        send_email($user['email'], $subject, $message);
       }
       die();
 

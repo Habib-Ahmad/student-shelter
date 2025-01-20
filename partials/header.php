@@ -59,6 +59,7 @@ $css_file = get_css_file();
                   echo '<a href="/studentshelter/reservations">My Reservations</a>';
                 }
                 if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'landlord') {
+                  echo '<a href="/studentshelter/properties">My Properties</a>';
                   echo '<a href="/studentshelter/manage-reservations">Manage Reservations</a>';
                 }
                 ?>

@@ -4,7 +4,27 @@ declare(strict_types=1);
 
 function get_all_properties(object $pdo)
 {
-  $query = "SELECT u.id, p.name, u.description, CONCAT(p.type, ', ', u.type) AS type, u.numberOfRooms, u.monthlyPrice, p.streetAddress, p.city, p.postalCode FROM unit u LEFT JOIN property p ON u.propertyId=p.id;";
+  $query = "
+        SELECT 
+            u.id, 
+            p.name, 
+            u.description, 
+            CONCAT(p.type, ', ', u.type) AS type, 
+            u.numberOfRooms, 
+            u.monthlyPrice, 
+            p.streetAddress, 
+            p.city, 
+            p.postalCode,
+            GROUP_CONCAT(ui.image) AS images
+        FROM 
+            unit u
+        LEFT JOIN 
+            property p ON u.propertyId = p.id
+        LEFT JOIN 
+            unit_images ui ON u.id = ui.unitId
+        GROUP BY 
+            u.id, p.name, p.type, u.type, u.numberOfRooms, u.monthlyPrice, p.streetAddress, p.city, p.postalCode;
+    ";
   $stmt = $pdo->query($query);
   return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }

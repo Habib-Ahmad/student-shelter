@@ -82,23 +82,38 @@
 
   <div class="similar-properties">
     <h2>Similar Properties</h2>
-    <div class="cards">
-      <div class="card">
-        <img src="/studentshelter/assets/ss2.jpeg" alt="Property 1">
-        <p>Room 7 in Casa Monteiro | $700/Month</p>
-      </div>
-      <div class="card">
-        <img src="/studentshelter/assets/ss3.jpeg" alt="Property 2">
-        <p>Room 8 in Casa Monteiro | $700/Month</p>
-      </div>
-      <div class="card">
-        <img src="/studentshelter/assets/ss4.jpeg" alt="Property 3">
-        <p>Room 9 in Casa Monteiro | $700/Month</p>
-      </div>
-      <div class="card">
-        <img src="/studentshelter/assets/ss4.jpeg" alt="Property 3">
-        <p>Room 9 in Casa Monteiro | $700/Month</p>
-      </div>
+
+    <div class="properties">
+      <?php foreach ($similarProperties as $property): ?>
+        <a href="/studentshelter/property-details?id=<?php echo $property['id']; ?>">
+          <div class="property-card">
+            <img src="/studentshelter/assets/Property.png" alt="Property 1">
+            <div class="property-details">
+              <h3>$<?php echo htmlspecialchars($property['monthlyPrice']); ?>/month</h3>
+              <?php
+              if (isset($_SESSION['user_id'])) {
+                $isFavorite = is_property_favorite($pdo, $_SESSION['user_id'], $property['id']);
+                $favoriteIcon = $isFavorite ? 'heart-filled.svg' : 'heart.svg';
+                $favoriteAlt = $isFavorite ? 'Remove from Favorites' : 'Add to Favorites';
+                $favoriteLink = "/studentshelter/home/add-to-favorites?id=" . $property['id'];
+              } else {
+                $favoriteIcon = 'heart.svg';
+                $favoriteAlt = 'Login to add to favorites';
+                $favoriteLink = "/studentshelter/login";
+              }
+              ?>
+              <a href="<?php echo $favoriteLink; ?>" class="favorite-icon" data-id="<?php echo $property['id']; ?>">
+                <img src="/studentshelter/assets/<?php echo $favoriteIcon; ?>" alt="<?php echo $favoriteAlt; ?>">
+              </a>
+            </div>
+            <h4><?php echo htmlspecialchars($property['name']); ?></h4>
+            <p><?php echo htmlspecialchars($property['type']); ?></p>
+            <p>
+              <?php echo htmlspecialchars($property['streetAddress'] . ', ' . $property['city'] . ', ' . $property['postalCode']); ?>
+            </p>
+          </div>
+        </a>
+      <?php endforeach; ?>
     </div>
   </div>
 </div>

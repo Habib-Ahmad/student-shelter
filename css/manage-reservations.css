@@ -1,0 +1,85 @@
+.container {
+  padding: 40px 10vw;
+}
+
+h2 {
+  color: #11445b;
+  text-align: center;
+}
+
+.table-container {
+  overflow-x: auto;
+  margin-top: 40px;
+}
+
+.reservations-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 10px;
+}
+
+.reservations-table th,
+.reservations-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.reservations-table th {
+  background-color: #11445b;
+  color: white;
+}
+
+.reservations-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.reservations-table tr:hover {
+  background-color: #f2f2f2;
+}
+
+.property-link {
+  color: #11445b;
+  text-decoration: none;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.accept-btn {
+  background-color: #11445b;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.accept-btn:hover {
+  background-color: #0a2c3d;
+}
+
+.reject-btn {
+  background-color: #f44336;
+  color: #ffffff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.reject-btn:hover {
+  background-color: #da190b;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 40px 5vw;
+  }
+}

@@ -32,17 +32,19 @@ function render_properties(array $properties)
                 <?php echo htmlspecialchars($property['streetAddress']) . ', ' . htmlspecialchars($property['city']) . ' ' . htmlspecialchars($property['postalCode']); ?>
               </td>
               <td><?php echo htmlspecialchars($property['unit_count']); ?></td>
-              <td><a href="/studentshelter/properties/edit?id=<?php echo $property['id']; ?>"><button>Edit</button></a></td>
-              <td><button class='delete'
-                  onclick='confirmPropertyDelete(<?php echo htmlspecialchars((string) $property["id"]); ?>)'>Delete</button>
+              <td><a href="/studentshelter/properties/edit?id=<?php echo $property['id']; ?>" class="btn-edit"><img
+                    src=" /studentshelter/assets/edit.svg" alt="Edit" class="btn-icon"></a><button
+                  onclick='confirmPropertyDelete(<?php echo htmlspecialchars((string) $property["id"]); ?>)'
+                  class="btn-delete" style="border:none; background-color: transparent"> <img
+                    src=" /studentshelter/assets/delete.svg" alt="Delete" class="btn-icon"></button>
               </td>
             </tr>
           <?php } ?>
         </tbody>
       </table>
     </div>
-    <a href="/studentshelter/properties/add" class="page-end-button">Add New</a>
-
+    <a href="/studentshelter/properties/add" class="page-end-button"> <img src="/studentshelter/assets/add.svg">Add
+      New</a>
     <script src="/studentshelter/js/properties.js"></script>
     <?php
   }
@@ -152,11 +154,7 @@ function render_add_property_form(array $facilities, array $errors)
           <br />
 
           <h4 class="form-selection-title">Facilities</h4>
-          <div class="unit-facilities" style="
-                  display: grid;
-                  grid-template-columns: repeat(3, 1fr);
-                  gap: 10px;
-                ">
+          <div class="unit-facilities">
             <?php foreach ($facilities as $facility): ?>
               <div class="facility-container">
                 <label>
@@ -307,11 +305,7 @@ function render_edit_property_form(int $id, array $property, array $facilities, 
           <br />
 
           <h4 class="form-selection-title">Facilities</h4>
-          <div class="unit-facilities" style="
-                  display: grid;
-                  grid-template-columns: repeat(3, 1fr);
-                  gap: 10px;
-                ">
+          <div class="unit-facilities">
             <?php foreach ($facilities as $facility): ?>
               <div class="facility-container">
                 <label>

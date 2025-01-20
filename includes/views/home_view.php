@@ -55,7 +55,11 @@ function render_home_page($pdo, $properties)
         <?php foreach ($properties as $property): ?>
           <a href="/studentshelter/property-details?id=<?php echo $property['id']; ?>">
             <div class="property-card">
-              <img src="/studentshelter/assets/Property.png" alt="Property 1">
+              <?php
+              $images = !empty($property['images']) ? explode(',', $property['images']) : [];
+              $imageSrc = !empty($images) ? "/studentshelter/uploads/" . htmlspecialchars($images[0]) : "/studentshelter/assets/Property.png";
+              ?>
+              <img src="<?php echo $imageSrc; ?>" alt="Property Image">
               <div class="property-details">
                 <h3>$<?php echo htmlspecialchars($property['monthlyPrice']); ?>/month</h3>
                 <?php
