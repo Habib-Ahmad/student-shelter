@@ -207,6 +207,10 @@ nav.navbar .logo img {
 
   .nav-links.active {
     display: flex;
+    padding: 10px;
+  }
+  .nav-links li {
+    margin: 10px 0;
   }
 
   .nav-actions {
