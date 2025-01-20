@@ -4,7 +4,11 @@
   <div class="main-content">
     <div class="details">
       <div class="main-image">
-        <img src="/studentshelter/assets/Picture1.png" alt="Room Image">
+        <?php
+        $images = !empty($property[0]["images"]) ? explode(',', $property[0]["images"]) : [];
+        $firstImage = !empty($images) ? "/studentshelter/uploads/" . explode(':', $images[0])[1] : '/studentshelter/assets/Picture1.png';
+        ?>
+        <img src="<?php echo htmlspecialchars($firstImage); ?>" alt="Room Image">
       </div>
 
       <div class="property-details">
