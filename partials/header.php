@@ -80,4 +80,5 @@ $css_file = get_css_file();
       </nav>
     </header>
     <!-- End of  navbar section-->
-    <div class="content-wrapper">
+    <div class="content-wrapper"></div>
+    <script src="/studentshelter/js/main.js"></script>
