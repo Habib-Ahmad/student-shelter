@@ -50,10 +50,8 @@
                 <td>
                   <div class="actions">
                     <?php if ($reservation['status'] === 'pending'): ?>
-                      <a href="manage-reservations/accept?id=<?= $reservation['id']; ?>"
-                        onclick="return confirm('Are you sure you want to accept this request')" class="accept-btn">Accept</a>
-                      <a href="manage-reservations/reject?id=<?= $reservation['id']; ?>"
-                        onclick="return confirm('Are you sure you want to reject this request')" class="reject-btn">Reject</a>
+                      <a href="reservations/cancel?id=<?= $reservation['id']; ?>"
+                        onclick="return confirm('Are you sure you want to cancel this request')" class="reject-btn">Cancel</a>
                     <?php else: ?>
                       <span>N/A</span>
                     <?php endif; ?>
@@ -66,5 +64,16 @@
       <?php endif; ?>
     </div>
   </div>
+</section>
+<?php
+if (isset($_GET['message'])) {
+  echo "<script>
+    alert('" . str_replace("\n", "\\n", $_GET['message']) . "');
+    const url = new URL(window.location.href);
+    url.searchParams.delete('message');
+    window.history.replaceState(null, '', url);
+  </script>";
+}
+?>
 
-  <?php require_once 'partials/footer.php'; ?>
+<?php require_once 'partials/footer.php'; ?>

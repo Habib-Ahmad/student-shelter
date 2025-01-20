@@ -14,7 +14,7 @@ function handleHome($subpage, $action, $id)
       break;
 
     default:
-      $properties = get_all_properties($pdo);
+      $properties = null;
 
       // if there are no query parameters, display all properties. Otherwise, filter the properties
       if (empty($_GET)) {

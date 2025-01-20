@@ -66,3 +66,12 @@ function get_reservations_by_unit_id(object $pdo, int $unitId)
   $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
   return $rows;
 }
+
+function get_3_random_properties(object $pdo, int $id)
+{
+  $query = "SELECT u.id, p.name, u.description, CONCAT(p.type, ', ', u.type) AS type, u.numberOfRooms, u.monthlyPrice, p.streetAddress, p.city, p.postalCode FROM unit u LEFT JOIN property p ON u.propertyId=p.id WHERE u.id != :id ORDER BY RAND() LIMIT 3;";
+  $stmt = $pdo->prepare($query);
+  $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+  $stmt->execute();
+  return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}

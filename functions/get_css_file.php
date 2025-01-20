@@ -2,10 +2,9 @@
 function get_css_file()
 {
   $url = $_SERVER['REQUEST_URI'];
-  $current_page = explode('/', $url)[2];
+  $current_page = parse_url(explode('/', $url)[2], PHP_URL_PATH);
   $css_file = "";
   $BASEURL = "/studentshelter/css/";
-
 
   switch ($current_page) {
     case 'studentshelter':
@@ -16,6 +15,9 @@ function get_css_file()
       break;
     case 'profile':
       $css_file = "/studentShelter/css/profile.css";
+      break;
+    case 'property-details':
+      $css_file = "/studentShelter/css/property-details.css";
       break;
     case 'properties':
     case 'properties/edit':
