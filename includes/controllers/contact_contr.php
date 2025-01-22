@@ -13,7 +13,7 @@ function handleContact()
 
     if ($name && $email && $message) {
       $subject = 'New Contact Form Submission';
-      $message = "Name: $name\nEmail: $email\n\n$message";
+      $message = "Name: $name<br><br>Email: $email<br><br>$message";
       $messageSent = send_email('', $subject, $message);
 
       if ($messageSent) {

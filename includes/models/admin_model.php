@@ -21,7 +21,7 @@ function get_students(object $pdo)
     GROUP BY 
       users.id
     ORDER BY
-      FIELD(status, 'pending', 'in review', 'verified'),
+      FIELD(status, 'in review', 'pending', 'verified'),
       signupDate ASC;";
   $stmt = $pdo->prepare($sql);
   $stmt->execute();

@@ -20,10 +20,14 @@ function handleHome($subpage, $action, $id)
       if (empty($_GET)) {
         $properties = get_all_properties($pdo);
       } else {
-        $city = $_GET['city'] ?? '';
-        $maxBudget = $_GET['maxBudget'] ?? '';
-        $type = $_GET['type'] ?? '';
-        $numberOfRooms = $_GET['numberOfRooms'] ?? '';
+        $city = filter_input(INPUT_GET, 'city', FILTER_SANITIZE_STRING);
+        $maxBudget = filter_input(INPUT_GET, 'maxBudget', FILTER_VALIDATE_FLOAT);
+        $type = filter_input(INPUT_GET, 'type', FILTER_SANITIZE_STRING);
+        $numberOfRooms = filter_input(INPUT_GET, 'numberOfRooms', FILTER_VALIDATE_INT);
+
+        if ($maxBudget !== null && $maxBudget <= 0) {
+          $maxBudget = null;
+        }
 
         $properties = get_filtered_properties($pdo, $city, $maxBudget, $type, $numberOfRooms);
       }

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 function handleLogin()
 {
+  require_once 'includes/config_session.php';
+
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     process_login();
   } else {
@@ -13,8 +15,8 @@ function handleLogin()
 
 function process_login()
 {
-    $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
-    $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+  $email = $_POST['email'];
+  $password = $_POST['password'];
 
   // Error handling
   $errors = validate_login_inputs($email, $password);
@@ -31,7 +33,9 @@ function process_login()
 
     $user = get_user($pdo, $email);
 
-    if (is_password_wrong($password, $user["pwd"])) {
+    if (!$user) {
+      array_push($errors, "Invalid login information");
+    } else if (is_password_wrong($password, $user["pwd"])) {
       array_push($errors, "Invalid login information");
     }
 

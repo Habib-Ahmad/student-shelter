@@ -7,6 +7,7 @@ function handleReservations($subpage, $action, $id)
   require_once 'includes/models/dbh.php';
   require_once 'includes/models/reservations_model.php';
   require_once 'includes/models/manage-reservations_model.php';
+  require_once 'functions/send_mail.php';
 
   switch ($subpage) {
     case 'cancel':
@@ -31,11 +32,12 @@ function handleReservations($subpage, $action, $id)
         $message = "Hello {$user['firstName']},<br><br>Your reservation for the property {$property['name']} has been cancelled. You can try again with another property.<br><br>Thank you!";
         send_email($user['email'], $subject, $message);
       }
+      header('Location: /studentshelter/reservations?message=Reservation+cancelled');
       die();
 
     default:
       $userId = $_SESSION['user_id'];
-      $reservations = get_user_reservations($pdo, $userId);
+      $reservations = get_user_reservations($pdo, (int) $userId);
       require_once 'includes/views/reservations_view.php';
       break;
   }

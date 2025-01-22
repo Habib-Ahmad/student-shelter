@@ -20,6 +20,7 @@ $css_file = get_css_file();
     <link rel="stylesheet" href="<?php echo $css_file; ?>">
   <?php endif; ?>
   <title>Student Shelter</title>
+  <script src="/studentshelter/js/main.js" defer></script>
 </head>
 
 <body>
@@ -80,5 +81,4 @@ $css_file = get_css_file();
       </nav>
     </header>
     <!-- End of  navbar section-->
-    <div class="content-wrapper"></div>
-    <script src="/studentshelter/js/main.js"></script>
+    <div class="content-wrapper">

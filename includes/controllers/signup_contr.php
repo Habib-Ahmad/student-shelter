@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 function handleSignup()
 {
+  require_once 'includes/config_session.php';
+
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     process_signup();
   } else {

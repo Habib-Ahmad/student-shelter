@@ -59,9 +59,6 @@ body::-webkit-scrollbar {
   flex: 1;
 }
 
-
-
-
 /* Navbar Styling */
 header {
   z-index: 1000;
@@ -282,44 +279,11 @@ nav.navbar .logo img {
 
 /* end of hero section styling */
 
-/* beginning of property section /
-/* Search Header */
-/* .search-header {
-  background-color: white;
-  color: black;
-  text-align: center;
-  padding: 20px;
-}
-
-.search-header h1 {
-  margin-bottom: 20px;
-}
-
-.search-filters {
+.buttons {
   display: flex;
+  align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
-  gap: 10px;
 }
-
-.search-filters select,
-.search-filters input,
-.search-button {
-  padding: 10px;
-  font-size: 16px;
-  border: none;
-  border-radius: 5px;
-}
-
-.search-button {
-  background-color: #11445b;
-  color: white;
-  cursor: pointer;
-}
-
-.search-button:hover {
-  background-color: #e67e22;
-} */
 
 .search-filters {
   background-color: transparent;
@@ -335,6 +299,13 @@ nav.navbar .logo img {
 
 .search-filters label {
   display: none; /* Hide labels for a cleaner horizontal layout */
+}
+
+.reset-button {
+  border: 2px solid #11445b;
+  padding: 5px 16px;
+  border-radius: 4px;
+  color: #11445b;
 }
 
 .search-filters input,
@@ -358,16 +329,11 @@ nav.navbar .logo img {
 }
 
 .search-button {
-  display: block;
-  margin: 0 auto;
+  margin-right: 20px;
 }
 
 .search-filters .search-button:hover {
   background-color: #11445b;
-}
-
-.search-filters a {
-  display: none; /* Hide the link for a cleaner layout */
 }
 
 /* Responsive Design */
@@ -443,7 +409,6 @@ a {
 }
 .property-details h3 {
   color: #11445b;
-  
 }
 
 .favorite-icon {
@@ -461,10 +426,9 @@ a {
 .property-card h4 {
   font-size: 16px;
   margin: 10px 0 5px;
-  padding: 5px 5px; 
+  padding: 5px 5px;
   color: #11445b;
   font-weight: bold;
-
 }
 
 .property-card p {
@@ -657,5 +621,3 @@ a {
   }
 }
 /* End of Footer Styling */
-
-

@@ -60,12 +60,10 @@ function handle_create_reservation(object $pdo, int $unitId)
   // check if property is available for the selected dates
   $reservations = get_reservations_by_unit_id($pdo, $unitId);
   foreach ($reservations as $reservation) {
-    if ($startDate >= $reservation['startDate'] && $startDate <= $reservation['endDate']) {
-      $_SESSION['error_booking'] = "This property is not available for booking on the selected dates.";
-      header("Location: /studentshelter/property-details?id=$unitId");
-      die();
-    }
-    if ($endDate >= $reservation['startDate'] && $endDate <= $reservation['endDate']) {
+    if (
+      ($startDate >= $reservation['startDate'] && $startDate <= $reservation['endDate']) ||
+      ($endDate >= $reservation['startDate'] && $endDate <= $reservation['endDate'])
+    ) {
       $_SESSION['error_booking'] = "This property is not available for booking on the selected dates.";
       header("Location: /studentshelter/property-details?id=$unitId");
       die();
@@ -73,6 +71,7 @@ function handle_create_reservation(object $pdo, int $unitId)
   }
 
   create_reservation($pdo, $unitId, $userId, $startDate, $endDate);
+  header("Location: /studentshelter/property-details?id=$unitId&message=Request made successfully. Check your email for confirmation.");
 
   // Send confirmation emails
   $studentEmail = $_SESSION['user_email'];
@@ -93,6 +92,5 @@ function handle_create_reservation(object $pdo, int $unitId)
   send_email($studentEmail, $studentSubject, $studentBody);
   send_email($landlordEmail, $landlordSubject, $landlordBody);
 
-  header("Location: /studentshelter/property-details?id=$unitId&message=Request made successfully. Check your email for confirmation.");
   die();
 }

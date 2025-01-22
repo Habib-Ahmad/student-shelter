@@ -23,8 +23,6 @@ function render_login_form($errors)
       <h1>Login</h1>
 
       <form action="/studentshelter/login" method="post">
-
-
         <!-- Email -->
         <div class="form-group">
           <label for="email">Email:</label>

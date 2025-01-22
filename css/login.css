@@ -111,6 +111,19 @@ button:hover {
   text-decoration: none;
 }
 
+.error-list {
+  margin-top: 10px;
+  text-decoration: none;
+  list-style: none;
+  color: red;
+  font-size: 0.85rem;
+}
+
+.error-list p {
+  margin-bottom: 5px;
+  text-align: center;
+}
+
 @media only screen and (max-width: 768px) {
   .form-container {
     max-width: 500px;

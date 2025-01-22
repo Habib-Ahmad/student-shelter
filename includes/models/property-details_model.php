@@ -59,7 +59,7 @@ function create_reservation(object $pdo, int $unitId, int $userId, string $start
 
 function get_reservations_by_unit_id(object $pdo, int $unitId)
 {
-  $query = "SELECT * FROM reservation WHERE unitId = :unitId;";
+  $query = "SELECT * FROM reservation WHERE unitId = :unitId AND isConfirmed = 1;";
   $stmt = $pdo->prepare($query);
   $stmt->bindParam(":unitId", $unitId, PDO::PARAM_INT);
   $stmt->execute();

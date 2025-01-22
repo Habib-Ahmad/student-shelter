@@ -44,8 +44,10 @@ function render_home_page($pdo, $properties)
         <br>
         <br>
 
-        <button type="submit" class="search-button">Search</button>
-        <a href="/studentshelter">Reset</a>
+        <div class="buttons">
+          <button type="submit" class="search-button">Search</button>
+          <a href="/studentshelter" class="reset-button">Reset</a>
+        </div>
       </form>
     </div>
 

@@ -32,7 +32,12 @@
 
 <?php
 if (isset($_GET['message'])) {
-  echo "<script>alert('{$_GET['message']}');</script>";
+  echo "<script>
+        alert('{$_GET['message']}');
+        const url = new URL(window.location.href);
+        url.searchParams.delete('message');
+        window.history.replaceState({}, document.title, url);
+      </script>";
 }
 ?>
 
